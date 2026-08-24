@@ -1,0 +1,161 @@
+/*
+ * Міксин скляної поверхні (Figma → CSS).
+ *
+ * Параметри Glass 1: Light −45° / 80%, Refraction 59, Depth 33,
+ * Dispersion 50, Frost 56, Splay 23.
+ *
+ * ВЕРСІЯ 2 — виправлено пересвітлення.
+ * У першій версії шість шарів білого накладались один на одний і давали
+ * молочну плівку. Тепер:
+ *   — власної білої заливки немає (у матеріалі Figma її теж немає);
+ *   — Depth дає ВУЗЬКУ фаску по краю, а не світіння на пів-панелі;
+ *   — Light 80% — це відблиск на канті, а не загальна яскравість;
+ *   — saturate прибрано до 115%, щоб фон не «пластмасовів».
+ *
+ * Якщо у вашому шарі Figma є Fill — передайте його через $tint.
+ * Якщо Fill немає, лишайте $tint: transparent.
+ */
+
+@mixin glass(
+	$frost: 25px,               // Frost 56 → 56 × 0.45
+	$depth: 16px,               // Depth 33 → товщина фаски по краю
+	$splay: 23%,                // Splay 23 → глибина фаски всередину
+	$dispersion: 1.2px,         // Dispersion 50 → зсув кольорової кайми
+	$radius: 24px,
+	$tint: transparent,         // Fill із Figma; за замовчуванням немає
+	$light: 0.8,                // Light 80% → сила відблиску на канті
+	$angle: -45deg,             // Light −45°
+	$saturate: 115%
+) {
+	--glass-frost: #{$frost};
+	--glass-depth: #{$depth};
+	--glass-splay: #{$splay};
+	--glass-dispersion: #{$dispersion};
+	--glass-angle: #{$angle};
+
+	position: relative;
+	isolation: isolate;
+	border-radius: $radius;
+
+	// Frost — розмиття фону за панеллю. Основний ефект скла саме тут.
+	backdrop-filter: blur(var(--glass-frost)) saturate($saturate);
+	-webkit-backdrop-filter: blur(var(--glass-frost)) saturate($saturate);
+
+	// Заливка тільки якщо вона є в макеті.
+	@if $tint != transparent {
+		background-color: $tint;
+	}
+
+	// Splay — легке ущільнення до країв. Значення навмисно дрібні: це має бути
+	// ледь помітно, інакше панель виглядає засвіченою.
+	background-image: radial-gradient(
+		130% 130% at 50% 50%,
+		rgba(255, 255, 255, 0) 0%,
+		rgba(255, 255, 255, 0) calc(100% - var(--glass-splay)),
+		rgba(255, 255, 255, 0.05) 100%
+	);
+
+	// Depth + Light: вузька фаска по краю.
+	// Розмиття дорівнює третині товщини (а не подвоєній, як було),
+	// тож світло лишається на межі й не заливає середину.
+	box-shadow:
+		inset 1px 1px 0 rgba(255, 255, 255, $light * 0.45),
+		inset calc(var(--glass-depth) * -0.2) calc(var(--glass-depth) * 0.2)
+			calc(var(--glass-depth) * 0.35)
+			rgba(255, 255, 255, $light * 0.14),
+		inset calc(var(--glass-depth) * 0.2) calc(var(--glass-depth) * -0.2)
+			calc(var(--glass-depth) * 0.35)
+			rgba(0, 0, 0, 0.10),
+		0 12px 40px rgba(0, 0, 0, 0.22);
+
+	> * {
+		position: relative;
+		z-index: 2;
+	}
+
+	// Кант у напрямку світла (маска, бо border градієнт не приймає)
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 3;
+		border-radius: inherit;
+		padding: 1px;
+		pointer-events: none;
+
+		background: linear-gradient(
+			calc(var(--glass-angle) + 90deg),
+			rgba(255, 255, 255, $light * 0.55) 0%,
+			rgba(255, 255, 255, 0.05) 30%,
+			rgba(255, 255, 255, 0.03) 70%,
+			rgba(255, 255, 255, $light * 0.18) 100%
+		);
+
+		-webkit-mask:
+			linear-gradient(#fff 0 0) content-box,
+			linear-gradient(#fff 0 0);
+		mask:
+			linear-gradient(#fff 0 0) content-box,
+			linear-gradient(#fff 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+	}
+
+	// Dispersion — кольорова кайма. Має ледь вгадуватись на краю,
+	// а не світитися: у першій версії opacity була вдвічі більшою.
+	&::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		border-radius: inherit;
+		padding: calc(1px + var(--glass-dispersion));
+		pointer-events: none;
+		opacity: 0.28;
+
+		background: linear-gradient(
+			calc(var(--glass-angle) + 90deg),
+			rgba(120, 190, 255, 0.5) 0%,
+			rgba(255, 255, 255, 0) 28%,
+			rgba(255, 255, 255, 0) 72%,
+			rgba(255, 170, 210, 0.4) 100%
+		);
+
+		-webkit-mask:
+			linear-gradient(#fff 0 0) content-box,
+			linear-gradient(#fff 0 0);
+		mask:
+			linear-gradient(#fff 0 0) content-box,
+			linear-gradient(#fff 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+	}
+}
+
+/*
+ * Запасні варіанти. Викликайте одразу після @include glass()
+ * для того самого селектора.
+ */
+@mixin glass-fallbacks($solid: rgba(255, 255, 255, 0.92)) {
+
+	@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+		background-color: rgba(255, 255, 255, 0.85);
+		color: var(--wp--preset--color--neutral-900);
+
+		&::before {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-transparency: reduce) {
+		backdrop-filter: none;
+		-webkit-backdrop-filter: none;
+		background-image: none;
+		background-color: $solid;
+		color: var(--wp--preset--color--neutral-900);
+
+		&::before {
+			display: none;
+		}
+	}
+}

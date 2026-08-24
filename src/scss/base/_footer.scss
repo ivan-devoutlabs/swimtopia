@@ -1,0 +1,329 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+
+.footer {
+	background-color: var(--wp--preset--color--blue);
+	padding-top: 7.0625rem;
+	padding-bottom: 3.625rem;
+	position: relative;
+	overflow: hidden;
+	&::before {
+		content: "";
+		position: absolute;
+		top: 3.375rem;
+		width: 36.302%;
+		aspect-ratio: 1/1;
+		background-image: url('../images/footer--bg.png');
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		left: 15%;
+		@include v.down(v.$bp-md) {
+			top: auto;
+			bottom: 17%;
+			width: 107%;
+			left: -25%;
+		}
+	}
+	@include v.down(v.$bp-md) {
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+	}
+	.container {
+		max-width: 1846px;
+	}
+	&__logo {
+		margin-bottom: 1.5rem;
+		display: flex;
+		img {
+			width: 100%;
+		}
+	}
+	&__top {
+		margin-bottom: 4.375rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		@include v.down(v.$bp-lg) {
+			flex-direction: column;
+    		gap: 2rem;
+		}
+		@include v.down(v.$bp-md) {
+			flex-direction: column-reverse;
+			margin-bottom: 2.5rem;
+		}
+		&Right {
+			display: flex;
+			border: 2px solid var(--wp--preset--color--accent-2);
+			border-radius: 0.625rem;
+			@include v.down(v.$bp-md) {
+				flex-direction: column;
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+			&__menu {
+				padding: 1.5rem;
+				border-right: 2px solid var(--wp--preset--color--accent-2);
+				@include v.down(v.$bp-md) {
+					padding: 0;
+					padding-top: 1rem;
+					padding-bottom: 0.5rem;
+					border-bottom: 2px solid var(--wp--preset--color--accent-2);
+					border-right: 0;
+				}
+				
+				&:first-child {
+					padding-left: 1rem;
+					@include v.down(v.$bp-md) {
+						padding-left: 0;
+					}
+				}
+				&:last-child {
+					padding-right: 1rem;
+					border-right: 0;
+					@include v.down(v.$bp-md) {
+						padding-right: 0;
+						border: 0;
+					}
+				}
+				&Title {
+					padding-left: 1rem;
+					padding-bottom: 0.5rem;
+					font-size: var(--wp--preset--font-size--text-s);
+					font-weight: 700;
+					color: var(--wp--preset--color--light);
+					line-height: 1.2222;
+					@include v.down(v.$bp-md) {
+						padding-bottom: 0.25rem;
+						line-height: 1.25;
+					}
+				}
+				&List {
+				    display: flex;
+    				flex-direction: column;
+					&__item {
+						padding: 0.5rem 1rem;
+						padding-right: 2rem;
+						line-height: 1.20833;
+						position: relative;
+						color: var(--wp--preset--color--light);
+						display: inline-block;
+						font-weight: 700;
+						font-size: var(--wp--preset--font-size--text-l);
+						text-decoration: none;
+						width: fit-content;
+						&::after {
+							content: "";
+							right: 1rem;
+							top: 50%;
+							transform: translateY(-50%);
+							width: 0.5rem;
+							height: 0.75rem;
+							background-image: url(../images/swimtopia-btn-arrow.png);
+							position: absolute;
+							background-size: contain;
+							background-repeat: no-repeat;
+							background-position: center;
+							transition: 0.3s;
+						}
+						&:hover::after {
+							right: 0.75rem;
+						}
+						&.contact {
+							display: flex;
+							gap: 0.5rem;
+							padding-right: 1rem;
+							&.map {
+								font-weight: 400;
+							}
+							&::after {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
+		&Left {
+			@include v.down(v.$bp-md) {
+				width: 100%;
+			}
+			&__apps {
+				margin-bottom: 3.75rem;
+				@include v.down(v.$bp-md) {
+					margin-bottom: 1rem;
+				}
+				&Title {
+					padding-left: 1rem;
+					padding-bottom: 0.5rem;
+					font-size: var(--wp--preset--font-size--text-s);
+					font-weight: 700;
+					color: var(--wp--preset--color--light);
+					line-height: 1.2222;
+					@include v.down(v.$bp-md) {
+						padding-bottom: 0.25rem;
+						line-height: 1.25;
+					}
+				}
+				&List {
+					display: flex;
+					flex-direction: column;
+					width: fit-content;
+					gap: 0.5rem;
+					@include v.down(v.$bp-md) {
+						width: 100%;
+					}
+					&__item {
+						padding: 0.625rem;
+						padding-left: 1.5rem;
+						padding-right: 3.75rem;
+						display: flex;
+						align-items: center;
+						text-decoration: none;
+						gap: 0.75rem;
+						font-size: 2.25rem;
+						font-weight: 700;
+						color: var(--wp--preset--color--light);
+						position: relative;
+						border: 2px solid var(--wp--preset--color--accent-2);
+						border-radius: 0.9375rem;
+						line-height: 1.2222;
+						@include v.down(v.$bp-md) {
+							// font-size: 24px;
+							line-height: 1.20833;
+							padding-top: 0.875rem;
+							padding-bottom: 0.875rem;
+						}
+						&::after {
+							content: "";
+							right: 1.5rem;
+							top: 50%;
+							transform: translateY(-50%);
+						    width: 0.95rem;
+    						height: 1.45rem;
+							background-image: url(../images/swimtopia-btn-arrow.png);
+							position: absolute;
+							background-size: contain;
+							background-repeat: no-repeat;
+							background-position: center;
+							transition: 0.3s;
+							@include v.down(v.$bp-md) {
+								width: 0.75rem;
+								height: 1.125rem;
+							}
+						}
+					}
+				}
+			}
+			&__social {
+				@include v.down(v.$bp-md) {
+					width: 100%;
+				}
+				&Title {
+					padding-left: 1rem;
+					padding-bottom: 0.5rem;
+					font-size: var(--wp--preset--font-size--text-s);
+					font-weight: 700;
+					color: var(--wp--preset--color--light);
+					line-height: 1.2222;
+				}
+				&List {
+					display: flex;
+					align-items: center;
+					gap: 1rem;
+					@include v.down(v.$bp-md) {
+						max-width: 21.4375rem;
+						display: grid;
+						grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+						width: 100%;
+					}
+					&__item {
+						width: 3.75rem;
+						height: 3.75rem;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						border-radius: 50%;
+						border: 2px solid var(--wp--preset--color--light);
+						@include v.down(v.$bp-md) {
+							width: auto;
+							height: auto;
+							aspect-ratio: 1 / 1;
+							svg {
+								width: 50%;
+							}
+						}
+						svg {
+							width: 1.875rem;
+							height: 1.875rem;
+						}
+					}
+				}
+			}
+		}
+	}
+	&__bottom {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-top: 1rem;
+		border-top: 1px solid var(--wp--preset--color--light);
+		@include v.down(v.$bp-md) {
+			flex-direction: column;
+			align-items: flex-start;
+			padding-top: 1.5rem;
+		}
+		&Text {
+			color: var(--wp--preset--color--light);
+			font-size: var(--wp--preset--font-size--text-m);
+			@include v.down(v.$bp-md) {
+				padding: 0 1rem;
+				line-height: 1.2222;
+				margin-bottom: 0.5rem;
+			}
+		}
+		&Menu {
+			display: flex;
+			align-items: center;
+			@include v.down(v.$bp-md) {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+			&__item {
+				font-weight: 700;
+				font-size: var(--wp--preset--font-size--text-m);
+				@include v.down(v.$bp-md) {
+					font-size: var(--wp--preset--font-size--text-l);
+					line-height: 1.25;
+				}
+				a {
+					padding: 0.5rem 1rem;
+					padding-right: 2rem;
+					line-height: 1.20833;
+					position: relative;
+					color: var(--wp--preset--color--light);
+					display: inline-block;
+					text-decoration: none;
+					&::after {
+						content: "";
+						right: 1rem;
+						top: 50%;
+						transform: translateY(-50%);
+						width: 0.5rem;
+						height: 0.75rem;
+						background-image: url(../images/swimtopia-btn-arrow.png);
+						position: absolute;
+						background-size: contain;
+						background-repeat: no-repeat;
+						background-position: center;
+						transition: 0.3s;
+					}
+					&:hover::after {
+						right: 0.75rem;
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,215 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+.caseStudyPreview {
+	padding: 5rem 0;
+    overflow: hidden;
+
+	@include v.down(v.$bp-md) {
+		padding: 3rem 0;
+	}
+
+	.container {
+		position: relative;
+		max-width: 1852px;
+		margin-inline: auto;
+        display: flex;
+        flex-direction: column;
+	}
+
+	&__title {
+		margin: 0 0 3.25rem;
+		padding-left: 5rem;
+		color: var(--wp--preset--color--accent-2);
+
+		@include v.down(v.$bp-lg) {
+			padding-left: 2rem;
+		}
+
+		@include v.down(v.$bp-md) {
+			margin-bottom: 1.5rem;
+			padding-left: 0;
+		}
+	}
+
+
+	&__slider {
+		&.is-slider {
+
+			&:focus-visible {
+				outline: 2px solid var(--wp--preset--color--accent-2);
+				outline-offset: 6px;
+				border-radius: 8px;
+			}
+		}
+	}
+
+	&__track {
+		display: flex;
+		gap: 1.5rem;
+		transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+		will-change: transform;
+
+		@include v.down(v.$bp-md) {
+			gap: 1rem;
+		}
+	}
+
+	&__sliderItem {
+		position: relative;
+		overflow: hidden;
+		display: flex;
+		align-items: flex-end;
+		flex: 0 0 80.358%;
+		padding: 1.5rem;
+		border-radius: 2.5rem;
+		aspect-ratio: 1 / 0.4387096774;
+
+		@include v.down(v.$bp-lg) {
+			flex-basis: 92.5%;
+            aspect-ratio: 1/0.65;
+		}
+
+		@include v.down(v.$bp-md) {
+			flex-basis: 90%;
+			padding: 0.5rem;
+			border-radius: 1.25rem;
+			aspect-ratio: 1 / 0.85;
+		}
+
+		&__bg {
+			position: absolute !important;
+			inset: 0;
+			z-index: 0;
+			margin: 0;
+			pointer-events: none;
+
+			img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+
+		&__content {
+			position: relative;
+			z-index: 1;
+			width: 70.403%;
+			padding: 1rem;
+
+            @include v.down(v.$bp-lg) {
+				width: 95%;
+			}
+
+			@include v.down(v.$bp-md) {
+				width: 100%;
+			}
+
+			&::before {
+				content: "";
+                @include glass.glass(
+					$frost: 25px,
+					$depth: 16px,
+					$splay: 23%,
+					$dispersion: 1.2px,
+					$radius: 24px,
+					$light: 0.8,
+					$tint: transparent
+				);
+
+				@include glass.glass-fallbacks();
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				border-radius: 1.875rem;
+			}
+		}
+
+		&__title {
+			position: relative;
+			z-index: 1;
+			margin: 0;
+			color: var(--wp--preset--color--light);
+			text-transform: capitalize;
+			line-height: 1.22916;
+            @include v.down(v.$bp-md) {
+                font-size: var(--wp--preset--font-size--text-l);
+                text-transform: none;
+            }
+		}
+
+		& &__button {
+			position: relative;
+			z-index: 1;
+            padding: 1rem 0 0;
+            display: none;
+            @include v.down(v.$bp-md) {
+                display: block !important;
+                padding: 0.5rem 0 0 !important;
+                height: auto !important;
+            }
+		}
+	}
+
+	&__arrows {
+		z-index: 3;
+		display: flex;
+		gap: 0.5rem;
+        order: 1;
+        justify-content: flex-end;
+        margin-top: 2.5rem;
+
+		@include v.down(v.$bp-lg) {
+			margin-top: 1.5rem;
+		}
+        @include v.down(v.$bp-md) {
+			margin-top: 1.25rem;
+            justify-content: flex-start;
+		}
+	}
+
+	&__arrow {
+		border: 0;
+		border-radius: 50%;
+		width: 3.75rem;
+		height: 3.75rem;
+		background-size: 0.875rem;
+		background-position: center;
+		background-repeat: no-repeat;
+		cursor: pointer;
+		@include v.down(v.$bp-lg) {
+			width: 2.75rem;
+			height: 2.75rem;
+			background-size: 0.75rem;
+		}
+
+		&--prev {
+			transform: rotate(180deg);
+			background-color: var(--wp--preset--color--light);
+			background-image: url(../images/btn-icon-style-2-blue.png);
+		}
+
+		&--next {
+			background-color: var(--wp--preset--color--blue);
+			background-image: url(../images/swimtopia-btn-arrow.png);
+		}
+	}
+}
+
+/*
+ * У редакторі скрипт не працює: показуємо слайди списком,
+ * щоб їх можна було редагувати.
+ */
+.editor-styles-wrapper .caseStudyPreview__sliderItem {
+	flex-basis: auto !important;
+	margin-bottom: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.caseStudyPreview__track {
+		transition: none;
+	}
+}

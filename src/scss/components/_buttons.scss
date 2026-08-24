@@ -1,0 +1,95 @@
+
+@use "../settings/variables" as v;
+.wp-block-button__link {
+	font-size: var(--wp--preset--font-size--text-l);
+	font-weight: 700;
+	padding: 0.5625rem 2.9375rem 0.5625rem 1rem;
+	border-radius: 100px;
+	background-color: var(--wp--preset--color--light);
+	color: var(--wp--preset--color--blue);
+	text-decoration: none;
+	display: inline-block;
+	line-height: 1.20833;
+	transition: .3s;
+	position: relative;
+	text-transform: capitalize;
+	&::after {
+		content: "";
+		position: absolute;
+		right: 8px;
+		top: 50%;
+		transform: rotate(2deg) translateY(-50%);
+		border-radius: 50%;
+		background-color: var(--wp--preset--color--blue);
+		width: 1.875rem;
+		height: 1.875rem;
+		background-image: url('../images/swimtopia-btn-arrow.png');
+		background-size: 0.64375rem;
+		background-position: center;
+		background-repeat: no-repeat;
+		transition: .3s;
+	}
+
+	&:hover {
+		background-color: var(--wp--preset--color--blue);
+		color: var(--wp--preset--color--light);
+		padding: 0.5625rem 1rem 0.5625rem 2.9375rem;
+		&::after {
+			right: calc(100% - 2.375rem);
+			background-color: var(--wp--preset--color--light);
+			background-image: url(../images/btn-icon-style-2-blue.png);
+		}
+	}
+
+	.style-2 & {
+		padding: 0.6979167rem 1.0416667rem 0.6979167rem 3.6666667rem;
+		border: 0.3333333rem solid var(--wp--preset--color--light);
+		transition: .35s;
+		&::after {
+			background-size: 1rem;
+			left: 0;
+			width: 3.125rem;
+			height: 3.125rem;
+			right: auto;
+			transform: translateY(-50%);
+			transition: .35s;
+		}
+
+		&:hover {
+			padding: 0.6979167rem 3.6666667rem 0.6979167rem 1.0416667rem;
+			background-color: var(--wp--preset--color--blue);
+			color: var(--wp--preset--color--light);
+
+			&::after {
+				left: calc( 100% - 3.125rem);
+			}
+		}
+
+		@include v.down(v.$bp-md) {
+			border: 0.25rem solid var(--wp--preset--color--light);
+			padding: 0.390625rem 0.75rem 0.390625rem 2.84375rem;
+
+			&::after {
+				width: 2.34375rem;
+				height: 2.34375rem;
+				background-size: 0.625rem;
+			}
+
+			&:hover {
+				padding: 0.390625rem 2.84375rem 0.390625rem 0.75rem;
+				&::after {
+					left: calc( 100% - 2.34375rem);
+				}
+			}
+		}
+	}
+	.style-2-blue & {
+		background: var(--wp--preset--color--blue);
+		border-color: var(--wp--preset--color--blue);
+		color: var(--wp--preset--color--light);
+		&::after {
+			background-color: var(--wp--preset--color--light);
+			background-image: url('../images/btn-icon-style-2-blue.png');
+		}
+	}
+}

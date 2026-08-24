@@ -1,0 +1,95 @@
+@use "../settings/variables" as v;
+
+
+.logoMarquee {
+	padding: 4rem 0;
+	background-color: var(--wp--preset--color--light-blue-bg);
+	overflow: hidden;
+
+	--marquee-visible: 6;
+
+	@include v.down(v.$bp-lg) {
+		--marquee-visible: 3.5;
+	}
+
+	@include v.down(v.$bp-md) {
+		--marquee-visible: 2.5;
+		padding: 1.5rem 0;
+	}
+
+	&__list {
+		display: flex;
+		width: max-content; 
+        max-width: 100%;
+
+		will-change: transform;
+		transform: translate3d(0, 0, 0);
+		backface-visibility: hidden;
+
+		&Item {
+			flex: 0 0 calc(var(--marquee-container, 100%) / var(--marquee-visible));
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0;
+			padding: 0 2.5rem;
+
+			@include v.down(v.$bp-md) {
+				padding: 0 0.75rem;
+			}
+
+			img {
+				display: block;
+				width: 100%;
+				height: auto;
+				object-fit: contain;
+			}
+		}
+	}
+	&__top {
+		text-align: center;
+		margin-bottom: 3.25rem;
+		@include v.down(v.$bp-lg) {
+			margin-bottom: 2.25rem;
+		}
+		@include v.down(v.$bp-md) {
+			margin-bottom: 1.25rem;
+		}
+	}
+	&__title {
+		margin-bottom: 0.5rem;
+		line-height: 1.23684;
+		color: var(--wp--preset--color--navy);
+		@include v.down(v.$bp-md){
+			margin-bottom: 0;
+		}
+	}
+	&__text {
+		font-size: var(--wp--preset--font-size--text-m);
+		line-height: 1.25;
+		color: var(--wp--preset--color--navy);
+		font-weight: 600;
+		@include v.down(v.$bp-md) {
+			font-size: var(--wp--preset--font-size--text-s);
+		}
+	}
+
+
+	&.is-ready &__list {
+		transition: none;
+	}
+}
+
+
+.editor-styles-wrapper .logoMarquee__list {
+	width: auto;
+	flex-wrap: wrap;
+	transform: none !important;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+	.logoMarquee__list {
+		transform: none !important;
+	}
+}

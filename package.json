@@ -1,0 +1,24 @@
+{
+  "name": "starter-theme",
+  "version": "1.0.0",
+  "description": "Стартова WordPress-тема: Gutenberg-first, theme.json, кастомні блоки, SCSS.",
+  "license": "GPL-2.0-or-later",
+  "private": true,
+  "scripts": {
+    "start": "npm-run-all --parallel start:hero start:scss",
+    "build": "npm-run-all build:hero build:scss",
+    "start:hero": "wp-scripts start src/blocks/hero/index.js --output-path=build/hero",
+    "build:hero": "wp-scripts build src/blocks/hero/index.js --output-path=build/hero && npm run copy:hero",
+    "copy:hero": "cp src/blocks/hero/render.php build/hero/render.php",
+    "start:scss": "sass --watch src/scss/main.scss assets/css/main.css --style=expanded",
+    "build:scss": "sass src/scss/main.scss assets/css/main.css --style=compressed --no-source-map",
+    "lint:js": "wp-scripts lint-js src",
+    "lint:css": "wp-scripts lint-style 'src/**/*.scss'",
+    "format": "wp-scripts format src"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^30.0.0",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.77.0"
+  }
+}

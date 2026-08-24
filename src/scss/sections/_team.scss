@@ -1,0 +1,354 @@
+@use "../settings/variables" as v;
+@use "../settings/glass" as glass;
+
+
+.team {
+    padding-top: 6.25rem;
+    padding-bottom: 5rem;
+    padding-left: 0;
+    padding-right: 0;
+    @include v.down(v.$bp-lg) {
+        padding-top: 5rem;
+        padding-bottom: 4rem;
+    }
+    @include v.down(v.$bp-md) {
+        padding-top: 4rem;
+        padding-bottom: 3rem;
+    }
+    .container {
+        max-width: 1860px;
+    }
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        & > li {
+            width: calc(25% - 1.125rem);
+            padding-top: 0;
+            padding-bottom: 0;
+            @include v.down(v.$bp-lg) {
+                width: calc( 50% - 1.25rem );
+            }
+            @include v.down(v.$bp-md) {
+                width: 100%;
+            }
+        }
+        &Item {
+            border-radius: 2.5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            aspect-ratio: 1 / 1.2962962963;
+            &__image {
+                display: flex;
+                margin-bottom: 1rem;
+                flex: 1;
+                position: relative;
+                img {
+                    width: 100%;
+                    border-radius: 1.875rem;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            &__text {
+                display: none;
+            }
+            &__content {
+                padding: 1rem;
+                @include glass.glass(
+                    $frost: 25px,
+                    $depth: 16px,
+                    $splay: 23%,
+                    $dispersion: 1.2px,
+                    $radius: 24px,
+                    $light: 0.8,
+                    $tint: rgba(255, 255, 255, 0.5)
+                );
+
+                @include glass.glass-fallbacks();
+                background-color: color-mix(in srgb, var(--wp--preset--color--light) 20%, transparent);
+            }
+            &__title {
+                color: var(--wp--preset--color--light);
+                line-height: 1.21875;
+                margin-bottom: 0.5rem;
+            }
+            &__position {
+                font-size: var(--wp--preset--font-size--text-m);
+                color: var(--wp--preset--color--light);
+                font-weight: 700;
+                line-height: 1.25;
+            }
+            &--color-1 {
+                background-color: var(--wp--preset--color--blue); 
+            }
+            &--color-2 {
+                background-color: var(--wp--preset--color--navy); 
+            }
+            &--color-3 {
+                background-color: var(--wp--preset--color--accent-3); 
+            }
+            &--color-4 {
+                background-color: var(--wp--preset--color--accent-1); 
+                .team__listItem__title,
+                .team__listItem__position {
+                    color: var(--wp--preset--color--navy);
+                }
+            }
+            &__button {
+                padding-top: 1rem;
+                display: none;
+                @include v.down(v.$bp-lg) {
+                    display: block !important;
+                    height: auto !important;
+                    padding-top: 1rem !important;
+                }
+            }
+        }
+    }
+    &__query {
+        max-width: 100%;
+    }
+}
+.team__popupWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    margin-top: 0;
+
+    &.is-open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .team__popupOverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        cursor: pointer;
+    }
+
+    .team__popupModal {
+        overflow: hidden; 
+        max-width: 1337px;
+        width: 85%;
+        @include v.down(v.$bp-lg) {
+            overflow-x: hidden;
+            overflow-y: visible;
+        }
+        &__wrapper {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background-color: var(--wp--preset--color--navy);
+            border-radius: 2.5rem;
+            width: 96.6666%;
+            position: static;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            @include v.down(v.$bp-lg) {
+                max-height: 90vh;
+                overflow: scroll;
+            }
+        }
+    }
+
+    .team__popupClose {
+        @include glass.glass(
+            $frost: 25px,
+            $depth: 16px,
+            $splay: 23%,
+            $dispersion: 1.2px,
+            $radius: 24px,
+            $light: 0.8,
+            $tint: rgba(255, 255, 255, 0.5)
+        );
+        @include glass.glass-fallbacks();
+        background-color: transparent;
+        border: 0;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 3.125rem;
+        height: 3.125rem;
+        border-radius: 50%;
+        z-index: 1;
+        cursor: pointer;
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: none;
+            background-image: url('../images/cross.png');
+            width: 1.25rem;
+            height: 1.25rem;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            mask: none;
+        }
+    }
+
+    .team__popupArrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4rem;
+        height: 4rem;
+        border: none;
+        background-color: var(--wp--preset--color--light);
+        background-image: url(../images/btn-icon-style-2-blue.png);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: transform 0.3s ease, background 0.3s;
+        background-size: 0.875rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        
+        &:hover { transform: translateY(-50%) scale(1.05); }
+
+        &--prev { 
+            left: 3rem; 
+            transform: translateY(-50%) rotate(180deg);
+            &:hover { transform: translateY(-50%) scale(1.05) rotate(180deg); }
+            @include v.down(v.$bp-lg) {
+                left: 1rem;
+            }
+        }
+        &--next { 
+            right: 3rem; 
+            background-color: var(--wp--preset--color--blue);
+            background-image: url(../images/swimtopia-btn-arrow.png);
+            @include v.down(v.$bp-lg) {
+                right: 1rem;
+            }
+        }
+
+        @include v.down(v.$bp-md) {
+            display: none; 
+        }
+    }
+
+    .team__popupTrack {
+        display: flex;
+        width: 300%; 
+        transform: translateX(-33.3333%); 
+        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    &.no-transition .team__popupTrack {
+        transition: none !important;
+    }
+
+    .team__popupItem {
+        width: 33.3333%;
+        padding-top: 5rem;
+        padding-bottom: 7.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        
+        @include v.down(v.$bp-lg) { 
+            padding: 4rem; 
+        }
+        @include v.down(v.$bp-md) { 
+            padding: 2rem 0rem; 
+        }
+    }
+
+    .team__popupContent {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @include v.down(v.$bp-lg) {
+            flex-direction: column;
+        }
+    }
+
+    .team__popupImage {
+        width: 47.5%;
+        @include v.down(v.$bp-lg) {
+            width: 100%;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 1.875rem;
+            object-fit: cover;
+            display: block;
+            max-height: calc( 90vh - 12.5rem);
+        }
+
+        @include v.down(v.$bp-md) {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+
+    .team__popupInfo {
+        color: #fff;
+        width: 46.5%;
+        @include v.down(v.$bp-lg) {
+            width: 100%;
+        }
+    }
+
+    .team__popupTitle {
+        padding-top: 1.5rem;
+        font-size: var(--wp--preset--font-size--heading-2);
+        line-height: 1.234375;
+        margin-bottom: 0.5rem;
+    }
+
+    .team__popupPosition {
+        font-size: var(--wp--preset--font-size--text-l);
+        font-weight: 700;
+        margin: 0 0 1.5rem;
+        @include v.down(v.$bp-md) {
+            margin-bottom: 0.75rem;
+        }
+    }
+
+    .team__popupDivider {
+        width: 100%;
+        height: 1px;
+        background-color: color-mix(in srgb, var(--wp--preset--color--accent-2) 30%, transparent);
+        margin: 0 0 1.5rem;
+        @include v.down(v.$bp-md) {
+            margin-bottom: 0.75rem;
+        }
+    }
+
+    .team__popupText {
+        font-size: var(--wp--preset--font-size--text-m, 1rem);
+        line-height: 1.5;
+        opacity: 0.9;
+        
+        p { margin: 0 0 1rem; }
+        p:last-child { margin-bottom: 0; }
+    }
+}

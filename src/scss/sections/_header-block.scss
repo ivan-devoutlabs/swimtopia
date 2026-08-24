@@ -1,0 +1,250 @@
+@use "../settings/variables" as v;
+@use "../settings/glass" as glass;
+
+.headerBlock {
+	position: relative;
+	overflow: hidden;
+	padding: 15.25rem 0 11.3125rem;
+	background-size: cover;
+	background-position: center;
+
+	@include v.down(v.$bp-lg) {
+		padding-top: 11rem;
+		padding-bottom: 9rem;
+	}
+
+	@include v.down(v.$bp-md) {
+		padding-top: 7.125rem;
+		padding-bottom: 14.625rem;
+	}
+
+	&.extra-padding {
+		padding-bottom: 22.375rem;
+		@include v.down(v.$bp-lg) {
+			padding-bottom: 16rem;
+		}
+		@include v.down(v.$bp-md) {
+			padding-bottom: 14.625rem;
+		}
+	}
+
+	&::before {
+		content: "";
+		position: absolute;
+		right: -6.5%;
+		bottom: -5.25%;
+		width: 36.302%;
+		aspect-ratio: 1 / 1;
+		background-image: url("../images/footer--bg.png");
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		pointer-events: none;
+
+		@include v.down(v.$bp-md) {
+			right: -18.5%;
+			bottom: -10%;
+			width: 80%;
+		}
+	}
+
+	&__tag {
+		background-color: var(--wp--preset--color--blue);
+		color: var(--wp--preset--color--light);
+		margin-bottom: 0.5rem;
+		padding: 0.5rem 1.5rem;
+		border-radius: 100px;
+		font-size: var(--wp--preset--font-size--text-xl);
+		line-height: 1.21875;
+		width: fit-content;
+		font-weight: 700;
+	}
+
+	.container {
+		position: relative;
+		z-index: 1;
+		max-width: 1852px;
+		margin-inline: auto;
+	}
+
+	&__heading,
+	&__title,
+	&__text {
+		color: var(--wp--preset--color--light);
+	}
+
+	&__heading {
+		margin: 0;
+		line-height: 1.236842;
+	}
+
+	&__title {
+		margin: 0 0 3.625rem;
+		line-height: 1.22222;
+
+		@include v.down(v.$bp-lg) {
+			margin-bottom: 2.25rem;
+		}
+
+		@include v.down(v.$bp-md) {
+			margin-bottom: 0.5rem;
+			line-height: 1.225;
+		}
+	}
+
+	&__text {
+		max-width: 43.75rem;
+		margin: 0 0 0 50%;
+		font-size: var(--wp--preset--font-size--text-l);
+		line-height: 1.20833;
+
+		@include v.down(v.$bp-lg) {
+			max-width: 70%;
+			margin-left: auto;
+		}
+
+		@include v.down(v.$bp-md) {
+			width: 100%;
+			max-width: none;
+			margin-left: 0;
+			font-size: var(--wp--preset--font-size--text-xl);
+			line-height: 1.227272;
+		}
+	}
+
+
+	&--image {
+		padding-top: 17.625rem;
+		padding-bottom: 14.8125rem;
+		@include v.down(v.$bp-lg) {
+			padding-top: 7.5rem;
+		}
+		@include v.down(v.$bp-md) {
+			padding-top: 6.5rem;
+			padding-bottom: 0;
+		}
+		.container {
+			position: static;
+		}
+		&::before {
+		    left: 0;
+    		bottom: -17.25%;
+		}
+	}
+
+	&--image & {
+		&__title {
+			margin-bottom: 0;
+			max-width: 53%;
+			@include v.down(v.$bp-lg) {
+				max-width: 100%;
+			}
+		}
+		&__image {
+			position: absolute;
+			right: 1%;
+			width: calc(1852px * 0.475);
+			bottom: 0;
+			@include v.down(1852px) {
+				width: 47.5%;
+			}
+			@include v.down(v.$bp-lg) {
+				max-height: 12.5rem;
+				width: auto;
+				display: flex;
+			}
+			@include v.down(v.$bp-md) {
+				width: 100%;
+				position: relative;
+				margin-top: 2rem;
+				max-height: none;
+			}
+			img {
+				width: 100%;
+				@include v.down(v.$bp-lg) {
+					object-fit: contain;
+					object-position: right;
+				}
+			}
+		}
+	}
+
+	&__tiles {
+		width: 34.375%;
+		gap: 1rem;
+		display: flex;
+		flex-wrap: wrap;
+		@include v.down(v.$bp-lg) {
+			width: 100%;
+		}
+		&Item {
+			@include glass.glass(
+				$frost: 25px,
+				$depth: 16px,
+				$splay: 23%,
+				$dispersion: 1.2px, 
+				$radius: 24px,
+				$light: 0.8,
+				$tint: transparent
+			);
+
+			@include glass.glass-fallbacks();
+			width: calc( 50% - 0.5rem );
+			color: var(--wp--preset--color--light);
+			padding: 1.25rem 1.5rem;
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			min-height: 7.5rem;
+			&__text {
+				font-size: var(--wp--preset--font-size--text-s);
+				font-weight: 500;
+			}
+		}
+	}
+	&--tiles {
+		padding-bottom: 12.5625rem;
+		@include v.down(v.$bp-lg) {
+			padding-bottom: 7.5rem;
+		}
+		@include v.down(v.$bp-md) {
+			padding-bottom: 5rem;
+		}
+	}
+	&--tiles .container {
+		display: flex;
+		@include v.down(v.$bp-lg) {
+		    flex-direction: column;
+    		gap: 2rem;
+		}
+	}
+	&--tiles & {
+		&__content {
+			width: 53.95%;
+			margin-left: 5.5%;
+			@include v.down(v.$bp-lg) {
+			    margin: 0;
+    			width: 100%;
+			}
+		}
+		&__text {
+			width: 74%;
+			margin: 0;
+			max-width: 74%;
+			@include v.down(v.$bp-lg) {
+			    width: 100%;
+				max-width: 100%;
+			}
+		}
+	}
+}
+
+.wp-block-cover.headerBlock {
+	background-image: none;
+
+	> .wp-block-cover__inner-container {
+		position: relative;
+		z-index: 1;
+	}
+}

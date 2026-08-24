@@ -1,0 +1,77 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "starter/hero",
+  "version": "1.0.0",
+  "title": "Hero",
+  "category": "design",
+  "icon": "cover-image",
+  "description": "Секція-герой: заголовок, текст, фото та фонове зображення.",
+  "textdomain": "starter",
+  "keywords": [
+    "hero",
+    "banner",
+    "cover"
+  ],
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "padding": true,
+      "margin": [
+        "top",
+        "bottom"
+      ]
+    },
+    "color": {
+      "text": true,
+      "background": false
+    }
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": ""
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "imageId": {
+      "type": "number",
+      "default": 0
+    },
+    "imageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "imageAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "bgId": {
+      "type": "number",
+      "default": 0
+    },
+    "bgUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "showOverlay": {
+      "type": "boolean",
+      "default": true
+    },
+    "minHeight": {
+      "type": "number",
+      "default": 560
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

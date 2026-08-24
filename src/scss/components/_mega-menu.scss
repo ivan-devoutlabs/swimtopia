@@ -1,0 +1,131 @@
+@use "../settings/variables" as v;
+
+/*
+ * Мега-меню.
+ *
+ * Вміст панелі — звичайні блоки з запису «Панель меню», тож колонки,
+ * заголовки й зображення робляться там core-блоками. Тут лише каркас:
+ * позиціонування панелі та типові відступи для її вмісту.
+ */
+
+.main-navigation {
+
+	li {
+		position: relative;
+	}
+
+	// Пункт із панеллю: кнопка-стрілка поруч із посиланням
+	.menu-toggle {
+		width: 1.5rem;
+		height: 1.5rem;
+		padding: 0;
+		border: 0;
+		background: none;
+		color: inherit;
+		cursor: pointer;
+		vertical-align: middle;
+
+		&__icon {
+			display: block;
+			width: 0.5rem;
+			height: 0.5rem;
+			margin: 0 auto;
+			border-right: 2px solid currentColor;
+			border-bottom: 2px solid currentColor;
+			transform: translateY(-25%) rotate(45deg);
+			transition: transform 0.3s ease;
+		}
+
+		&[aria-expanded="true"] &__icon {
+			transform: translateY(10%) rotate(-135deg);
+		}
+
+		&:focus-visible {
+			outline: 2px solid currentColor;
+			outline-offset: 2px;
+		}
+	}
+}
+
+/*
+ * Панель.
+ *
+ * Розтягується на всю ширину вікна, а не на ширину пункту меню:
+ * інакше в неї не влізуть колонки із зображеннями.
+ */
+.mega-menu {
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	z-index: 50;
+	width: 100vw;
+	max-width: 100vw;
+	transform: translateX(-50%) translateY(0.5rem);
+	opacity: 0;
+	visibility: hidden;
+	transition:
+		opacity 0.25s ease,
+		transform 0.25s ease,
+		visibility 0.25s;
+
+	background-color: var(--wp--preset--color--background);
+	box-shadow: var(--wp--preset--shadow--soft-shadow);
+
+	&__inner {
+		max-width: var(--wp--style--global--wide-size, 1600px);
+		margin-inline: auto;
+		padding: var(--wp--preset--spacing--md) var(--wp--preset--spacing--sm);
+	}
+
+	// Зображення в панелі не мають власних полів від <figure>
+	.wp-block-image {
+		margin: 0;
+	}
+
+	// Колонки всередині панелі — те, чим клієнт розділяє її на частини
+	.wp-block-columns {
+		gap: var(--wp--preset--spacing--md);
+	}
+
+	.wp-block-heading {
+		margin-top: 0;
+	}
+}
+
+.main-navigation li.is-open > .mega-menu {
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(-50%) translateY(0);
+}
+
+/*
+ * Мобільний: панель не спливає, а розкривається в потоці —
+ * випадайка на всю ширину екрана там нікуди не поміститься.
+ */
+@media (max-width: 781px) {
+
+	.mega-menu {
+		position: static;
+		width: auto;
+		max-width: none;
+		transform: none;
+		box-shadow: none;
+		background: transparent;
+
+		&__inner {
+			padding: var(--wp--preset--spacing--xs) 0;
+		}
+	}
+
+	.main-navigation li.is-open > .mega-menu {
+		transform: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.mega-menu,
+	.menu-toggle__icon {
+		transition: none;
+	}
+}

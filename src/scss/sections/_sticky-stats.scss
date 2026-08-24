@@ -1,0 +1,224 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+
+.stickyStats {
+	padding: 10rem 0;
+	background-image: url("../images/Sticky-Stats.jpg");
+	background-size: cover;
+	background-position: center;
+
+	@include v.down(v.$bp-lg) {
+		padding: 7.5rem 0;
+	}
+
+	@include v.down(v.$bp-md) {
+		padding: 5rem 0;
+	}
+
+	.container {
+		max-width: 1852px;
+		margin-inline: auto;
+	}
+
+	&__content {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+
+		@include v.down(v.$bp-lg) {
+			flex-direction: column;
+		}
+	}
+
+	&__textWrapper {
+		position: sticky;
+		top: 120px;
+		width: 45%;
+
+		@include v.down(v.$bp-lg) {
+			position: static;
+			width: 100%;
+			margin-bottom: 2.25rem;
+		}
+
+		@include v.down(v.$bp-md) {
+			margin-bottom: 1.5rem;
+		}
+	}
+
+	&__heading {
+		margin: 0 0 0.5rem;
+		color: var(--wp--preset--color--light);
+		font-size: var(--wp--preset--font-size--title-s);
+		line-height: 1.23333;
+	}
+
+	&__title {
+		margin: 0 0 3rem;
+		color: var(--wp--preset--color--light);
+		font-size: var(--wp--preset--font-size--title-l);
+		line-height: 1.225;
+	}
+
+
+	&__list {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		width: 49.721%;
+
+		@include v.down(v.$bp-lg) {
+			width: 100%;
+		}
+
+		&Item {
+            @include glass.glass(
+				$frost: 25px,
+				$depth: 16px,
+				$splay: 23%,
+				$dispersion: 1.2px,
+				$radius: 24px,
+				$light: 0.8,
+				$tint: rgba(255, 255, 255, 0.5)
+			);
+
+			@include glass.glass-fallbacks();
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 2.5rem;
+			background-color: color-mix(in srgb, var(--wp--preset--color--white) 10%, transparent);
+
+			@include v.down(v.$bp-lg) {
+				padding: 1.5rem;
+			}
+
+			@include v.down(v.$bp-md) {
+				flex-direction: column;
+			}
+
+			&__image,
+			.wp-block-video {
+				display: flex;
+				width: 49.323%;
+				margin: 0;
+
+				@include v.down(v.$bp-md) {
+					width: 100%;
+				}
+
+				img,
+				video {
+					width: 100%;
+					border-radius: 1.25rem;
+
+					@include v.down(v.$bp-md) {
+						max-height: 240px;
+						object-fit: cover;
+						margin-bottom: 0.75rem;
+					}
+				}
+			}
+
+			&__content {
+				width: 47.72%;
+
+				@include v.down(v.$bp-md) {
+					width: 100%;
+				}
+			}
+
+			&__title {
+				position: relative;
+				margin: 0 0 1rem;
+				padding-left: 0;
+				color: var(--wp--preset--color--light);
+				line-height: 1.2368421;
+				transition: padding-left 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+				&::before {
+					content: "";
+					position: absolute;
+					top: 50%;
+					left: 0;
+					width: 2rem;
+					height: 2rem;
+					background-image: url("../images/stats-tick.png");
+					background-size: contain;
+					background-position: center;
+					background-repeat: no-repeat;
+
+					transform: translateY(-50%) scale(0);
+					transform-origin: left center;
+					opacity: 0;
+					transition:
+						transform 0.5s cubic-bezier(0.34, 1.36, 0.64, 1),
+						opacity 0.3s ease;
+
+					@include v.down(v.$bp-lg) {
+						width: 1.75rem;
+						height: 1.75rem;
+					}
+
+					@include v.down(v.$bp-md) {
+						width: 1.5rem;
+						height: 1.5rem;
+					}
+				}
+			}
+
+			&__text {
+				margin: 0;
+				color: var(--wp--preset--color--light);
+				font-size: var(--wp--preset--font-size--text-s);
+				line-height: 1.222;
+			}
+
+
+			&.is-visible &__title {
+				padding-left: 2.5rem;
+
+				@include v.down(v.$bp-md) {
+					padding-left: 2rem;
+				}
+			}
+
+			&.is-visible &__title::before {
+				transform: translateY(-50%) scale(1);
+				opacity: 1;
+
+				transition-delay: 0.15s;
+			}
+		}
+	}
+}
+
+.editor-styles-wrapper .stickyStats__listItem {
+
+	.stickyStats__listItem__title {
+		padding-left: 2.5rem;
+	}
+
+	.stickyStats__listItem__title::before {
+		transform: translateY(-50%) scale(1);
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.stickyStats__listItem__title,
+	.stickyStats__listItem__title::before {
+		transition: none !important;
+	}
+
+	.stickyStats__listItem__title {
+		padding-left: 2.5rem;
+	}
+
+	.stickyStats__listItem__title::before {
+		transform: translateY(-50%) scale(1);
+		opacity: 1;
+	}
+}

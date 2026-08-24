@@ -1,0 +1,40 @@
+/*
+ * Колірні схеми секцій.
+ *
+ * Реєструються як стилі блоків у inc/block-styles.php,
+ * тож редактор перемикає їх у панелі, не чіпаючи CSS-класи вручну.
+ *
+ * Схема підміняє змінні всередині секції — тому вкладені блоки
+ * автоматично підхоплюють правильні кольори.
+ */
+
+.is-style-scheme-light {
+	--section-bg: var(--wp--preset--color--background);
+	--section-text: var(--wp--preset--color--neutral-900);
+	--section-accent: var(--wp--preset--color--primary);
+}
+
+.is-style-scheme-dark {
+	--section-bg: var(--wp--preset--color--neutral-900);
+	--section-text: var(--wp--preset--color--white);
+	--section-accent: var(--wp--preset--color--accent);
+}
+
+.is-style-scheme-brand {
+	--section-bg: var(--wp--preset--color--primary);
+	--section-text: var(--wp--preset--color--white);
+	--section-accent: var(--wp--preset--color--accent);
+}
+
+[class*="is-style-scheme-"] {
+	background-color: var(--section-bg);
+	color: var(--section-text);
+
+	h1, h2, h3, h4, h5, h6 {
+		color: inherit;
+	}
+
+	a:not(.wp-element-button) {
+		color: var(--section-accent);
+	}
+}

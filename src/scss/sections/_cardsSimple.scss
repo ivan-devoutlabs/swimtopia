@@ -1,0 +1,419 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+.cardsSimple {
+    padding-left: 0;
+    padding-right: 0;
+    .container {
+        max-width: 1860px;
+    }
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        @include v.down(v.$bp-lg) {
+            gap: 1.5rem;
+        }
+        @include v.down(v.$bp-md) {
+            gap: 1rem;
+        }
+        &Item {
+            width: calc( 25% - 0.75rem );
+            padding: 2.5rem;
+            border-radius: 1.875rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 37.5rem;
+            @include v.down(1200px) {
+                padding: 1.5rem;
+            }
+            @include v.down(v.$bp-lg) {
+                width: calc( 50% - 0.75rem );
+                min-height: 27.5rem;
+            }
+            @include v.down(v.$bp-md) {
+                width: 100%;
+                min-height: auto;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.4);
+                transition: .7s;
+                opacity: 0;
+            }
+            &:hover::before {
+                opacity: 1;
+                @include v.down(v.$bp-md) {
+                    opacity: 0;
+                }
+            }
+            &__top {
+                margin-bottom: auto;
+            }
+            &__image {
+                display: flex;
+                padding-bottom: 0.5rem;
+                @include v.down(v.$bp-md) {
+                    padding-bottom: 0.25rem;
+                }
+                img {
+                    width: 13.75rem;
+                    height: 13.75rem;
+                    object-fit: cover;
+                    max-width: 80%;
+                    border-radius: 1.25rem;
+                    transition: 0.7s ease;
+                    @include v.down(v.$bp-lg) {
+                        width: 10rem;
+                        height: 10rem;
+                    }
+                    @include v.down(v.$bp-md) {
+                        width: 7.5rem;
+                        height: 7.5rem;
+                    }
+                }
+            }
+            &:hover &__image img {
+                height: 0;
+                @include v.down(v.$bp-md) {
+                    height: 7.5rem;
+                }
+            }
+            &__button .wp-block-button__link,
+            &__button .wp-block-button__link::after {
+                transition: .7s;
+            }
+            &:hover &__button .wp-block-button__link {
+                background-color: var(--wp--preset--color--blue);
+                color: var(--wp--preset--color--light);
+                padding: 0.5625rem 1rem 0.5625rem 2.9375rem;
+                &::after {
+                    right: calc( 100% - 2.375rem );
+                    background-color: var(--wp--preset--color--light);
+                    background-image: url("../images/btn-icon-style-2-blue.png");
+                }
+            }
+            &__title {
+                color: var(--wp--preset--color--light);
+                font-weight: 700;
+            }
+            &__subtitle {
+                color: var(--wp--preset--color--light);
+                font-size: 500;
+                font-size: var(--wp--preset--font-size--text-l);
+                @include v.down(v.$bp-md) {
+                    font-size: var(--wp--preset--font-size--text-xl);
+                    margin-bottom: 1rem;
+                }
+            }
+            &__text {
+                @include glass.glass(
+					$frost: 25px,
+					$depth: 16px,
+					$splay: 23%,
+					$dispersion: 1.2px,
+					$radius: 24px,
+					$light: 0.8,
+					$tint: rgba(255, 255, 255, 0.5)
+				);
+
+				@include glass.glass-fallbacks();
+                background: rgba(255, 255, 255, 0.1);
+                color: var(--wp--preset--color--light);
+                font-size: var(--wp--preset--font-size--text-l);
+                line-height: 1.208333;
+                padding: 1rem;
+                margin-top: auto;
+                margin-bottom: 1rem;
+                display: none;
+                @include v.down(v.$bp-md) {
+                    border-radius: 0.625rem;
+                    padding: 0.5rem;
+                    display: block !important;
+                    margin-top: 1rem;
+                }
+            }
+        }
+    }
+
+    &.list {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+        @include v.down(v.$bp-md) {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+    }
+
+    &.list &{
+        &__list {
+            &Item {
+                min-height: auto;
+                .features__canvas {
+                    display: none;
+                }
+                &::before {
+                    content: none;
+                }
+                &__top {
+                    display: flex;
+                    gap: 1rem;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                }
+                &__image {
+                    opacity: 1 !important;
+                    padding-bottom: 0;
+                    img {
+                        width: 6.25rem;
+                        height: 6.25rem;
+                        min-width: 6.25rem;
+                        @include v.down(v.$bp-md) {
+                            width: 5rem;
+                            height: 5rem;
+                            min-width: 5rem;
+                        }
+                    }
+                }
+                &__subtitle {
+                    font-size: var(--wp--preset--font-size--text-s);
+                    line-height: 1.2222;
+                }
+                &__content {
+                    padding-left: 0;
+                    gap: 0.5rem;
+                    margin-bottom: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    li {
+                        padding-left: 1.625rem;
+                        position: relative;
+                        color: var(--wp--preset--color--light);
+                        font-size: var(--wp--preset--font-size--text-l);
+                        font-weight: 600;
+                        list-style-type: none;
+                        line-height: 1.20833;
+                        &::before {
+                            content: "";
+                            width: 1.125rem;
+                            height: 1.125rem;
+                            left: 0;
+                            top: 0.34375rem;
+                            background-image: url('../images/cards-list-icon.png');
+                            background-size: contain;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            position: absolute;
+                        }
+                    }
+                }
+                &__button {
+                    margin-top: auto;
+                }
+            }
+        }
+    }
+    &.list .has-navy-background-color .cardsSimple__listItem__content li::before{
+        background-image: url('../images/cards-list-icon-accent-2.png');
+    }
+    .headerBlock + & {
+        margin-top: -16.875rem;
+        @include v.down(v.$bp-md) {
+            margin-top: -13.5rem;
+        }
+    }
+
+    &__title {
+        color: var(--wp--preset--color--light);
+        line-height: 1.234375;
+        max-width: 50rem;
+    }
+    &__top {
+        margin-bottom: 3.25rem;
+    }
+
+}
+
+
+.cardsSimple.slider {
+ 
+	--cards-visible: 4;
+	--cards-gap: 1rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+ 
+	@include v.down(v.$bp-lg) {
+		--cards-visible: 2;
+	}
+ 
+	@include v.down(v.$bp-md) {
+		--cards-visible: 1;
+		--cards-gap: 1rem;
+	}
+
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+ 
+	.cardsSimple__viewport {
+		overflow: hidden;
+ 
+		&:focus-visible {
+			outline: 2px solid var(--wp--preset--color--blue);
+			outline-offset: 6px;
+			border-radius: 8px;
+		}
+	}
+ 
+	.cardsSimple__list {
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		gap: var(--cards-gap);
+ 
+		&.is-track {
+			transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+			will-change: transform;
+		}
+	}
+ 
+	.cardsSimple__listItem {
+		flex: 0 0 calc(
+			(100% - var(--cards-gap) * (var(--cards-visible) - 1)) /
+			var(--cards-visible)
+		);
+		width: auto;   // перебиваємо ширину з сіткового режиму
+	}
+ 
+ 
+	.cardsSimple__arrows {
+		display: flex;
+		justify-content: center;
+		gap: 0.75rem;
+		margin-top: 2rem;
+ 
+		@include v.down(v.$bp-md) {
+			margin-top: 1.25rem;
+		}
+	}
+ 
+	.cardsSimple__arrow {
+		position: relative;
+		width: 3rem;
+		height: 3rem;
+		padding: 0;
+		border: 1px solid var(--wp--preset--color--navy);
+		border-radius: 50%;
+		background: transparent;
+		color: var(--wp--preset--color--navy);
+		cursor: pointer;
+		transition: background 0.3s ease, opacity 0.3s ease;
+ 
+		&:hover:not(.disabled) {
+			background: color-mix(in srgb, var(--wp--preset--color--navy) 12%, transparent);
+		}
+ 
+		&:focus-visible {
+			outline: 2px solid var(--wp--preset--color--navy);
+			outline-offset: 2px;
+		}
+ 
+		// Неактивна стрілка: і на вигляд, і насправді
+		&.disabled {
+			opacity: 0.35;
+			cursor: default;
+		}
+ 
+		&::before {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 0.6rem;
+			height: 0.6rem;
+			border-left: 2px solid currentColor;
+			border-bottom: 2px solid currentColor;
+		}
+ 
+		&--prev::before {
+			transform: translate(-30%, -50%) rotate(45deg);
+		}
+ 
+		&--next::before {
+			transform: translate(-70%, -50%) rotate(-135deg);
+		}
+	}
+}
+ 
+/*
+ * У редакторі скрипт не працює: показуємо картки сіткою, інакше
+ * п'ята й наступні вилізуть за полотно.
+ */
+.editor-styles-wrapper .cardsSimple.slider {
+ 
+	.cardsSimple__list {
+		flex-wrap: wrap;
+		transform: none !important;
+	}
+ 
+	.cardsSimple__listItem {
+		flex-basis: calc(50% - 0.75rem);
+	}
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+	.cardsSimple__list.is-track {
+		transition: none;
+	}
+}
+.cardsSimple__listItem {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.cardsSimple__listItem canvas.features__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 1;
+    pointer-events: none;
+    display: block;
+}
+
+.cardsSimple__listItem__top,
+.cardsSimple__listItem__text,
+.cardsSimple__listItem__button {
+    position: relative;
+    z-index: 2;
+}
+
+.cardsSimple__listItem__image {
+    transition: opacity 0.7s ease, transform 0.7s ease; 
+    opacity: 1; 
+}
+
+.cardsSimple__listItem:hover .cardsSimple__listItem__image {
+    opacity: 0; 
+    @include v.down(v.$bp-md) {
+        opacity: 1;
+    }
+}
+
+
+.cardsSimple__listItem canvas.features__canvas {
+    transition: transform 0.7s ease;
+}
+
+.cardsSimple__listItem:hover canvas.features__canvas {
+    transform: scale(1);
+}

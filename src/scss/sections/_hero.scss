@@ -1,0 +1,504 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+
+@property --spot-r {
+	syntax: "<length>";
+	inherits: true;
+	initial-value: 0px;
+}
+
+.hero {
+	position: relative;
+	overflow: hidden;
+	isolation: isolate;
+    padding-left: 0;
+    padding-right: 0;
+	padding-top: 10rem;
+	padding-bottom: 5.4375rem;
+
+	transition: --spot-r 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+	--spot-r: clamp(120px, 10.4167vw, 280px);
+	--spot-x: -9999px;
+	--spot-y: -9999px;
+
+	@include v.down(v.$bp-lg) {
+		padding-top: 8rem;
+		padding-bottom: 4.5rem;
+	}
+
+	@include v.down(v.$bp-md) {
+		padding-top: 7.125rem;
+		padding-bottom: 4rem;
+		background-position: center;
+	}
+
+	&.is-revealed {
+		--spot-r: 200vmax;
+	}
+
+
+	&__bg,
+	&__bgReveal {
+		position: absolute !important;
+		inset: 0;
+		margin: 0;
+		pointer-events: none;
+        max-width: 100%;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	&__bg {
+		z-index: 0;
+	}
+
+	&__bgReveal {
+		z-index: 1;
+
+		--spot-mask: radial-gradient(
+			circle var(--spot-r) at var(--spot-x) var(--spot-y),
+			rgb(0 0 0 / 1) 0%,
+			rgb(0 0 0 / 0.97) 13%,
+			rgb(0 0 0 / 0.89) 25%,
+			rgb(0 0 0 / 0.72) 38%,
+			rgb(0 0 0 / 0.5) 50%,
+			rgb(0 0 0 / 0.28) 63%,
+			rgb(0 0 0 / 0.12) 75%,
+			rgb(0 0 0 / 0.03) 88%,
+			transparent 100%
+		);
+
+		-webkit-mask-image: var(--spot-mask);
+		mask-image: var(--spot-mask);
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+
+		opacity: 0;
+		transition: opacity 0.35s ease;
+	}
+
+	&.is-spotlight-active &__bgReveal,
+	&.is-revealed &__bgReveal {
+		opacity: 1;
+	}
+
+	> *:not(.hero__bg):not(.hero__bgReveal) {
+		position: relative;
+		z-index: 2;
+	}
+
+	.container {
+		max-width: 1852px;
+		margin-inline: auto;
+	}
+
+
+	&__contentWrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		@include v.down(v.$bp-lg) {
+			flex-direction: column;
+		}
+	}
+
+	&__content {
+		width: 50.3%;
+		z-index: 1;
+        position: static !important;
+
+		@include v.down(v.$bp-lg) {
+			width: 100%;
+			position: relative !important;
+			margin-bottom: 2.5rem;
+		}
+
+		@include v.down(v.$bp-md) {
+			margin-bottom: 2rem;
+		}
+	}
+
+	&__title {
+		margin: 0 0 1rem;
+		font-size: var(--wp--preset--font-size--heading-1);
+		color: var(--wp--preset--color--light);
+		line-height: 1.222;
+		text-transform: capitalize;
+
+		@include v.down(v.$bp-md) {
+			margin-bottom: 0.5rem;
+		}
+	}
+
+	&__text {
+		margin: 0 0 3rem;
+		font-size: var(--wp--preset--font-size--text-xl);
+		color: var(--wp--preset--color--light);
+		line-height: 1.21875;
+
+		@include v.down(v.$bp-md) {
+			margin-bottom: 1rem;
+		}
+	}
+
+	&__buton {
+		margin: 0;
+	}
+
+
+	&__video {
+		width: 44.7%;
+		position: relative;
+		display: flex;
+        margin: 0;
+
+		@include v.down(v.$bp-lg) {
+			width: 100%;
+		}
+
+		@include v.down(v.$bp-md) {
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.wp-block-video,
+		.wp-block-image,
+		.wp-block-cover {
+			width: 100%;
+			margin: 0;
+		}
+
+		video,
+		img,
+		.wp-block-cover {
+			width: 100%;
+			aspect-ratio: 1 / 1.1885143571 !important;
+			object-fit: cover;
+			border-radius: 2.5rem;
+
+			@include v.down(v.$bp-lg) {
+				aspect-ratio: 1 / 0.65 !important;
+			}
+
+			@include v.down(v.$bp-md) {
+				aspect-ratio: 1 / 1.1885143571 !important;
+				border-radius: 1.25rem;
+				max-height: 550px;
+			}
+		}
+
+		.wp-block-cover {
+			min-height: 0;
+			overflow: hidden;
+		}
+
+		&Info__tiles {
+            margin: 0;
+		}
+
+		&Info__tiles {
+			position: absolute !important;
+			bottom: 1.6875rem;
+			right: 1.9375rem;
+			width: 80%;
+			max-width: 23.75rem;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+
+			@include v.down(v.$bp-md) {
+				position: static !important;
+				width: 100%;
+				max-width: 100%;
+			}
+
+			&Item {
+				width: calc(50% - 0.25rem);
+				padding: 1.5rem 1.125rem;
+				border-radius: 1.25rem;
+				text-align: center;
+                margin: 0;
+
+				@include glass.glass(
+					$frost: 25px,
+					$depth: 16px,
+					$splay: 23%,
+					$dispersion: 1.2px,
+					$radius: 24px,
+					$light: 0.8,
+					$tint: rgba(255, 255, 255, 0.5)
+				);
+
+				@include glass.glass-fallbacks();
+
+				@include v.down(v.$bp-md) {
+					border-radius: 0.75rem;
+					padding: 0.9375rem 0.625rem;
+				}
+
+
+				&__title {
+					margin: 0;
+					color: var(--wp--preset--color--navy);
+					font-size: var(--wp--preset--font-size--text-xl);
+					line-height: 1.2083;
+					font-weight: 700;
+				}
+
+				&__subtitle {
+					margin: 0;
+					color: var(--wp--preset--color--navy);
+					font-weight: 500;
+					font-size: var(--wp--preset--font-size--text-s);
+					line-height: 1.2222;
+
+					@include v.down(v.$bp-md) {
+						font-size: var(--wp--preset--font-size--text-m);
+					}
+				}
+
+				&:first-child {
+					width: 100%;
+					padding: 1rem;
+
+					@include v.down(v.$bp-md) {
+						padding: 0.625rem;
+					}
+				}
+
+				&:first-child &__title {
+					font-size: var(--wp--preset--font-size--text-l);
+					margin-bottom: 0.5rem;
+
+					@include v.down(v.$bp-md) {
+						margin-bottom: 0.3125rem;
+					}
+				}
+
+				&:first-child &__subtitle {
+					font-size: var(--wp--preset--font-size--text-xs);
+					font-weight: 700;
+					line-height: 1.25;
+
+					@include v.down(v.$bp-md) {
+						font-size: var(--wp--preset--font-size--text-s);
+					}
+				}
+			}
+		}
+	}
+
+	&__banner {
+        @include glass.glass(
+			$frost: 25px,
+			$depth: 16px,
+			$splay: 23%,
+			$dispersion: 1.2px,
+			$radius: 10px,
+			$light: 0.8,
+			$tint: color-mix(in srgb, var(--wp--preset--color--navy) 70%, transparent)
+		);
+
+		@include glass.glass-fallbacks();
+        margin: 0;
+		position: absolute !important;
+		bottom: -2.75rem;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		align-items: center;
+		padding: 0.5rem 3.5rem 0.5rem 0.5rem;
+		border-radius: 0.625rem;
+		color: var(--wp--preset--color--light);
+
+
+		@include v.down(v.$bp-lg) {
+			top: calc(100% + 1rem);
+			bottom: auto;
+		}
+
+		@include v.down(v.$bp-md) {
+			width: 100%;
+			top: calc(100% + 1.125rem);
+			bottom: auto;
+			padding-right: 1.6875rem;
+		}
+
+		&[hidden] {
+			display: none;
+		}
+
+		&Content {
+			position: relative;
+			padding-left: 3.5rem;
+
+			@include v.down(v.$bp-lg) {
+				padding-left: 3rem;
+			}
+
+			@include v.down(v.$bp-md) {
+				padding-left: 2.5rem;
+			}
+
+			&::before,
+			&::after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				border-radius: 50%;
+				transform: translateY(-50%);
+			}
+
+			&::before {
+				left: 0;
+				width: 3rem;
+				height: 3rem;
+				background-color: color-mix(in srgb, var(--wp--preset--color--accent-4) 70%, transparent);
+
+				@include v.down(v.$bp-lg) {
+					width: 2.5rem;
+					height: 2.5rem;
+				}
+
+				@include v.down(v.$bp-md) {
+					width: 2rem;
+					height: 2rem;
+				}
+			}
+
+			&::after {
+				left: 1rem;
+				width: 1rem;
+				height: 1rem;
+				background-color: var(--wp--preset--color--accent-4);
+
+				@include v.down(v.$bp-lg) {
+					left: 0.75rem;
+				}
+
+				@include v.down(v.$bp-md) {
+					left: 0.6875rem;
+					width: 0.625rem;
+					height: 0.625rem;
+				}
+			}
+		}
+
+		&Heading {
+			margin: 0;
+			font-size: var(--wp--preset--font-size--text-s);
+			line-height: 1.2222;
+			font-weight: 700;
+
+			@include v.down(v.$bp-md) {
+				line-height: 1.25;
+			}
+		}
+
+		&Title {
+			margin: 0 0 0.5rem;
+			font-size: var(--wp--preset--font-size--text-l);
+			line-height: 1.2083;
+
+			@include v.down(v.$bp-md) {
+				line-height: 1.25;
+			}
+		}
+
+		&Link {
+			display: flex;
+			margin: 0;
+
+			a {
+				position: relative;
+				display: inline-block;
+				padding-right: 0.90625rem;
+				font-size: var(--wp--preset--font-size--text-s);
+				line-height: 1.2222;
+				font-weight: 700;
+				text-decoration: none;
+				color: inherit;
+
+				@include v.down(v.$bp-md) {
+					line-height: 1.25;
+				}
+
+				&::after {
+					content: "";
+					position: absolute;
+					top: 50%;
+					right: 0;
+					width: 0.5rem;
+					height: 0.75rem;
+					transform: translateY(-50%);
+					background-image: url("../images/link-arrow-white.png");
+					background-size: contain;
+					background-position: center;
+					background-repeat: no-repeat;
+					transition: 0.3s;
+				}
+
+				&:hover::after {
+					right: -0.25rem;
+				}
+			}
+		}
+
+		&Close {
+			position: absolute;
+			top: 0.5rem;
+			right: 0.5rem;
+			width: 1.5rem;
+			height: 1.5rem;
+			padding: 0;
+			border: 0;
+			appearance: none;
+			background-color: transparent;
+			background-image: url("../images/cross-white-icon.png");
+			background-size: 0.8rem;
+			background-position: center;
+			background-repeat: no-repeat;
+			cursor: pointer;
+            margin-top: 0;
+
+			&:focus-visible {
+				outline: 2px solid var(--wp--preset--color--light);
+				outline-offset: 2px;
+			}
+
+			@include v.down(v.$bp-md) {
+				top: 0.75rem;
+				right: 0.5rem;
+				width: 0.75rem;
+				height: 0.75rem;
+				background-size: 0.75rem;
+			}
+		}
+	}
+}
+
+@media (pointer: coarse) {
+	.hero__bgReveal {
+		display: none;
+	}
+}
+
+@supports not ((mask-image: radial-gradient(#000, #000)) or (-webkit-mask-image: radial-gradient(#000, #000))) {
+	.hero__bgReveal {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.hero,
+	.hero__bgReveal {
+		transition: none;
+	}
+}

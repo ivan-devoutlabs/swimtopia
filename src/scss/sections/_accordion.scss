@@ -1,0 +1,261 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+/*
+ * Акордеон із фоновим відео.
+ *
+ * ЗМІНИ ПОРІВНЯНО З ВИХІДНОЮ ВЕРСТКОЮ
+ *   фон                 тепер core/video (можна замінити на core/image)
+ *   .__title, .__text   тепер <p> — скидаємо поля ядра
+ *   .__button           тепер core/buttons, клас .style-2 переїхав
+ *                       на .wp-block-button
+ *   розкриття           замість display: none — grid-template-rows,
+ *                       щоб перехід був плавним без знання висоти
+ */
+
+.accordion {
+	padding: 5rem 0;
+
+	@include v.down(v.$bp-md) {
+		padding: 3rem 0;
+	}
+
+	.container {
+		max-width: 1690px;
+		margin-inline: auto;
+	}
+
+	&__top {
+		margin-bottom: 3.25rem;
+        max-width: 100%;
+
+		@include v.down(v.$bp-lg) {
+			margin-bottom: 2rem;
+		}
+
+		@include v.down(v.$bp-md) {
+			margin-bottom: 1.5rem;
+		}
+	}
+
+	&__title {
+		color: var(--wp--preset--color--navy);
+		text-align: center;
+        max-width: 1690px;
+        padding: 0 30px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1rem;
+        @include v.down(v.$bp-md) {
+            padding: 0 16px;
+            margin-bottom: 0.5rem;
+        }
+	}
+
+	// --- Обгортка з фоном -----------------------------------------------
+
+	&__contentWrapper {
+		position: relative;
+		overflow: hidden;
+		padding: 1.5rem;
+		border-radius: 2.5rem;
+
+		@include v.down(v.$bp-lg) {
+			padding: 1rem;
+		}
+
+		@include v.down(v.$bp-md) {
+			padding: 1.25rem 0.75rem;
+			border-radius: 1.25rem;
+		}
+	}
+
+	/*
+	 * Фон: відео або зображення. Стилі однакові, тож заміна блоку
+	 * в редакторі нічого не ламає.
+	 */
+	&__contentBg {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+
+		.wp-block-video,
+		.wp-block-image {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+		}
+
+		video,
+		img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+
+	// --- Скляна панель --------------------------------------------------
+
+	&__content {
+		position: relative;
+		width: 50.569%;
+		padding: 4rem;
+		background-color: color-mix(in srgb, var(--wp--preset--color--light) 30%, transparent);
+
+		@include glass.glass(
+			$frost: 25px,
+			$depth: 16px,
+			$splay: 23%,
+			$dispersion: 1.2px,
+			$radius: 24px,
+			$light: 0.8,
+			$tint: rgba(255, 255, 255, 0.5)
+		);
+
+		@include glass.glass-fallbacks();
+
+		@include v.down(v.$bp-lg) {
+			width: 60%;
+			padding: 1.5rem;
+		}
+
+		@include v.down(v.$bp-md) {
+			width: 100%;
+			padding: 1rem;
+		}
+	}
+
+	// --- Пункти ---------------------------------------------------------
+
+	&__listItem {
+		padding: 1rem 0;
+		border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--light) 50%, transparent);
+
+		&:last-child {
+			border-bottom: 0;
+		}
+
+		&__title {
+			position: relative;
+			display: flex;
+			align-items: center;
+			min-height: 2rem;
+			margin: 0;
+			padding-right: 3.25rem;
+			color: var(--wp--preset--color--light);
+			font-size: var(--wp--preset--font-size--text-l);
+			font-weight: 700;
+			line-height: 1.2083;
+			cursor: pointer;
+
+			&:focus-visible {
+				outline: 2px solid var(--wp--preset--color--light);
+				outline-offset: 4px;
+				border-radius: 4px;
+			}
+
+			&::after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				right: 0.5rem;
+				width: 2rem;
+				height: 2rem;
+				transform: translateY(-50%);
+				background-image: url("../images/icon-expand.png");
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat;
+				transition: 0.3s;
+			}
+
+			&.opened::after {
+				background-image: url("../images/icon-collapse.png");
+			}
+		}
+
+		/*
+		 * Розкриття через grid-template-rows: 0fr → 1fr.
+		 *
+		 * display: none не анімується, а max-height потребує вгаданої
+		 * висоти — при довгому тексті перехід би смикався. Тут висота
+		 * рахується сама.
+		 *
+		 * Текст лишається в DOM завжди (вимога 22) — ховається лише
+		 * візуально.
+		 */
+		&__text {
+			margin: 0;
+			overflow: hidden;
+			color: var(--wp--preset--color--light);
+			font-size: var(--wp--preset--font-size--text-l);
+			line-height: 1.2083;
+            display: none;
+            padding-top: 0.5rem;
+		}
+
+		&__textInner {
+			min-height: 0;   // без цього вміст не дає рядку стиснутися
+		}
+
+		&.is-open &__text {
+			grid-template-rows: 1fr;
+			padding-top: 0.5rem;
+			opacity: 1;
+		}
+	}
+
+	// --- Кнопка ---------------------------------------------------------
+
+	&__button {
+		position: absolute;
+		right: 1.5rem;
+		bottom: 1.5rem;
+		margin: 0;
+
+		@include v.down(v.$bp-lg) {
+			right: 1rem;
+			bottom: 1rem;
+		}
+
+		@include v.down(v.$bp-md) {
+			position: static;
+			margin-top: 1.25rem;
+		}
+	}
+    .textMarquee {
+        padding: 0;
+        &__list {
+            &Item {
+                font-size: var(--wp--preset--font-size--heading-1);
+                color: var(--wp--preser--color--navy);
+                padding: 0 0.75rem;
+                @include v.down(v.$bp-md) {
+                    padding: 0 0.5rem;
+                }
+            }
+        }
+    }
+}
+
+
+/*
+ * У редакторі скрипт не працює: показуємо всі тексти,
+ * інакше їх неможливо відредагувати.
+ */
+.editor-styles-wrapper .accordion__listItem__text {
+	grid-template-rows: 1fr;
+	padding-top: 0.5rem;
+	opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.accordion__listItem__text,
+	.accordion__listItem__title::after {
+		transition: none;
+	}
+}

@@ -1,0 +1,81 @@
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/blocks/hero/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+/**
+ * Стилі блоку starter/hero (фронтенд + редактор).
+ *
+ * Усі значення — зі змінних theme.json. Хардкодити кольори не можна:
+ * саме ці змінні підмінюються, коли редактор перемикає колірну схему секції.
+ */
+.starter-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: var(--wp--preset--spacing--xl) var(--wp--preset--spacing--sm);
+  color: var(--wp--preset--color--white);
+  isolation: isolate;
+}
+.starter-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.starter-hero.has-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--wp--preset--color--hero-overlay, rgba(0, 0, 0, 0.5));
+}
+.starter-hero__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--wp--preset--spacing--lg);
+  align-items: center;
+  width: 100%;
+  max-width: var(--wp--style--global--content-size, 1500px);
+  margin-inline: auto;
+}
+@media (min-width: 782px) {
+  .starter-hero__inner {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+.starter-hero__heading {
+  margin: 0 0 var(--wp--preset--spacing--sm);
+  font-family: var(--wp--preset--font-family--primary);
+  font-size: var(--wp--preset--font-size--display);
+  line-height: 1.1;
+  color: inherit;
+}
+.starter-hero__text {
+  margin: 0;
+  max-width: 60ch;
+  font-size: var(--wp--preset--font-size--text-medium);
+  line-height: 1.6;
+  color: inherit;
+}
+.starter-hero__text a {
+  color: inherit;
+  text-decoration: underline;
+}
+.starter-hero__media {
+  margin: 0;
+}
+.starter-hero__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.starter-hero:not(:has(.starter-hero__bg)) {
+  background-color: var(--wp--preset--color--dark-blue);
+}
+
+/*# sourceMappingURL=style-index.css.map*/

@@ -1,0 +1,344 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+
+.tabs {
+	padding: 5rem 0;
+
+	@include v.down(v.$bp-md) {
+		padding: 3rem 0;
+	}
+
+	.container {
+		max-width: 1500px;
+		margin-inline: auto;
+	}
+
+	&__title {
+		margin: 0 0 3.25rem;
+		color: var(--wp--preset--color--navy);
+		text-align: center;
+
+		strong {
+			color: var(--wp--preset--color--blue);
+		}
+		@include v.down(v.$bp-lg) {
+			margin-bottom: 2rem;
+		}
+		@include v.down(v.$bp-md) {
+			margin-bottom: 1.5rem;
+		}
+	}
+
+	&__slider {
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		padding: 2.5rem;
+		border-radius: 2.5rem;
+		background-color: var(--wp--preset--color--accent-4);
+
+		transition: background-color 0.6s ease;
+		@include v.down(v.$bp-lg) {
+			flex-direction: column;
+		}
+		@include v.down(v.$bp-md) {
+			gap: 1.5rem;
+			padding: 1.25rem;
+			border-radius: 1.5rem;
+		}
+
+		&Images {
+			position: relative;
+			width: calc(57.354% - 1.25rem);
+			aspect-ratio: 1.275168/1;
+			@include v.down(v.$bp-lg) {
+				width: 100%;
+				max-height: 450px;
+			}
+			@include v.down(v.$bp-md) {
+				max-height: 375px;
+			}
+
+			&__item {
+				display: flex;
+				margin: 0;
+
+				img {
+					width: 100%;
+					aspect-ratio: 1.275168 / 1;
+					object-fit: cover;
+					border-radius: 2.5rem;
+
+					@include v.down(v.$bp-md) {
+						border-radius: 1.25rem;
+					}
+				}
+
+				&:not(:first-child) {
+					position: absolute;
+					inset: 0;
+				}
+
+				opacity: 0;
+				transition: opacity 0.5s ease;
+
+				&.is-active {
+					opacity: 1;
+				}
+			}
+		}
+
+		&Content {
+			width: calc(42.574% - 1.25rem);
+			position: relative;
+
+			@include v.down(v.$bp-lg) {
+				width: 100%;
+			}
+
+			&__item {
+				&:not(:first-child) {
+					position: absolute;
+					inset: 0;
+				}
+
+				opacity: 0;
+				visibility: hidden;
+				transform: translateY(0.75rem);
+				transition:
+					opacity 0.45s ease,
+					transform 0.45s ease,
+					visibility 0.45s;
+
+				&.is-active {
+					opacity: 1;
+					visibility: visible;
+					transform: none;
+				}
+
+				&Heading {
+					margin: 0;
+					padding: 3rem 0 4.5rem;
+					font-size: var(--wp--preset--font-size--text-l);
+					color: var(--wp--preset--color--light);
+					font-weight: 700;
+					line-height: 1.20833;
+
+					@include v.down(v.$bp-lg) {
+						padding: 1.5rem 0 1rem;
+					}
+
+					@include v.down(v.$bp-md) {
+						padding: 0 0 1rem;
+					}
+				}
+
+				&Title {
+					margin: 0;
+					padding-bottom: 1rem;
+					color: var(--wp--preset--color--light);
+					line-height: 1.22916;
+				}
+
+				&Text {
+					margin: 0;
+					padding-bottom: 2rem;
+					color: var(--wp--preset--color--light);
+					font-size: var(--wp--preset--font-size--text-l);
+					line-height: 1.20833;
+					@include v.down(v.$bp-lg) {
+						padding-bottom: 1.5rem;
+					}
+				}
+
+				&Button {
+					margin: 0;
+				}
+			}
+		}
+	}
+
+	&__sliderImages .features__canvas {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		display: block;
+		width: 100%;
+		height: 100%;
+		border-radius: 2.5rem;
+		opacity: 0;
+		transition: opacity 0.2s ease;
+
+		@include v.down(v.$bp-md) {
+			border-radius: 1.25rem;
+		}
+	}
+
+	&__sliderImages.is-drawn .features__canvas {
+		opacity: 1;
+	}
+
+
+	&__menu {
+		position: absolute;
+		top: 1.6875rem;
+		left: 50%;
+		z-index: 3;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 0.5rem;
+		padding: 0.5rem;
+
+		@include v.down(v.$bp-md) {
+			position: static;
+			transform: none;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-bottom: 1rem;
+		}
+
+		&::before {
+			content: "";
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+
+			@include glass.glass(
+				$frost: 25px,
+				$depth: 16px,
+				$splay: 23%,
+				$dispersion: 1.2px,
+				$radius: 24px,
+				$light: 0.8,
+				$tint: transparent
+			);
+
+			@include glass.glass-fallbacks();
+			position: absolute;
+			border-radius: 100px;
+		}
+
+
+		&Bg {
+			position: absolute;
+			left: 0;
+			top: 50%;
+			height: calc(100% - 1rem);
+			border-radius: 100px;
+			background: var(--wp--preset--color--accent-4);
+			transform: translate3d(0, -50%, 0);
+			transition:
+				transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+				width 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+				background-color 0.5s ease;
+		}
+
+		&Item {
+			position: relative;
+			z-index: 1;
+			margin: 0;
+			padding: 0.5rem 0.75rem;
+			min-width: 7.8125rem;
+			font-size: var(--wp--preset--font-size--text-l);
+			font-weight: 700;
+			color: var(--wp--preset--color--light);
+			text-align: center;
+			line-height: 1.208333;
+			cursor: pointer;
+			user-select: none;
+
+			&.has-background {
+				background-color: transparent !important;
+			}
+
+			&:focus-visible {
+				outline: 2px solid var(--wp--preset--color--light);
+				outline-offset: 2px;
+				border-radius: 100px;
+			}
+		}
+	}
+
+
+	&__arrows {
+		position: absolute;
+		left: calc( (100% - 2.5rem) *  0.57354 + 2.5rem);
+		bottom: 2.5rem;
+		z-index: 3;
+		display: flex;
+		gap: 0.5rem;
+
+		@include v.down(v.$bp-lg) {
+			justify-content: center;
+		    margin: 0;
+    		justify-content: flex-start;
+			right: 2.5rem;
+    		left: auto;
+		}
+		@include v.down(v.$bp-md) {
+			position: static;
+		}
+	}
+
+	&__arrow {
+		border: 0;
+		border-radius: 50%;
+		width: 3.75rem;
+		height: 3.75rem;
+		background-size: 0.875rem;
+		background-position: center;
+		background-repeat: no-repeat;
+		cursor: pointer;
+		@include v.down(v.$bp-lg) {
+			width: 2.75rem;
+			height: 2.75rem;
+			background-size: 0.75rem;
+		}
+
+		&--prev {
+			transform: rotate(180deg);
+			background-color: var(--wp--preset--color--light);
+			background-image: url(../images/btn-icon-style-2-blue.png);
+		}
+
+		&--next {
+			background-color: var(--wp--preset--color--blue);
+			background-image: url(../images/swimtopia-btn-arrow.png);
+		}
+	}
+
+	&__slider[style="background-color: var(--wp--preset--color--blue);"] &__arrow--next{
+		background-color: var(--wp--preset--color--light);
+		background-image: url(../images/btn-icon-style-2-blue.png);
+	}
+}
+
+
+.editor-styles-wrapper .tabs {
+
+	.tabs__sliderContent__item,
+	.tabs__sliderImages__item {
+		position: static !important;
+		opacity: 1 !important;
+		visibility: visible !important;
+		transform: none !important;
+		margin-bottom: 1rem;
+	}
+
+	.tabs__menuItem.has-background {
+		background-color: revert !important;
+		border-radius: 100px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.tabs__slider,
+	.tabs__menuBg,
+	.tabs__sliderContent__item,
+	.tabs__sliderImages__item {
+		transition: none !important;
+	}
+}

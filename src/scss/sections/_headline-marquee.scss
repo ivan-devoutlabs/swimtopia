@@ -1,0 +1,94 @@
+@use "../settings/variables" as v;
+
+/*
+ * Стрічка з чергуванням тексту й логотипів.
+ *
+ * ВІДМІННІСТЬ ВІД logoMarquee
+ *   Там усі елементи однакові, тож ширина рахувалася як частка вікна
+ *   (--marquee-visible). Тут заголовки різної довжини, і ділити вікно
+ *   на рівні частки безглуздо: короткий напис отримав би стільки ж
+ *   місця, скільки довгий.
+ *
+ *   Тому ширина в елементів автоматична, від вмісту. Скрипт це
+ *   враховує: він міряє реальні розміри й від них рахує повтори
+ *   та тривалість руху.
+ */
+
+.textMarquee {
+	padding-top: 3.4375rem;
+	padding-bottom: 2.5625rem;
+	background-color: var(--wp--preset--color--light-blue-bg);
+	overflow: hidden;
+	padding-left: 0;
+	padding-right: 0;
+
+	@include v.down(v.$bp-md) {
+		padding: 1.5rem 0;
+	}
+
+	&__list {
+		display: flex;
+		align-items: center;
+		width: max-content;
+        max-width: 100%;
+
+		will-change: transform;
+		transform: translate3d(0, 0, 0);
+		backface-visibility: hidden;
+
+		&Item {
+			flex: 0 0 auto;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0;
+			padding: 0 1.0625rem;
+
+			@include v.down(v.$bp-md) {
+				padding: 0 0.5rem;
+			}
+
+			&--text {
+				font-size: var(--wp--preset--font-size--title-xxl);
+				font-weight: 700;
+				line-height: 1.2;
+				white-space: nowrap; 
+				line-height: 1.22857;
+				transition: .3s;
+				&.is-center {
+					color: var(--wp--preset--color--blue) !important;
+				}
+			}
+
+			&--logo {
+				img {
+					display: block;
+					width: auto;
+					height: 6.25rem;
+					object-fit: contain;
+
+					@include v.down(v.$bp-lg) {
+						height: 3.5rem;
+					}
+
+					@include v.down(v.$bp-md) {
+						height: 2.5rem;
+					}
+				}
+			}
+		}
+	}
+}
+
+.editor-styles-wrapper .textMarquee__list {
+	width: auto;
+	flex-wrap: wrap;
+	gap: 1rem;
+	transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.textMarquee__list {
+		transform: none !important;
+	}
+}

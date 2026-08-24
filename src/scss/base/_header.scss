@@ -1,0 +1,730 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+
+.header {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	z-index: 11;
+	padding: 2rem 0;
+	@include v.down(v.$bp-lg) {
+		padding: 1rem 0;
+	}
+	&__inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		@include v.down(v.$bp-lg) {
+			padding: 0.25rem;
+			padding-left: 1rem;
+			position: relative;
+			&::before {
+				content: "";
+				@include glass.glass(
+					$frost: 25px,
+					$depth: 16px,
+					$splay: 23%,
+					$dispersion: 1.2px,
+					$radius: 24px,
+					$light: 0.8,
+					$tint: transparent
+				);
+
+				@include glass.glass-fallbacks();
+				background-color: color-mix(in srgb, var(--wp--preset--color--blue) 50%, transparent);
+				border: 1px solid color-mix(in srgb, var(--wp--preset--color--light) 20%, transparent);
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				border-radius: 100px;
+				height: 100%;
+				z-index: -1;
+			}
+		}
+	}
+	.container {
+		max-width: 1852px;
+	}
+	&::before {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		backdrop-filter: blur(16px);
+		opacity: 0;
+		visibility: hidden;
+		transition: .3s;
+		@include v.down(v.$bp-lg) {
+			display: none;
+		}
+	}
+	&.menu-opened::before {
+		opacity: 1;
+		visibility: visible;
+	}
+	&__logo {
+		a {
+			width: 12.5rem;
+			display: flex;
+			@include v.down(v.$bp-lg) {
+				width: auto;
+				height: 1.875rem;
+			}
+			img {
+				width: 100%;
+			}
+		}
+	}
+	&__toggle {
+		width: 20px;
+		height: 14px;
+		cursor: pointer;
+		position: relative;
+		&Wrapper {
+			width: 3rem;
+			height: 3rem;
+			border: 4.5px solid var(--wp--preset--color--light);
+			background-color: var(--wp--preset--color--blue);
+			border-radius: 50%;
+			align-items: center;
+			justify-content: center;
+			display: none;
+			@include v.down(v.$bp-lg) {
+				display: flex;
+			}
+		}
+		span {
+			background-color: var(--wp--preset--color--light);
+			height: 3px;
+			position: absolute;
+			width: 100%;
+			left: 0;
+			transition: all 0.3s ease;
+			border-radius: 10px;
+			&:first-child {
+				top: 0;
+			}
+			&:nth-child(2) {
+				top: 6px;
+			}
+
+			&:last-child {
+				top: 12px;
+			}
+		}
+		&.active span {
+			&:nth-child(2) {
+				opacity: 0;
+			}
+			&:first-child,
+			&:last-child {
+				top: 6px;
+			}
+
+			&:first-child {
+				transform: rotate(45deg);
+			}
+
+			&:last-child {
+				transform: rotate(-45deg);
+			}
+
+		}
+	}
+	&__buttons {
+		display: flex;
+		background-color: var(--wp--preset--color--light);
+		border-radius: 3.75rem;
+		padding: 1rem;
+		gap: 2rem;
+		@include v.down(v.$bp-lg) {
+			display: none;
+		}
+		&Item {
+			width: 2rem;
+			position: relative;
+			display: flex;
+			&::after {
+				content: "";
+				position: absolute;
+				right: -1rem;
+				width: 2px;
+				height: 1.625rem;
+				background-color: var(--wp--preset--color--accent-2);
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			&:last-child::after {
+				content: none;
+			}
+			img {
+				transition: .3s;
+				cursor: pointer;
+			}
+			&:hover {
+				img {
+					transform: scale(1.15);
+				}
+			}
+		}
+		&Wrapper.mobile & {
+			display: none;
+			@include v.down(v.$bp-lg) {
+				display: flex;
+				padding: 0.5rem;
+				padding-right: 1rem;
+				width: fit-content;
+				margin-left: auto;
+				.header__buttonsItem {
+					width: auto;
+					font-weight: 700;
+					color: var(--wp--preset--color--blue);
+					font-size: var(--wp--preset--font-size--text-l);
+					display: flex;
+					gap: 0.25rem; 
+					img {
+						width: 2rem;
+						height: 2rem;
+						padding: 0.25rem;
+					}
+					&::after {
+						right: -1.25rem;
+					}
+				}
+			}
+		}
+		&Wrapper.mobile {
+			display: none;
+			@include v.down(v.$bp-lg) {
+				display: block;
+				padding-top: 1.5rem;
+				margin-top: 1.5rem;
+				border-top: 1px solid var(--wp--preset--color--accent-2);
+			}
+		}
+	}
+	&__menu {
+		transform: translateX(-10%);
+		@include v.down(v.$bp-lg) {
+			position: absolute;
+			left: 0;
+			right: 0.25rem;
+			transform: none;
+			border-radius: 1.875rem;
+			top: calc( 100% + 0.5rem );
+			padding: 1.5rem 1rem;
+			display: none;
+			&::before {
+				content: "";
+				@include glass.glass(
+					$frost: 25px,
+					$depth: 16px,
+					$splay: 23%,
+					$dispersion: 1.2px,
+					$radius: 24px,
+					$light: 0.8,
+					$tint: transparent
+				);
+
+				@include glass.glass-fallbacks();
+				background-color: color-mix(in srgb, var(--wp--preset--color--blue) 50%, transparent);
+				border: 1px solid color-mix(in srgb, var(--wp--preset--color--light) 20%, transparent);
+				position: absolute;
+				border-radius: 1.875rem;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				z-index: -1;
+			}
+		}
+		.menu-item {
+			list-style-type: none;
+			a {
+				color: var(--wp--preset--color--light);
+				font-size: var(--wp--preset--font-size--text-l);
+				text-decoration: none;
+				font-weight: 700;
+				padding: 1rem;
+			}
+		}
+		.button {
+			a {
+
+				
+				font-size: var(--wp--preset--font-size--text-l);
+				font-weight: 700;
+				border-radius: 100px;
+				background-color: var(--wp--preset--color--light);
+				color: var(--wp--preset--color--blue);
+				text-decoration: none;
+				display: inline-block;
+				line-height: 1.20833;
+				position: relative;
+				text-transform: capitalize;
+				&::after {
+					content: "";
+					position: absolute;
+					top: 50%;
+					border-radius: 50%;
+					background-color: var(--wp--preset--color--blue);
+					background-image: url('../images/swimtopia-btn-arrow.png');
+					background-size: 0.64375rem;
+					background-position: center;
+					background-repeat: no-repeat;
+					background-size: 1rem;
+					left: 0;
+					width: 3.125rem;
+					height: 3.125rem;
+					right: auto;
+					transform: translateY(-50%);
+					transition: .35s;
+				}
+				padding: 0.6979167rem 1.0416667rem 0.6979167rem 3.6666667rem;
+				border: 0.3333333rem solid var(--wp--preset--color--light);
+				transition: .35s;
+
+				&:hover {
+					padding: 0.6979167rem 3.6666667rem 0.6979167rem 1.0416667rem;
+					background-color: var(--wp--preset--color--blue);
+					color: var(--wp--preset--color--light);
+
+					&::after {
+						left: calc( 100% - 3.125rem);
+					}
+				}
+
+				@include v.down(v.$bp-lg) {
+					border: 0.25rem solid var(--wp--preset--color--light);
+					padding: 0.390625rem 0.75rem 0.390625rem 2.84375rem;
+
+					&::after {
+						width: 2.34375rem;
+						height: 2.34375rem;
+						background-size: 0.625rem;
+					}
+
+					&:hover {
+						padding: 0.390625rem 2.84375rem 0.390625rem 0.75rem;
+						&::after {
+							left: calc( 100% - 2.34375rem);
+						}
+					}
+				}
+			}
+		}
+		.menu {
+			position: relative;
+			&::before {
+				content: "";
+				@include glass.glass(
+					$frost: 25px,
+					$depth: 16px,
+					$splay: 23%,
+					$dispersion: 1.2px,
+					$radius: 24px,
+					$light: 0.8,
+					$tint: transparent
+				);
+
+				@include glass.glass-fallbacks();
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				border-radius: 100px;
+				height: 100%;
+				@include v.down(v.$bp-lg) {
+					content: none;
+				}
+			}
+
+			padding: 0;
+			margin: 0;
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			padding: 1rem;
+			@include v.down(v.$bp-lg) {
+				flex-direction: column;
+				align-items: flex-end;
+				padding: 0;
+			}
+			& > .menu-item {
+				@include v.down(v.$bp-lg) {
+					display: flex;
+					flex-direction: column;
+					align-items: flex-end;
+				}
+				.sub-menu {
+					padding: 1.5rem;
+					gap: 0.5rem;
+					display: flex;
+					flex-direction: column;
+					
+					@include v.up(782px) {
+						@include glass.glass(
+							$frost: 25px,
+							$depth: 16px,
+							$splay: 23%,
+							$dispersion: 1.2px,
+							$radius: 24px,
+							$light: 0.8,
+							$tint: transparent
+						);
+						@include glass.glass-fallbacks();
+					}
+					border-radius: 1.875rem;
+					position: absolute;
+					top: calc( 100% + 0.5rem);
+					align-items: flex-start;
+					opacity: 0;
+					visibility: hidden;
+					transition: .3s;
+
+					@include v.down(v.$bp-lg) {
+						opacity: 1;
+						visibility: visible;
+						padding: 0;
+						gap: 0.25rem;
+						align-items: flex-end;
+						display: none;
+						position: static;
+						transition: non3;
+					}
+
+					.menu-item {
+						@include v.down(v.$bp-lg) {
+							width: fit-content;
+							margin-left: auto;
+							margin-bottom: 0.25rem;
+							&:last-child {
+								margin-bottom: 0;
+							}
+						}
+					}
+					
+					a {
+						display: block;
+						white-space: nowrap;
+						padding: 0.5rem 1rem;
+						padding-right: 2rem;
+						line-height: 1.20833;
+						position: relative;
+						&::after {
+							content: "";
+							right: 1rem;
+							top: 50%;
+							transform: translateY(-50%);
+							width: 0.5rem;
+							height: 0.75rem;
+							background-image: url("../images/swimtopia-btn-arrow.png");
+							position: absolute;
+							background-size: contain;
+							background-repeat: no-repeat;
+							background-position: center;
+							transition: .3s;
+						}
+						&:hover::after {
+							right: 0.75rem;
+						}
+					}
+				}
+				& > button {
+					display: none;
+				}
+				&:hover .sub-menu,
+				&:hover .mega-menu {
+					opacity: 1;
+					visibility: visible;
+				}
+
+				.mega-menu {
+					display: block;
+					width: fit-content;
+					// opacity: 1;
+					// visibility: visible;
+					@include v.up(782px) {
+						@include glass.glass(
+							$frost: 25px,
+							$depth: 16px,
+							$splay: 23%,
+							$dispersion: 1.2px,
+							$radius: 24px,
+							$light: 0.8,
+							$tint: transparent
+						);
+						@include glass.glass-fallbacks();
+						border-radius: 1.875rem;
+					}
+					position: absolute;
+					&::before {
+						content: "";
+						
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						
+						z-index: -1;
+					}
+					@include v.down(v.$bp-lg) {
+						position: static;
+						display: none;
+						opacity: 1;
+						visibility: visible;
+					}
+					&__inner {
+						padding: 0;
+						ul {
+							padding: 1rem 1.5rem;
+							padding-bottom: 1.5rem;
+							list-style-type: none;
+							display: grid;
+							grid-template-columns: 1fr 1fr;
+							gap: 0.5rem;
+						    display: grid;
+    						grid-template-columns: 1fr 1fr;
+							@include v.down(v.$bp-lg) {
+								display: flex;
+								flex-direction: column;
+								gap: 0.25rem;
+								padding-right: 0;
+								align-items: flex-end;
+								padding-bottom: 0;
+							}
+							li {
+								a {
+									display: block;
+									white-space: nowrap;
+									padding: 0.5rem 1rem;
+									padding-right: 2rem;
+									line-height: 1.20833;
+									position: relative;
+									width: fit-content;
+									&::after {
+										content: "";
+										right: 1rem;
+										top: 50%;
+										transform: translateY(-50%);
+										width: 0.5rem;
+										height: 0.75rem;
+										background-image: url("../images/swimtopia-btn-arrow.png");
+										position: absolute;
+										background-size: contain;
+										background-repeat: no-repeat;
+										background-position: center;
+										transition: .3s;
+									}
+									&:hover::after {
+										right: 0.75rem;
+									}
+								}
+							}
+						}
+						& > .wp-block-columns {
+							margin-bottom: 0;
+							gap: 0;
+							& > .wp-block-column {
+								position: relative;
+								flex-grow: unset;
+								flex-basis: unset;
+								min-width: auto;
+								display: flex;
+								flex-direction: column;
+								@include v.down(v.$bp-lg) {
+									padding-bottom: 0.75rem;
+								}
+								&::after {
+									content: "";
+									position: absolute;
+									height: 100%;
+									width: 1px;
+									right: 0;
+									top: 0;
+									background-color: var(--wp--preset--color--accent-2);
+									@include v.down(v.$bp-lg) {
+										display: none;
+									}
+								}
+								&:last-child::after {
+									content: none;
+								}
+								&:last-child {
+									@include v.down(v.$bp-lg) {
+										padding-bottom: 0;
+										.menuPanel__top {
+											border: 0;
+										}
+									}
+								}
+								.menuPanel__bottom {
+									@include v.down(v.$bp-lg) {
+										padding-bottom: 0.5rem;
+										border-bottom: 1px solid var(--wp--preset--color--accent-2);
+										display: none;
+									}
+								}
+								.menuPanel__bottom > .wp-block-paragraph:not(.wp-block-paragraph:empty) {
+									padding-left: 2.5rem;
+									padding-top: 1rem;
+									padding-right: 1.5rem;
+									padding-bottom: 1.0625rem;
+									font-size: var(--wp--preset--font-size--text-m);
+									line-height: 1.25;
+									color: var(--wp--preset--color--light);
+									margin-bottom: auto;
+									@include v.down(v.$bp-lg) {
+										padding-right: 0;
+										padding-left: 1.5rem;
+										padding-bottom: 0;
+									}
+								}
+							}
+						}
+					}
+					.menuPanel{
+						@include v.down(v.$bp-lg) {
+							margin-top: 0.25rem;
+						}
+						&__bottom {
+							display: flex;
+							flex-direction: column;
+							height: 100%;
+						}
+						&__top {
+							display: flex;
+							align-items: center;
+							padding: 1.5rem 2.5rem 1rem;
+							gap: 1rem;
+							border-bottom: 1px solid var(--wp--preset--color--accent-2);
+							@include v.down(v.$bp-lg) {
+								gap: 0.5rem;
+								padding-left: 1.25rem;
+								padding-bottom: 0.5rem;
+								padding-right: 1.875rem;
+								padding-top: 0;
+								justify-content: flex-end;
+								position: relative;
+								&::after {
+									content: "";
+									right: 0.5rem;
+									top: 50%;
+									transform: translateY(-50%);
+									width: 0.875rem;
+									height: 0.875rem;
+									background-image: url(../images/plus-icon.png);
+									position: absolute;
+									background-size: contain;
+									background-repeat: no-repeat;
+									background-position: center;
+									transition: 0.3s;
+								}
+							}
+							figure {
+								width: 64px;
+								min-width: 64px;
+								height: 64px;
+								border-radius: 1.25rem;
+								overflow: hidden;
+								@include v.down(v.$bp-lg) {
+									width: 2.5rem;
+									min-width: 2.5rem;
+									height: 2.5rem;
+									border-radius: 0.625rem;
+								}
+								img {
+									width: 100%;
+									height: 100%;
+									object-fit: cover;
+								}
+							}
+							h3 {
+								font-size: var(--wp--preset--font-size--text-xl);
+								color: var(--wp--preset--color--light);
+								white-space: nowrap;
+							}
+						}
+					}
+				}
+			}
+			& > .menu-item:not(.button) > a {
+				position: relative;
+				@include v.down(v.$bp-lg) {
+					display: inline-block;
+					padding: 0.5rem 1rem;
+					padding-right: 2.375rem;
+
+					&::after {
+						content: "";
+						right: 1rem;
+						top: 50%;
+						transform: translateY(-50%);
+						width: 0.875rem;
+						height: 0.875rem;
+						background-image: url('../images/plus-icon.png');
+						position: absolute;
+						background-size: contain;
+						background-repeat: no-repeat;
+						background-position: center;
+						transition: 0.3s;
+					}
+				}
+				&::before {
+					content: "";
+					left: 0;
+					top: 0;
+					width: 100%;
+					height: 100%;
+					@include glass.glass(
+						$frost: 25px,
+						$depth: 16px,
+						$splay: 23%,
+						$dispersion: 1.2px,
+						$radius: 24px,
+						$light: 0.8,
+						$tint: transparent
+					);
+
+					@include glass.glass-fallbacks();
+					background-color: rgba( 255, 255, 255, 0.1 );
+					border-radius: 100px;
+					backdrop-filter: none;
+					position: absolute;
+					transition: .3s;
+					opacity: 0;
+					@include v.down(v.$bp-lg) {
+						opacity: 1;
+					}
+				}
+			}
+			& > .menu-item > a:hover::before {
+				opacity: 1;
+			}
+			& > .menu-item:not(.menu-item.menu-item-has-children, .button) a {
+				@include v.down(v.$bp-lg) {
+					padding-right: 1.875rem;
+					&::after {
+						content: "";
+						right: 1rem;
+						top: 50%;
+						transform: translateY(-50%);
+						width: 0.5rem;
+						height: 0.75rem;
+						background-image: url(../images/swimtopia-btn-arrow.png);
+						position: absolute;
+						background-size: contain;
+						background-repeat: no-repeat;
+						background-position: center;
+						transition: 0.3s;
+					}
+				}
+			}
+		}
+	}
+}

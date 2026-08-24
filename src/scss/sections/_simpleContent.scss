@@ -1,0 +1,86 @@
+@use "../settings/variables" as v;
+
+
+.simpleContent {
+    padding: 5rem 0;
+    @include v.down(v.$bp-lg) {
+        padding: 4rem 0;
+    }
+    @include v.down(v.$bp-md) {
+        padding: 3.25rem 0;
+    }
+    .container {
+        max-width: 1848px;
+    }
+    &__wrapper {
+        padding: 3.875rem 8.3125rem 3.125rem 6.75rem;
+        border-radius: 2.5rem;
+        max-width: 100%;
+        @include v.down(v.$bp-lg) {
+            padding: 2.5rem 2rem;
+        }
+        @include v.down(v.$bp-md) {
+            padding: 2rem 1.5rem;
+            border-radius: 1.5rem;
+        }
+    }
+    &__image {
+        display: flex;
+        width: 49.128%;
+        @include v.down(v.$bp-lg) {
+            width: 100%;
+        }
+        img {
+            border-radius: 2.5rem;
+            overflow: hidden;
+            width: 79%;
+            @include v.down(v.$bp-lg) {
+                width: 100%;
+                margin-bottom: 1.25rem;
+                max-height: 375px;
+            }
+            @include v.down(v.$bp-md) {
+                border-radius: 1.5rem;
+                width: 100%;
+            }
+        }
+    }
+    &__title {
+        color: var(--wp--preset--color--navy);
+        max-width: 47.5rem;
+        margin-bottom: 1.4375rem;
+        line-height: 1.234375;
+        text-transform: capitalize;
+        @include v.down(v.$bp-md) {
+            margin-bottom: 1rem;
+        }
+    }
+    &__text {
+        width: 47.835%;
+        font-size: var(--wp--preset--font-size--text-l);
+        line-height: 1.2083;
+        @include v.down(v.$bp-lg) {
+            width: 100%;
+        }
+        @include v.down(v.$bp-md) {
+            font-size: var(--wp--preset--font-size--text-m);
+        }
+        p {
+            margin-bottom: 1.8125rem;
+            margin-top: 0;
+            @include v.down(v.$bp-md) {
+                margin-bottom: 1rem;
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        &Wrapper {
+            display: flex;
+            align-items: flex-start;
+            @include v.down(v.$bp-lg) {
+                flex-direction: column;
+            }
+        }
+    }
+}

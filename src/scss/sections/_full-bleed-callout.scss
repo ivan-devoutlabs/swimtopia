@@ -1,0 +1,92 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+.fullBleedCallout {
+	padding-top: 19.125rem;
+	padding-bottom: 6.125rem;
+
+	@include v.down(v.$bp-md) {
+		padding-top: 5rem;
+		padding-bottom: 5rem;
+
+		min-height: 0;
+	}
+
+	.wp-block-cover__video-background {
+		object-fit: cover;
+	}
+
+	> .wp-block-cover__inner-container {
+		width: 100%;
+		max-width: 1852px;
+		margin-inline: auto;
+	}
+
+	&__title {
+		max-width: 1050px;
+		margin: 0 auto 4.7rem;
+		color: var(--wp--preset--color--light);
+		font-size: var(--wp--preset--font-size--title-xl);
+		font-weight: 700;
+		line-height: 1.04545;
+		text-align: center;
+
+		@include v.down(v.$bp-md) {
+			margin-bottom: 4rem;
+			line-height: 1.22;
+		}
+	}
+
+	&__box {
+		max-width: 40rem;
+		margin-left: auto;
+		margin-right: 0;
+		padding: 1.5rem;
+
+		@include glass.glass(
+			$frost: 25px,
+			$depth: 16px,
+			$splay: 23%,
+			$dispersion: 1.2px, 
+			$radius: 24px,
+			$light: 0.8,
+			$tint: transparent
+		);
+
+		@include glass.glass-fallbacks();
+
+		@include v.down(v.$bp-md) {
+			max-width: none;
+			padding: 1rem;
+		}
+	}
+
+	&__boxText {
+		margin-bottom: 3rem;
+		color: var(--wp--preset--color--light);
+		font-size: var(--wp--preset--font-size--text-l);
+		line-height: 1.20833;
+
+		@include v.down(v.$bp-md) {
+			margin-bottom: 1rem;
+			line-height: 1.25;
+		}
+	}
+
+	&__boxBtn {
+		display: flex;
+		margin: 0;
+	}
+
+	@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+		.fullBleedCallout__boxText {
+			color: var(--wp--preset--color--neutral-900);
+		}
+	}
+
+	@media (prefers-reduced-transparency: reduce) {
+		.fullBleedCallout__boxText {
+			color: var(--wp--preset--color--neutral-900);
+		}
+	}
+}
