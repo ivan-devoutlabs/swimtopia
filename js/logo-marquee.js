@@ -73,7 +73,6 @@
         this.containerWidth = containerWidth;
         this.offset = this.offset % this.halfWidth;
 
-        // --- НОВИЙ КОД: Кешування координат для підсвітки центру ---
         var trackRect = track.getBoundingClientRect();
         this.containerCenter = this.containerWidth / 2;
         this.allItems = Array.prototype.slice.call( track.children );
@@ -82,12 +81,11 @@
             var rect = item.getBoundingClientRect();
             return {
                 el: item,
-                left: rect.left - trackRect.left, // Позиція відносно треку
+                left: rect.left - trackRect.left, 
                 width: rect.width,
                 isActive: false
             };
         });
-        // ------------------------------------------------------------
 
         this.section.classList.add( 'is-ready' );
     };
@@ -114,7 +112,6 @@
             this.track.style.transform =
                 'translate3d(' + -this.offset.toFixed( 2 ) + 'px, 0, 0)';
 
-            // --- НОВИЙ КОД: Перевірка перетину центру ---
             if ( this.itemData ) {
                 var currentOffset = this.offset;
                 var center = this.containerCenter;
@@ -124,7 +121,6 @@
                     var currentLeft = data.left - currentOffset;
                     var currentRight = currentLeft + data.width;
 
-                    // Якщо центр контейнера потрапляє в межі поточного елемента
                     if ( currentLeft <= center && currentRight >= center ) {
                         if ( ! data.isActive ) {
                             data.el.classList.add( 'is-center' );
@@ -138,7 +134,6 @@
                     }
                 }
             }
-            // --------------------------------------------
         }
 
         this.raf = window.requestAnimationFrame( this.tick.bind( this ) );

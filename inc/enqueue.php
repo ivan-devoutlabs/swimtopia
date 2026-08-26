@@ -1,20 +1,11 @@
 <?php
-/**
- * Стилі та скрипти.
- *
- * @package Starter
- */
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Фронтенд.
- *
- * filemtime() як версія: браузер сам скидає кеш після кожної збірки,
- * тож під час розробки не доведеться робити hard reload.
- */
+
 function starter_enqueue_assets() {
     wp_enqueue_script( 'jquery', 'https://code.jquery.com/jquery-3.6.0.min.js', false , false , true);
 	wp_enqueue_script(
@@ -47,15 +38,28 @@ function starter_enqueue_assets() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	if(is_singular('webinars')){
+		
+		wp_enqueue_script(
+			'plyr-js',
+			'https://cdn.plyr.io/3.8.4/plyr.polyfilled.js',
+			array(),
+			THEME_VERSION,
+			true
+		);
+
+		wp_enqueue_style(
+		'plyr-css',
+			'https://cdn.plyr.io/3.8.4/plyr.css',
+			array(),
+			file_exists( $css_path ) ? filemtime( $css_path ) : THEME_VERSION
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'starter_enqueue_assets' );
 
-/**
- * Стилі редактора.
- *
- * Щоб редактор виглядав як фронтенд, зберіть editor.css зі своїх SCSS
- * або підключіть той самий main.css.
- */
+
 function starter_editor_assets() {
 	$css_path = THEME_DIR . '/assets/css/editor.css';
 

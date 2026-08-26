@@ -74,7 +74,7 @@
 			flex-basis: 90%;
 			padding: 0.5rem;
 			border-radius: 1.25rem;
-			aspect-ratio: 1 / 0.85;
+			aspect-ratio: 1 / 1.15;
 		}
 
 		&__bg {
@@ -199,10 +199,7 @@
 	}
 }
 
-/*
- * У редакторі скрипт не працює: показуємо слайди списком,
- * щоб їх можна було редагувати.
- */
+
 .editor-styles-wrapper .caseStudyPreview__sliderItem {
 	flex-basis: auto !important;
 	margin-bottom: 1.5rem;

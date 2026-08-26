@@ -25,6 +25,8 @@
 		<p class="headerBlock__text">Every SwimTopia product is powerful on its own, but together they create a connected experience for coaches, admins, volunteers, parents, and swimmers.</p>
 		<!-- /wp:paragraph -->
 
+		<!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search","buttonText":"Search","buttonPosition":"button-inside","buttonUseIcon":true,"className":"headerBlock__search"} /-->
+
 	</div>
 	<!-- /wp:group -->
 

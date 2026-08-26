@@ -1,19 +1,13 @@
-/**
- * Стилі, потрібні ТІЛЬКИ в редакторі.
- * На фронтенд цей файл не потрапляє.
- */
 
 .starter-hero--editor {
 	background-size: cover;
 	background-position: center;
 
-	// Плейсхолдери RichText мають бути видні на темному фоні
 	.starter-hero__heading[data-rich-text-placeholder]::after,
 	.starter-hero__text[data-rich-text-placeholder]::after {
 		color: rgba(255, 255, 255, 0.65);
 	}
 
-	// Кнопки над фото показуємо при наведенні, щоб не заважали
 	.starter-hero__figure {
 		position: relative;
 		margin: 0;
@@ -42,13 +36,11 @@
 		opacity: 1;
 	}
 
-	// Блок-плейсхолдер, коли фото ще не обрано
 	.components-placeholder {
 		min-height: 200px;
 	}
 }
 
-// Панель вибору фону в сайдбарі
 .starter-hero__media-control {
 	display: flex;
 	flex-direction: column;

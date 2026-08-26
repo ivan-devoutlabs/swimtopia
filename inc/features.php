@@ -1,28 +1,11 @@
 <?php
-/**
- * Features: SVG-фільтр спотворення і підключення скрипта.
- *
- * Підключіть у functions.php:
- *   require THEME_DIR . '/inc/features.php';
- *
- * @package Starter
- */
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Фільтр спотворення для зміни зображень.
- *
- * Справжній ефект із прикладу Codrops зроблено на WebGL із картою
- * зміщення. Тут те саме за принципом, але засобами SVG: шум задає
- * напрямок зсуву пікселів, а силу (атрибут scale) анімує JS.
- *
- * Перевага: працює у всіх браузерах і не тягне three.js.
- * Обмеження: спотворення рівномірне по всій площині, без керування
- * напрямком, як у шейдері.
- */
+
 function starter_features_filter() {
 
 	if ( ! is_singular() ) {
@@ -44,7 +27,6 @@ function starter_features_filter() {
 	>
 		<filter id="features-distortion" x="-5%" y="-5%" width="110%" height="110%">
 
-			<!-- Карта зміщення: великі плавні хвилі, не дрібний шум -->
 			<feTurbulence
 				type="fractalNoise"
 				baseFrequency="0.006 0.01"
@@ -55,7 +37,6 @@ function starter_features_filter() {
 
 			<feGaussianBlur in="noise" stdDeviation="4" result="softNoise" />
 
-			<!-- scale=0 у спокої; під час зміни слайда JS піднімає й повертає -->
 			<feDisplacementMap
 				in="SourceGraphic"
 				in2="softNoise"
@@ -70,9 +51,7 @@ function starter_features_filter() {
 }
 add_action( 'wp_footer', 'starter_features_filter' );
 
-/**
- * Скрипт слайдера.
- */
+
 function starter_features_enqueue() {
 
 	if ( ! is_singular() ) {
@@ -85,7 +64,6 @@ function starter_features_enqueue() {
 		return;
 	}
 
-	// Спершу модуль спотворення: слайдер перевіряє його наявність.
 	$distortion = THEME_DIR . '/js/features-distortion.js';
 
 	wp_enqueue_script(

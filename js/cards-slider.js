@@ -1,13 +1,4 @@
-/**
- * Слайдер карток напрямків.
- *
- * Вмикається лише для секцій із класом .slider — той самий патерн
- * без нього лишається звичайною сіткою.
- *
- * Кількість видимих карток задає CSS (--cards-visible), а скрипт її
- * не рахує, а виводить із виміряних розмірів. Так брейкпоїнти живуть
- * в одному місці — у стилях.
- */
+
 ( function ( global ) {
 	'use strict';
 
@@ -27,13 +18,7 @@
 		this.gap = 0;
 	}
 
-	/**
-	 * Вікно і доріжка.
-	 *
-	 * Список карток стає доріжкою, а вікном — нова обгортка:
-	 * додавати ще один рівень усередину патерну не варто, бо
-	 * редактор бачив би зайвий порожній блок.
-	 */
+
 	Slider.prototype.build = function () {
 		if ( this.items.length < 2 ) {
 			return false;
@@ -62,12 +47,7 @@
 		return first ? first.getBoundingClientRect().width + this.gap : 0;
 	};
 
-	/**
-	 * Скільки карток видно одночасно. Виводимо з розмірів, а не з
-	 * константи: на планшеті й телефоні CSS показує іншу кількість,
-	 * і дублювати ці числа в скрипті означало б тримати їх у двох
-	 * місцях.
-	 */
+
 	Slider.prototype.perView = function () {
 		var step = this.step();
 
@@ -114,10 +94,7 @@
 		this.setArrow( this.arrows.next, this.index >= this.maxIndex() );
 	};
 
-	/**
-	 * Клас — для вигляду, атрибут — щоб кнопка справді не працювала
-	 * й випадала з обходу табом.
-	 */
+
 	Slider.prototype.setArrow = function ( button, isDisabled ) {
 		button.classList.toggle( 'disabled', isDisabled );
 		button.disabled = isDisabled;
@@ -128,7 +105,6 @@
 		var self = this;
 		var l10n = global.starterCardsL10n || {};
 
-		// Контейнер уже є в патерні; якщо його прибрали — створюємо
 		var holder = this.section.querySelector( ARROWS );
 
 		if ( ! holder ) {
@@ -187,10 +163,7 @@
 			}
 		} );
 
-		/*
-		 * Після ресайзу міняється і ширина картки, і кількість видимих:
-		 * поточний індекс може виявитися більшим за допустимий.
-		 */
+
 		function refresh() {
 			self.index = Math.min( self.index, self.maxIndex() );
 			self.update();

@@ -17,11 +17,29 @@ function starter_register_team_post_type() {
 				'edit_item'     => __( 'Edit Team Member', 'starter' ),
 			),
 			'public'       => true,
-			'has_archive'  => true,
+			'has_archive'  => false,
 			'menu_icon'    => 'dashicons-groups',
 			'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'custom-fields' ),
 			'show_in_rest' => true,
 			'rewrite'      => array( 'slug' => 'team' ),
+		)
+	);
+
+	register_post_type(
+		'webinars',
+		array(
+			'labels'       => array(
+				'name'          => __( 'Webinars', 'starter' ),
+				'singular_name' => __( 'Webinar', 'starter' ),
+				'add_new_item'  => __( 'Add Webinar', 'starter' ),
+				'edit_item'     => __( 'Edit Webinar', 'starter' ),
+			),
+			'public'       => true,
+			'has_archive'  => false,
+			'menu_icon'    => 'dashicons-groups',
+			'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'custom-fields' ),
+			'show_in_rest' => true,
+			'rewrite'      => array( 'slug' => 'webinars' ),
 		)
 	);
 }
@@ -89,3 +107,70 @@ function starter_team_editor_assets() {
 	);
 }
 add_action( 'enqueue_block_editor_assets', 'starter_team_editor_assets' );
+
+function cptui_register_my_taxes() {
+
+	$labels = [
+		"name" => __("Webinars Categories", "theme"),
+		"singular_name" => __("Webinars Category", "theme"),
+	];
+
+
+	$args = [
+		"label" => __("Webinars Categories", "theme"),
+		"labels" => $labels,
+		"hierarchical" => true,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => ['slug' => 'webinars-categories', 'with_front' => true,],
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"show_tagcloud" => false,
+		"rest_base" => "webinars-categories",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"rest_namespace" => "wp/v2",
+		"show_in_quick_edit" => false,
+		"sort" => false,
+		"public"             => true,
+		"publicly_queryable" => true,
+		"show_in_graphql" => false,
+	];
+	register_taxonomy("webinars-categories", ["webinars"], $args);
+
+
+	$labels = [
+		"name" => __("Webinars Types", "theme"),
+		"singular_name" => __("Webinars Type", "theme"),
+	];
+
+
+	$args = [
+		"label" => __("Webinars Types", "theme"),
+		"labels" => $labels,
+		"hierarchical" => true,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => ['slug' => 'webinars-types', 'with_front' => true,],
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"show_tagcloud" => false,
+		"rest_base" => "webinars-types",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"rest_namespace" => "wp/v2",
+		"show_in_quick_edit" => false,
+		"sort" => false,
+		"public"             => true,
+		"publicly_queryable" => true,
+		"show_in_graphql" => false,
+	];
+	register_taxonomy("webinars-types", ["webinars"], $args);
+
+
+}
+
+
+add_action('init', 'cptui_register_my_taxes');

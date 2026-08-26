@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     
-    // --- 1. ЛОГІКА РАНДОМНИХ КОЛЬОРІВ ---
     const teamItems = document.querySelectorAll('.team__listItem');
     
     if (teamItems.length > 0) {
@@ -26,14 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- 2. ЛОГІКА ПОПАПУ ТА СЛАЙДЕРА ---
     const teamSection = document.querySelector('.team');
     if (!teamSection) return;
 
     const listItems = Array.from(teamSection.querySelectorAll('.team__listItem'));
     if (listItems.length === 0) return;
 
-    // Вставляємо HTML попапу
     const popupHTML = `
         <div class="team__popupWrapper">
             <div class="team__popupOverlay"></div>
@@ -182,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function() {
     prevBtn.addEventListener('click', () => slide('prev'));
 });
 
-// --- 3. ХОВЕР-ЕФЕКТ (jQuery) ---
 jQuery(document).ready(function($){
     $('.team__listItem').hover(
         function(){

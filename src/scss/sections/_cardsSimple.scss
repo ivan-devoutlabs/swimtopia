@@ -232,15 +232,83 @@
         color: var(--wp--preset--color--light);
         line-height: 1.234375;
         max-width: 50rem;
+        @include v.down(v.$bp-lg) {
+            max-width: 40rem;
+        }
+        @include v.down(v.$bp-md) {
+            max-width: 100%;
+        }
     }
     &__top {
         margin-bottom: 3.25rem;
+        @include v.down(v.$bp-lg) {
+            margin-bottom: 2rem;
+        }
+        @include v.down(v.$bp-md) {
+            margin-bottom: 1.25rem;
+        }
+    }
+
+
+    &.multiple-images & {
+        &__list {
+            &Item {
+                min-height: 34.375rem;
+                @include v.down(v.$bp-lg) {
+                    min-height: 27.5rem;
+                }
+                @include v.down(v.$bp-md) {
+                    min-height: auto;
+                }
+                &__title {
+                    margin-bottom: 1rem;
+                }
+                &__imagesList {
+                    gap: 0;
+                    display: flex;
+                }
+                &__top {
+                    justify-content: space-between;
+                }
+                &__content {
+                    margin-top: auto;
+                    color: var(--wp--preset--color--light);
+                    font-size: var(--wp--preset--font-size--text-s);
+                    font-weight: 500;
+                    @include v.down(v.$bp-md) {
+                        margin-top: 1rem;
+                    }
+                }
+                &__button {
+                    margin-top: 0;
+                }
+                &__image {
+                    height: 3.5rem;
+                    margin-left: -1rem;
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                    img {
+                        width: 100%;
+                        max-width: 100%;
+                        height: 100%;
+                        min-width: auto;
+                        border-radius: 0;
+                    }
+                }
+                &__subtitle {
+                    font-size: var(--wp--preset--font-size--text-s);
+                    font-weight: 500;
+                }
+            }
+        }
     }
 
 }
 
 
 .cardsSimple.slider {
+    overflow: hidden;
  
 	--cards-visible: 4;
 	--cards-gap: 1rem;
@@ -263,7 +331,6 @@
     
  
 	.cardsSimple__viewport {
-		overflow: hidden;
  
 		&:focus-visible {
 			outline: 2px solid var(--wp--preset--color--blue);
@@ -288,73 +355,63 @@
 			(100% - var(--cards-gap) * (var(--cards-visible) - 1)) /
 			var(--cards-visible)
 		);
-		width: auto;   // перебиваємо ширину з сіткового режиму
+		width: auto;
 	}
  
  
 	.cardsSimple__arrows {
+		z-index: 3;
 		display: flex;
-		justify-content: center;
-		gap: 0.75rem;
-		margin-top: 2rem;
- 
-		@include v.down(v.$bp-md) {
+		gap: 0.5rem;
+        order: 1;
+        justify-content: flex-end;
+        position: absolute;
+        right: 30px;
+        top: 6rem;        
+
+		@include v.down(v.$bp-lg) {
+			margin-top: 1.5rem;
+            top: 3.25rem;
+		}
+        @include v.down(v.$bp-md) {
 			margin-top: 1.25rem;
+            justify-content: flex-start;
+            position: static;
 		}
 	}
- 
+
 	.cardsSimple__arrow {
-		position: relative;
-		width: 3rem;
-		height: 3rem;
-		padding: 0;
-		border: 1px solid var(--wp--preset--color--navy);
+		border: 0;
 		border-radius: 50%;
-		background: transparent;
-		color: var(--wp--preset--color--navy);
+		width: 3.75rem;
+		height: 3.75rem;
+		background-size: 0.875rem;
+		background-position: center;
+		background-repeat: no-repeat;
 		cursor: pointer;
-		transition: background 0.3s ease, opacity 0.3s ease;
- 
-		&:hover:not(.disabled) {
-			background: color-mix(in srgb, var(--wp--preset--color--navy) 12%, transparent);
+		@include v.down(v.$bp-lg) {
+			width: 2.75rem;
+			height: 2.75rem;
+			background-size: 0.75rem;
 		}
- 
-		&:focus-visible {
-			outline: 2px solid var(--wp--preset--color--navy);
-			outline-offset: 2px;
+
+		&--prev {
+			transform: rotate(180deg);
+			background-color: var(--wp--preset--color--light);
+			background-image: url(../images/btn-icon-style-2-blue.png);
 		}
- 
-		// Неактивна стрілка: і на вигляд, і насправді
-		&.disabled {
-			opacity: 0.35;
-			cursor: default;
-		}
- 
-		&::before {
-			content: "";
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			width: 0.6rem;
-			height: 0.6rem;
-			border-left: 2px solid currentColor;
-			border-bottom: 2px solid currentColor;
-		}
- 
-		&--prev::before {
-			transform: translate(-30%, -50%) rotate(45deg);
-		}
- 
-		&--next::before {
-			transform: translate(-70%, -50%) rotate(-135deg);
+
+		&--next {
+			background-color: var(--wp--preset--color--blue);
+			background-image: url(../images/swimtopia-btn-arrow.png);
 		}
 	}
+    .cardsSimple__listItem__title {
+        font-size: var(--wp--preset--font-size--heading-2);
+        letter-spacing: 0.25%;
+    }
 }
  
-/*
- * У редакторі скрипт не працює: показуємо картки сіткою, інакше
- * п'ята й наступні вилізуть за полотно.
- */
 .editor-styles-wrapper .cardsSimple.slider {
  
 	.cardsSimple__list {

@@ -1,0 +1,15 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+
+section.webinars {
+    .webinarsPreview__listItem {
+        width: calc( 33.33% - 1rem);
+        @include v.down(v.$bp-lg) {
+            width: calc( 50% - 0.75rem );
+        }
+        @include v.down(v.$bp-md) {
+            width: 100%;
+        }
+    }
+}

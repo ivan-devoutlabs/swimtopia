@@ -33,9 +33,18 @@
 @use "sections/blogPreview";
 @use "sections/simpleContent";
 @use "sections/team";
+@use "sections/cta-simple";
+@use "sections/form";
+@use "sections/webinarsPreview";
+@use "sections/blog";
+@use "sections/featured-blog";
+@use "sections/webinars";
+@use "sections/upcomingWebinars";
+@use "sections/search";
 
 
 @use "templates/single";
+@use "templates/single-webinars";
 
 @use "utilities/animations";
 

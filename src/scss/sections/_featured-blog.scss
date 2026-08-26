@@ -1,0 +1,82 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+.featuredBlog {
+    padding-top: 5rem;
+    padding-left: 0;
+    padding-right: 0;
+    .container {
+        max-width: 1852px;
+        margin-top: -16.8125rem;
+    }
+    &__label {
+        @include glass.glass(
+            $frost: 25px,
+            $depth: 16px,
+            $splay: 23%,
+            $dispersion: 1.2px,
+            $radius: 24px,
+            $light: 0.8,
+            $tint: transparent
+        );
+
+        @include glass.glass-fallbacks();
+        background-color: color-mix(in srgb, var(--wp--preset--color--light) 10%, transparent);
+        padding: 0.5rem 1rem;
+        padding-left: 3.625rem;
+        position: relative;
+        font-size: var(--wp--preset--font-size--text-xl);
+        font-weight: 700;
+        color: var(--wp--preset--color--light);
+        width: fit-content;
+        border-radius: 100px;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0.5rem;
+            transform: translateY(-50%);
+            width: 2.5rem;
+            height: 2.5rem;
+            background: none;
+            background-image: url('../images/featured-icon.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            mask: none;
+            opacity: 1;
+        }
+    }
+    &__top {
+        margin-bottom: 1.125rem;
+    }
+    .blogPreview__list {
+        display: grid;
+        grid-template-columns: 1.8625fr 1fr;
+        gap: 1.5rem;
+        @include v.down(v.$bp-lg) {
+            grid-template-columns: 1.25fr 1fr;
+        }
+        @include v.down(v.$bp-md) {
+            display: flex;
+            flex-direction: column;
+        }
+        & > li {
+            padding: 0;
+            &:first-child {
+                grid-row-start: 1;
+                grid-row-end: 3;
+                height: 100%;
+                .blogPreview__listItem {
+                    height: 100%;
+                    aspect-ratio: unset;
+                }
+            }
+        }
+        .blogPreview__listItem__time {
+            font-size: var(--wp--preset--font-size--text-m);
+            font-weight: 700;
+            color: var(--wp--preset--color--light);
+        }
+    }
+}

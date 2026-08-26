@@ -1,0 +1,10 @@
+jQuery(document).ready(function($){
+    $('.webinarsPreview__listItem').hover(
+        function(){
+            $(this).find('.webinarsPreview__listItem__button').stop().slideDown(300);
+        },
+        function(){
+            $(this).find('.webinarsPreview__listItem__button').stop().slideUp(300);
+        }
+    );
+})

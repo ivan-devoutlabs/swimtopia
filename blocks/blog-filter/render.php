@@ -1,0 +1,121 @@
+<?php
+$title    = $attributes['title'] ?? __( 'Articles', 'starter' );
+$per_page = (int) ( $attributes['perPage'] ?? STARTER_BLOG_PER_PAGE );
+
+$selected = starter_blog_current_categories();
+
+$paged = isset( $_GET['paged'] ) ? absint( $_GET['paged'] ) : 1;
+
+$args = starter_blog_query_args( $selected, $paged );
+
+$args['posts_per_page'] = max( 1, $per_page );
+
+$query = new WP_Query( $args );
+
+$terms = get_terms(
+	array(
+		'taxonomy'   => 'category',
+		'hide_empty' => true,
+	)
+);
+
+if ( is_wp_error( $terms ) ) {
+	$terms = array();
+}
+
+
+$base_url = home_url( add_query_arg( array(), $GLOBALS['wp']->request ) );
+$base_url = remove_query_arg( array( 'cats', 'paged' ), $base_url );
+?>
+
+<section <?php echo get_block_wrapper_attributes( array( 'class' => 'blog' ) ); ?> data-blog-filter>
+	<div class="container">
+
+		<div class="blog__top">
+
+			<?php if ( $title ) : ?>
+				<h2 class="blog__title"><?php echo esc_html( $title ); ?></h2>
+			<?php endif; ?>
+
+			<div class="blog__filterWrapper">
+
+				<?php
+
+				?>
+				<div class="blog__filterActive">
+					<?php foreach ( $selected as $term_id ) : ?>
+						<?php $term = get_term( $term_id, 'category' ); ?>
+						<?php if ( $term && ! is_wp_error( $term ) ) : ?>
+							<div class="blog__filterActive__item" data-term="<?php echo esc_attr( $term_id ); ?>">
+								<button
+									type="button"
+									class="blog__filterActive__itemRemove"
+									aria-label="
+									<?php
+									echo esc_attr(
+										sprintf(
+											__( 'Remove Filters «%s»', 'starter' ),
+											$term->name
+										)
+									);
+									?>
+									"
+								></button>
+								<span class="blog__filterActive__itemLabel"><?php echo esc_html( $term->name ); ?></span>
+							</div>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</div>
+
+				<div class="blog__filterList__wrapper">
+
+					<div class="blog__filterList__top">
+						<button type="button" class="blog__filterList__toggle" aria-expanded="false">
+							<?php esc_html_e( 'categories', 'starter' ); ?>
+						</button>
+
+						<button type="button" class="blog__filterList__clear">
+							<?php esc_html_e( 'Clear Filters', 'starter' ); ?>
+						</button>
+					</div>
+
+					<div class="blog__filterList">
+						<?php foreach ( $terms as $term ) : ?>
+							<?php
+							$is_active = in_array( $term->term_id, $selected, true );
+
+							$next = $is_active
+								? array_diff( $selected, array( $term->term_id ) )
+								: array_merge( $selected, array( $term->term_id ) );
+
+							$href = $next
+								? add_query_arg( 'cats', implode( ',', $next ), $base_url )
+								: $base_url;
+							?>
+							<a
+								class="blog__filterList__item<?php echo $is_active ? ' is-active' : ''; ?>"
+								href="<?php echo esc_url( $href ); ?>"
+								data-term="<?php echo esc_attr( $term->term_id ); ?>"
+								aria-pressed="<?php echo $is_active ? 'true' : 'false'; ?>"
+							>
+								<?php echo esc_html( $term->name ); ?>
+							</a>
+						<?php endforeach; ?>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<ul class="blog__list" aria-live="polite" aria-busy="false">
+			<?php starter_blog_render_list( $query ); ?>
+		</ul>
+
+		<div class="blog__pagination">
+			<?php starter_blog_render_pagination( $query, $paged ); ?>
+		</div>
+
+	</div>
+</section>

@@ -94,7 +94,8 @@
 			font-size: var(--wp--preset--font-size--heading-4);
 		}
 		@include v.down(v.$bp-md) {
-			font-size: var(--wp--preset--font-size--title-l);
+			font-size: var(--wp--preset--font-size--heading-2);
+			max-width: 30rem;
 		}
 	}
 
@@ -189,6 +190,7 @@
 		&.is-style-size-l {
 			left: 47.778%;
 			width: 49.1112%;
+			max-height: 110%;
 			@include v.down(v.$bp-lg) {
 			    left: 54.778%;
     			width: 44.1112%;
@@ -197,11 +199,34 @@
 				width: 100%;
 			}
 		}
+		&.is-style-size-xl {
+			left: 48.444%;
+			z-index: 1;
+			display: flex;
+			width: 50.389%;
+			margin: 0;
+			bottom: auto;
+			top: 50%;
+			transform: translateY(-50%);
+			@include v.down(v.$bp-lg) {
+				left: 58.5%;
+				width: 37.5%;
+			}
+			@include v.down(v.$bp-md) {
+				position: static;
+				transform: none;
+				width: 100%;
+				margin-bottom: 1rem;
+			}
+		}
 
 		img {
 			width: 100%;
 			object-fit: contain;
 			object-position: bottom;
+			@include v.down(v.$bp-md) {
+				max-height: 20rem;
+			}
 		}
 
 		@include v.down(v.$bp-lg) {

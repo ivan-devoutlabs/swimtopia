@@ -29,8 +29,11 @@
             @include v.down(v.$bp-lg) {
                 width: calc( 50% - 1.25rem );
             }
-            @include v.down(v.$bp-md) {
+            @include v.down(620px) {
                 width: 100%;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
             }
         }
         &Item {
@@ -168,6 +171,23 @@
             @include v.down(v.$bp-lg) {
                 max-height: 90vh;
                 overflow: scroll;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                top: 14%;
+                left: -8%;
+                aspect-ratio: 1 / 1;
+                background-image: url(../images/footer--bg.png);
+                width: 44.5%;
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+                @include v.down(v.$bp-md) {
+                    width: 81.5%;
+                    bottom: -2%;
+                    top: auto;
+                }
             }
         }
     }

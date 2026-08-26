@@ -27,26 +27,47 @@
 			padding-bottom: 14.625rem;
 		}
 	}
-
-	&::before {
-		content: "";
-		position: absolute;
-		right: -6.5%;
-		bottom: -5.25%;
-		width: 36.302%;
-		aspect-ratio: 1 / 1;
-		background-image: url("../images/footer--bg.png");
-		background-size: contain;
-		background-position: center;
-		background-repeat: no-repeat;
-		pointer-events: none;
-
+	&.extra-padding-s {
+		padding-top: 17.625rem;
+		padding-bottom: 16.9375rem;
+		@include v.down(v.$bp-lg) {
+			padding-top: 13.625rem;
+			padding-bottom: 15rem;
+		}
 		@include v.down(v.$bp-md) {
-			right: -18.5%;
-			bottom: -10%;
-			width: 80%;
+			padding-top: 11rem;
+			padding-bottom: 12.5rem;
 		}
 	}
+	&.extra-padding-m {
+		padding-bottom: 20.25rem;
+		@include v.down(v.$bp-lg) {
+			padding-bottom: 18rem;
+		}
+		@include v.down(v.$bp-md) {
+			padding-bottom: 14.625rem;
+		}
+	}
+
+	// &::before {
+	// 	content: "";
+	// 	position: absolute;
+	// 	right: -6.5%;
+	// 	bottom: -5.25%;
+	// 	width: 36.302%;
+	// 	aspect-ratio: 1 / 1;
+	// 	background-image: url("../images/footer--bg.png");
+	// 	background-size: contain;
+	// 	background-position: center;
+	// 	background-repeat: no-repeat;
+	// 	pointer-events: none;
+
+	// 	@include v.down(v.$bp-md) {
+	// 		right: -18.5%;
+	// 		bottom: -10%;
+	// 		width: 80%;
+	// 	}
+	// }
 
 	&__tag {
 		background-color: var(--wp--preset--color--blue);
@@ -89,6 +110,9 @@
 		@include v.down(v.$bp-md) {
 			margin-bottom: 0.5rem;
 			line-height: 1.225;
+			br {
+				display: none;
+			}
 		}
 	}
 
@@ -235,6 +259,80 @@
 			@include v.down(v.$bp-lg) {
 			    width: 100%;
 				max-width: 100%;
+			}
+		}
+	}
+	
+	form {
+		max-width: 41.25rem;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: -2.625rem;
+		@include v.down(v.$bp-lg) {
+			margin-top: -1rem;
+		}
+		@include v.down(v.$bp-md) {
+			margin-top: 0;
+		}
+		.wp-block-search__inside-wrapper {
+			border: 0;
+			padding: 0;
+			@include glass.glass(
+				$frost: 25px,
+				$depth: 16px,
+				$splay: 23%,
+				$dispersion: 1.2px, 
+				$radius: 24px,
+				$light: 0.8,
+				$tint: transparent
+			);
+
+			@include glass.glass-fallbacks();
+			border-radius: 100px;
+			background: color-mix(in srgb, var(--wp--preset--color--white) 5%, transparent);
+			&::before {
+				content: "";
+				width: 2rem;
+				height: 2rem;
+				left: 1rem;
+				top: 50%;
+				transform: translateY(-50%);
+				background: none;
+				background-image: url('../images/search-icon.png');
+				background-size: contain;
+				background-position: center;
+				background-repeat: no-repeat;
+				mask: none;
+				opacity: 1;
+			}
+			input {
+				background-color: transparent;
+				font-size: var(--wp--preset--font-size--text-l);
+				color: color-mix(in srgb, var(--wp--preset--color--light) 50%, transparent);
+				line-height: 1.2083;
+				padding: 0.8125rem 3.5rem;
+				&::placeholder {
+					color: color-mix(in srgb, var(--wp--preset--color--light) 50%, transparent);
+				}
+
+			}
+			.wp-block-search__button {
+				padding: 0; 
+				position: absolute;
+				background-color: var(--wp--preset--color--light);
+    			background-image: url(../images/btn-icon-style-2-blue.png);
+				background-size: 0.55rem;
+				width: 2.5rem;
+				height: 2.5rem;
+				right: 0.5rem;
+				top: 50%;
+				transform: translateY(-50%);
+				background-repeat: no-repeat;
+				background-position: center;
+				border-radius: 50%;
+				svg {
+					display: none;
+				}
 			}
 		}
 	}

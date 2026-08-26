@@ -1,17 +1,11 @@
 <?php
-/**
- * Базові налаштування теми.
- *
- * @package Starter
- */
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Theme supports і меню.
- */
+
 function starter_setup() {
 
 	load_theme_textdomain( 'starter', THEME_DIR . '/languages' );
@@ -21,7 +15,6 @@ function starter_setup() {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'customize-selective-refresh-widgets' );
 
-	// Gutenberg
 	add_theme_support( 'align-wide' );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'editor-styles' );
@@ -59,23 +52,18 @@ function starter_setup() {
 }
 add_action( 'after_setup_theme', 'starter_setup' );
 
-/**
- * Ширина контенту для вбудованих медіа.
- */
+
 function starter_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'starter_content_width', 1200 );
 }
 add_action( 'after_setup_theme', 'starter_content_width', 0 );
 
-/**
- * Віджет-зона сайдбару.
- */
 function starter_widgets_init() {
 	register_sidebar(
 		array(
 			'name'          => esc_html__( 'Sidebar', 'starter' ),
 			'id'            => 'sidebar-1',
-			'description'   => esc_html__( 'Додайте віджети сюди.', 'starter' ),
+			'description'   => esc_html__( 'Add widget.', 'starter' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
@@ -85,14 +73,3 @@ function starter_widgets_init() {
 }
 add_action( 'widgets_init', 'starter_widgets_init' );
 
-/**
- * Дозвіл на завантаження SVG.
- *
- * УВАГА: SVG може містити JavaScript. Вмикайте тільки якщо медіафайли
- * завантажують довірені користувачі, або поставте плагін санітизації
- * (наприклад Safe SVG). За замовчуванням вимкнено.
- */
-// add_filter( 'upload_mimes', function ( $mimes ) {
-//     $mimes['svg'] = 'image/svg+xml';
-//     return $mimes;
-// } );

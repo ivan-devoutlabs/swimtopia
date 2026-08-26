@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 function starter_register_block_styles() {
 
 	$schemes = array(
-		'scheme-light' => __( 'Світла', 'starter' ),
-		'scheme-dark'  => __( 'Темна', 'starter' ),
-		'scheme-brand' => __( 'Брендова', 'starter' ),
+		'scheme-light' => __( 'Light', 'starter' ),
+		'scheme-dark'  => __( 'Dark', 'starter' ),
+		'scheme-brand' => __( 'brand', 'starter' ),
 	);
 
 	foreach ( array( 'core/group', 'core/columns' ) as $block ) {
@@ -28,7 +28,7 @@ function starter_register_block_styles() {
 		'core/button',
 		array(
 			'name'  => 'arrow',
-			'label' => __( 'Зі стрілкою', 'starter' ),
+			'label' => __( 'With arrow', 'starter' ),
 		)
 	);
 
@@ -36,7 +36,7 @@ function starter_register_block_styles() {
 		'core/image',
 		array(
 			'name'  => 'rounded-soft',
-			'label' => __( 'Скруглені кути', 'starter' ),
+			'label' => __( 'Rounded', 'starter' ),
 		)
 	);
 

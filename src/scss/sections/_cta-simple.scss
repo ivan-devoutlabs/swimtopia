@@ -1,0 +1,73 @@
+@use "../settings/variables" as v;
+@use "../settings/glass" as glass;
+
+.ctaSimple {
+    padding: 5rem 0;
+    .container {
+        max-width: 1852px;
+    }
+    &__content {
+        &Wrapper {
+            background-color: var(--wp--preset--color--blue);
+            padding: 5rem 4rem;
+            padding-bottom: 5.625rem;
+            border-radius: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            @include v.down(v.$bp-lg) {
+                gap: 2rem;
+                padding: 4rem 2rem;
+            }
+            @include v.down(v.$bp-md) {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 4rem 1.5rem;
+                align-items: flex-start;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                left: 19%;
+                top: -48.25%;
+                width: 44.302%;
+                aspect-ratio: 1 / 1;
+                background-image: url("../images/footer--bg.png");
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+                pointer-events: none;
+                @include v.down(v.$bp-lg) {
+                    top: auto;
+                    left: -5%;
+                    bottom: -25%;
+                }
+                @include v.down(v.$bp-md) {
+                    left: -12%;
+                    bottom: -10%;
+                    width: 80%;
+                }
+            }
+        }
+    }
+    &__title {
+        color: var(--wp--preset--color--light);
+        font-size: var(--wp--preset--font-size--heading-1);
+        line-height: 1.2222;
+        @include v.down(v.$bp-lg) {
+            margin-bottom: 0.75rem;
+        }
+    }
+    &__text {
+        font-size: var(--wp--preset--font-size--text-xl);
+        color: var(--wp--preset--color--light);
+        line-height: 1.2083;
+    }
+    &__button {
+        a {
+            white-space: nowrap;
+        }
+    }
+}

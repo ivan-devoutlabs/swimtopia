@@ -1,17 +1,6 @@
 @use "../settings/glass" as glass;
 @use "../settings/variables" as v;
 
-/*
- * Акордеон із фоновим відео.
- *
- * ЗМІНИ ПОРІВНЯНО З ВИХІДНОЮ ВЕРСТКОЮ
- *   фон                 тепер core/video (можна замінити на core/image)
- *   .__title, .__text   тепер <p> — скидаємо поля ядра
- *   .__button           тепер core/buttons, клас .style-2 переїхав
- *                       на .wp-block-button
- *   розкриття           замість display: none — grid-template-rows,
- *                       щоб перехід був плавним без знання висоти
- */
 
 .accordion {
 	padding: 5rem 0;
@@ -52,7 +41,6 @@
         }
 	}
 
-	// --- Обгортка з фоном -----------------------------------------------
 
 	&__contentWrapper {
 		position: relative;
@@ -70,10 +58,7 @@
 		}
 	}
 
-	/*
-	 * Фон: відео або зображення. Стилі однакові, тож заміна блоку
-	 * в редакторі нічого не ламає.
-	 */
+
 	&__contentBg {
 		position: absolute;
 		left: 0;
@@ -87,6 +72,15 @@
 			width: 100%;
 			height: 100%;
 			margin: 0;
+			&::before {
+				content: "";
+				background: color-mix(in srgb, var(--wp--preset--color--blue) 30%, transparent);
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
 		}
 
 		video,
@@ -98,7 +92,6 @@
 		}
 	}
 
-	// --- Скляна панель --------------------------------------------------
 
 	&__content {
 		position: relative;
@@ -117,6 +110,7 @@
 		);
 
 		@include glass.glass-fallbacks();
+		background-color: transparent;
 
 		@include v.down(v.$bp-lg) {
 			width: 60%;
@@ -129,7 +123,6 @@
 		}
 	}
 
-	// --- Пункти ---------------------------------------------------------
 
 	&__listItem {
 		padding: 1rem 0;
@@ -178,16 +171,7 @@
 			}
 		}
 
-		/*
-		 * Розкриття через grid-template-rows: 0fr → 1fr.
-		 *
-		 * display: none не анімується, а max-height потребує вгаданої
-		 * висоти — при довгому тексті перехід би смикався. Тут висота
-		 * рахується сама.
-		 *
-		 * Текст лишається в DOM завжди (вимога 22) — ховається лише
-		 * візуально.
-		 */
+
 		&__text {
 			margin: 0;
 			overflow: hidden;
@@ -199,7 +183,7 @@
 		}
 
 		&__textInner {
-			min-height: 0;   // без цього вміст не дає рядку стиснутися
+			min-height: 0;
 		}
 
 		&.is-open &__text {
@@ -209,7 +193,6 @@
 		}
 	}
 
-	// --- Кнопка ---------------------------------------------------------
 
 	&__button {
 		position: absolute;
@@ -237,16 +220,15 @@
                 @include v.down(v.$bp-md) {
                     padding: 0 0.5rem;
                 }
+				&--logo img {
+					height: 3.75rem;
+				}
             }
         }
     }
 }
 
 
-/*
- * У редакторі скрипт не працює: показуємо всі тексти,
- * інакше їх неможливо відредагувати.
- */
 .editor-styles-wrapper .accordion__listItem__text {
 	grid-template-rows: 1fr;
 	padding-top: 0.5rem;

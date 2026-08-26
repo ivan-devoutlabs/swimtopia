@@ -27,7 +27,6 @@ export default function Edit( { attributes, setAttributes } ) {
 		minHeight,
 	} = attributes;
 
-	// Прев'ю фону просто в редакторі: те саме зображення, що й на фронті.
 	const blockProps = useBlockProps( {
 		className: `starter-hero starter-hero--editor${ showOverlay ? ' has-overlay' : '' }`,
 		style: {
@@ -43,7 +42,6 @@ export default function Edit( { attributes, setAttributes } ) {
 		setAttributes( {
 			imageId: media.id,
 			imageUrl: media.url,
-			// alt беремо з медіабібліотеки, щоб редактор не вводив його двічі
 			imageAlt: media.alt || '',
 		} );
 
@@ -100,8 +98,6 @@ export default function Edit( { attributes, setAttributes } ) {
 						label={ __( 'Мінімальна висота, px', 'starter' ) }
 						value={ minHeight }
 						onChange={ ( value ) =>
-							// RangeControl може віддати undefined при очищенні поля,
-							// а в block.json тип number — тому підстраховуємось.
 							setAttributes( { minHeight: value ?? 560 } )
 						}
 						min={ 320 }
@@ -114,7 +110,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			<div { ...blockProps }>
 				<div className="starter-hero__inner">
 					<div className="starter-hero__content">
-						{ /* Текст редагується прямо на полотні, а не у формі збоку */ }
+						{  }
 						<RichText
 							tagName="h1"
 							className="starter-hero__heading"

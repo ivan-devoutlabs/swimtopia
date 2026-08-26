@@ -1,14 +1,5 @@
 <?php
-/**
- * Рендер блоку starter/hero.
- *
- * Доступні змінні:
- *   $attributes — атрибути з block.json
- *   $content    — внутрішній контент (тут не використовується)
- *   $block      — об'єкт WP_Block
- *
- * @package Starter
- */
+
 
 $heading      = $attributes['heading'] ?? '';
 $text         = $attributes['text'] ?? '';
@@ -20,8 +11,6 @@ $bg_url       = $attributes['bgUrl'] ?? '';
 $show_overlay = ! empty( $attributes['showOverlay'] );
 $min_height   = (int) ( $attributes['minHeight'] ?? 560 );
 
-// Порожній блок не рендеримо взагалі — інакше на сторінці лишиться
-// порожня секція заввишки 560px.
 if ( '' === trim( wp_strip_all_tags( $heading ) )
 	&& '' === trim( wp_strip_all_tags( $text ) )
 	&& ! $image_url
@@ -35,8 +24,6 @@ if ( $show_overlay ) {
 	$classes .= ' has-overlay';
 }
 
-// get_block_wrapper_attributes() обов'язковий: саме він додає класи
-// вирівнювання, кольору й відступів, які редактор виставив у панелі.
 $wrapper_attributes = get_block_wrapper_attributes(
 	array(
 		'class' => $classes,
@@ -44,7 +31,6 @@ $wrapper_attributes = get_block_wrapper_attributes(
 	)
 );
 
-// Дозволені теги для тексту з RichText — редактор може лишити <strong>, <em>, <a>.
 $allowed_inline = array(
 	'strong' => array(),
 	'em'     => array(),
@@ -59,11 +45,10 @@ $allowed_inline = array(
 );
 ?>
 
-<section <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<section <?php echo $wrapper_attributes; ?>>
 
 	<?php if ( $bg_id ) : ?>
 		<?php
-		// Через ID отримуємо srcset і lazy-loading автоматично.
 		echo wp_get_attachment_image(
 			$bg_id,
 			'full',

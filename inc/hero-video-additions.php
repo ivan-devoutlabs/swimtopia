@@ -1,12 +1,5 @@
 <?php
-/**
- * Доповнення для відео-героя.
- *
- * Стиль «Панель» перенесіть у starter_register_block_styles()
- * (inc/block-styles.php), функцію підключення скрипта — в inc/enqueue.php.
- *
- * @package Starter
- */
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

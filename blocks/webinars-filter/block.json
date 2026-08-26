@@ -1,0 +1,22 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "starter/webinars-filter",
+    "version": "1.0.0",
+    "title": "Webinars",
+    "category": "widgets",
+    "icon": "video-alt3",
+    "description": "Webinars List.",
+    "textdomain": "starter",
+    "supports": {
+        "html": false,
+        "align": [ "wide", "full" ],
+        "multiple": false,
+        "spacing": { "margin": [ "top", "bottom" ] }
+    },
+    "attributes": {
+        "title": { "type": "string", "default": "Previous Webinars" },
+        "perPage": { "type": "number", "default": 9 }
+    },
+    "render": "file:./render.php"
+}

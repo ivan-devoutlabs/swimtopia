@@ -96,7 +96,6 @@
 
         var item;
 
-        // Додано підтримку desktopWidthRatio
         if ( MOBILE.matches && this.options.mobileWidthRatio ) {
             item = width * this.options.mobileWidthRatio;
         } else if ( !MOBILE.matches && this.options.desktopWidthRatio ) {
@@ -403,7 +402,6 @@
         var testimonials = section.querySelector( '.easeAccordion__testimonials' );
 
         if ( testimonials ) {
-            // Перевіряємо, чи є у головної секції клас 'blank'
             var isBlank = section.classList.contains( 'blank' );
 
             var sliderOptions = { 
@@ -413,7 +411,6 @@
                 mobileWidthRatio: 0.9 
             };
 
-            // Якщо клас 'blank' присутній, передаємо нове значення ширини (56.25%)
             if ( isBlank ) {
                 sliderOptions.desktopWidthRatio = 0.5625;
             }

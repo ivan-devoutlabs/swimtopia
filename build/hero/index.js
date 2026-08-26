@@ -39,8 +39,6 @@ function Edit({
     showOverlay,
     minHeight
   } = attributes;
-
-  // Прев'ю фону просто в редакторі: те саме зображення, що й на фронті.
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
     className: `starter-hero starter-hero--editor${showOverlay ? ' has-overlay' : ''}`,
     style: {
@@ -55,7 +53,6 @@ function Edit({
   const onSelectImage = media => setAttributes({
     imageId: media.id,
     imageUrl: media.url,
-    // alt беремо з медіабібліотеки, щоб редактор не вводив його двічі
     imageAlt: media.alt || ''
   });
   const removeBg = () => setAttributes({
@@ -111,10 +108,7 @@ function Edit({
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Мінімальна висота, px', 'starter'),
           value: minHeight,
-          onChange: value =>
-          // RangeControl може віддати undefined при очищенні поля,
-          // а в block.json тип number — тому підстраховуємось.
-          setAttributes({
+          onChange: value => setAttributes({
             minHeight: value ?? 560
           }),
           min: 320,
@@ -213,8 +207,6 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_1__.name, {
   edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
-  // Динамічний блок: у базу пишемо тільки атрибути, HTML будує render.php.
-  // Завдяки цьому розмітку можна міняти будь-коли — збережені сторінки не ламаються.
   save: () => null
 });
 

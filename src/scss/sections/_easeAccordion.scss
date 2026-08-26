@@ -375,6 +375,10 @@
 			}
 			img {
 				border-radius: 2.5rem;
+				@include v.down(v.$bp-md) {
+				    max-height: 375px;
+   					object-fit: cover;
+				}
 			}
 			&Dots {
 				position: absolute;

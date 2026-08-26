@@ -1,0 +1,171 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+.webinarsPreview {
+    background-color: var(--wp--preset--color--accent-2);
+    padding: 5rem 0;
+    @include v.down(v.$bp-md) {
+        padding: 3rem 0;
+    }
+    .container {
+        max-width: 1852px;
+    }
+    &__content {
+        padding: 5rem 4rem;
+        border-radius: 2.5rem;
+        background-color: var(--wp--preset--color--navy);
+        @include v.down(v.$bp-lg) {
+            padding: 2.5rem 2rem;
+        }
+        @include v.down(v.$bp-md) {
+            padding: 1.25rem;
+            padding: 2rem 1rem;
+        }
+    }
+    &__title {
+        font-size: var(--wp--preset--font-size--heading-1);
+        margin-bottom: 3.25rem;
+        line-height: 1.222;
+        color: var(--wp--preset--color--light);
+        @include v.down(v.$bp-lg) {
+            margin-bottom: 2rem;
+        }
+        @include v.down(v.$bp-md) {
+            margin-bottom: 1.5rem;
+        }
+    }
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        & > li {
+            width: calc( 33.33% - 1rem );
+            @include v.down(v.$bp-lg) {
+                width: calc( 50% - 0.75rem );
+            }
+            @include v.down(v.$bp-md) {
+                width: 100%;
+            }
+        }
+        &Item {
+            background-color: var(--wp--preset--color--blue);
+            padding: 1rem;
+            border-radius: 2.5rem;
+            aspect-ratio: 1.2367816092 / 1;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            @include v.down(v.$bp-lg) {
+                aspect-ratio: 0.85/1;
+            }
+            @include v.down(v.$bp-md) {
+                aspect-ratio: unset;
+                padding: 0.75rem;
+                border-radius: 1.25rem;
+            }
+            &__image {
+                flex: 1;
+                position: relative;
+                img {
+                    border-radius: 1.875rem;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    @include v.down(v.$bp-md) {
+                        position: static;
+                        border-radius: 1.25rem;
+                    }
+                }
+                margin-bottom: 1.125rem;
+            }
+            &__content {
+                @include glass.glass(
+					$frost: 25px,
+					$depth: 16px,
+					$splay: 23%,
+					$dispersion: 1.2px,
+					$radius: 24px,
+					$light: 0.8,
+					$tint: transparent
+				);
+
+				@include glass.glass-fallbacks();
+                padding: 1rem;
+                border-radius: 1.875rem;
+                background-color: color-mix(in srgb, var(--wp--preset--color--white) 5%, transparent);
+                @include v.down(v.$bp-md) {
+                    border-radius: 1.25rem;
+                    padding: 0.75rem;
+                }
+            }
+            &__top {
+                display: flex;
+                align-items: center;
+                gap: 0.625rem;
+                margin-bottom: 0.5rem;
+            }
+            &__cat {
+                color: var(--wp--preset--color--navy);
+                background-color: var(--wp--preset--color--light);
+                font-size: var(--wp--preset--font-size--text-s);
+                padding: 0.5rem 1.125rem;
+                border-radius: 100px;
+                font-weight: 700;
+                line-height: 1.2222;
+                @include v.down(v.$bp-md) {
+                    font-size: var(--wp--preset--font-size--text-xs);
+                    padding: 0.35rem 0.75rem;
+                }
+                a {
+                    text-decoration: none;
+                    pointer-events: none;
+                }
+            }
+            &__date {
+                color: var(--wp--preset--color--light);
+                font-weight: 700;
+                font-size: var(--wp--preset--font-size--text-m);
+                line-height: 1.2222;
+                @include v.down(v.$bp-md) {
+                    font-size: var(--wp--preset--font-size--text-s);
+                }
+            }
+            &__title {
+                font-size: var(--wp--preset--font-size--text-l);
+                font-weight: 700;
+                color: var(--wp--preset--color--light);
+                line-height: 1.2083;
+            }
+            &__button {
+                padding-top: 1rem;
+                display: none;
+                @include v.down(v.$bp-md) {
+                    display: block !important;
+                    height: auto !important;
+                    padding-top: 1rem !important;
+                }
+            }
+        }
+    }
+    &__top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3.25rem;
+        @include v.down(v.$bp-lg) {
+            margin-bottom: 2rem;
+        }
+        @include v.down(v.$bp-md) {
+            margin-bottom: 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.25rem;
+        }
+        .webinarsPreview__title {
+            margin-bottom: 0;
+        }
+    }
+} 

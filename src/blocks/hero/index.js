@@ -10,7 +10,5 @@ import './editor.scss';
 registerBlockType( metadata.name, {
 	edit: Edit,
 
-	// Динамічний блок: у базу пишемо тільки атрибути, HTML будує render.php.
-	// Завдяки цьому розмітку можна міняти будь-коли — збережені сторінки не ламаються.
 	save: () => null,
 } );

@@ -1,9 +1,4 @@
-/**
- * Стилі блоку starter/hero (фронтенд + редактор).
- *
- * Усі значення — зі змінних theme.json. Хардкодити кольори не можна:
- * саме ці змінні підмінюються, коли редактор перемикає колірну схему секції.
- */
+
 
 .starter-hero {
 	position: relative;
@@ -12,9 +7,8 @@
 	overflow: hidden;
 	padding: var(--wp--preset--spacing--xl) var(--wp--preset--spacing--sm);
 	color: var(--wp--preset--color--white);
-	isolation: isolate; // щоб z-index фону не вилазив за межі секції
+	isolation: isolate;
 
-	// --- Фонове зображення ---
 	&__bg {
 		position: absolute;
 		inset: 0;
@@ -25,7 +19,6 @@
 		object-position: center;
 	}
 
-	// --- Затемнення ---
 	&.has-overlay::before {
 		content: "";
 		position: absolute;
@@ -34,7 +27,6 @@
 		background: var(--wp--preset--color--hero-overlay, rgba(0, 0, 0, 0.5));
 	}
 
-	// --- Сітка ---
 	&__inner {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -49,7 +41,6 @@
 		}
 	}
 
-	// --- Текст ---
 	&__heading {
 		margin: 0 0 var(--wp--preset--spacing--sm);
 		font-family: var(--wp--preset--font-family--primary);
@@ -71,7 +62,6 @@
 		}
 	}
 
-	// --- Фото ---
 	&__media {
 		margin: 0;
 	}
@@ -83,7 +73,6 @@
 		border-radius: 4px;
 	}
 
-	// Якщо фону немає — текст на темному тлі теми, щоб не був білим по білому
 	&:not(:has(.starter-hero__bg)) {
 		background-color: var(--wp--preset--color--dark-blue);
 	}

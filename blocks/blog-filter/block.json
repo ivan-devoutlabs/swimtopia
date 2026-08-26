@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "starter/blog-filter",
+	"version": "1.0.0",
+	"title": "Blog",
+	"category": "widgets",
+	"icon": "filter",
+	"description": "Blog posts list.",
+	"textdomain": "starter",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"multiple": false,
+		"spacing": { "margin": [ "top", "bottom" ] }
+	},
+	"attributes": {
+		"title": { "type": "string", "default": "Articles" },
+		"perPage": { "type": "number", "default": 9 }
+	},
+	"render": "file:./render.php"
+}

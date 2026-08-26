@@ -1,20 +1,4 @@
-/**
- * Таби: перемикання зображень, тексту, кольору й «пігулки».
- *
- * Керування — кліком по табу або стрілками.
- *
- * КОЛІР ТАБА
- *   Колір обирається в редакторі на самому пункті меню (панель
- *   «Колір → Тло»). WordPress лишає його в класі has-{слаг}-background-color,
- *   тож скрипт бере слаг звідти й підставляє змінну палітри.
- *
- *   Так клієнт користується рідним контролем, а не вписує HEX кудись
- *   у налаштування, і колір гарантовано з палітри theme.json.
- *
- * ЗОБРАЖЕННЯ
- *   Змінюються через спільний модуль StarterDistortion — той самий,
- *   що в слайдері features та картках.
- */
+
 ( function ( global ) {
 	'use strict';
 
@@ -41,13 +25,7 @@
 		this.distortion = null;
 	}
 
-	/**
-	 * Колір таба зі слага в класі.
-	 *
-	 * Повертаємо саме CSS-змінну, а не готове значення: так колір
-	 * лишається керованим із theme.json, і зміна палітри одразу
-	 * відображається на сайті.
-	 */
+
 	Tabs.prototype.colorOf = function ( tab ) {
 		var match = tab.className.match( /has-([a-z0-9-]+)-background-color/ );
 
@@ -58,13 +36,7 @@
 		return 'var(--wp--preset--color--' + match[ 1 ] + ')';
 	};
 
-	/**
-	 * «Пігулка» під активним табом.
-	 *
-	 * Позицію рахуємо від реальних координат таба, а не від індексу
-	 * помноженого на ширину: підписи різної довжини, і фіксований крок
-	 * промахувався б.
-	 */
+
 	Tabs.prototype.moveBg = function () {
 		if ( ! this.bg ) {
 			return;
@@ -101,7 +73,6 @@
 	Tabs.prototype.goTo = function ( index ) {
 		var total = this.tabs.length;
 
-		// Таби не зациклюємо: у крайніх положеннях стрілки гаснуть
 		index = Math.max( 0, Math.min( total - 1, index ) );
 
 		if ( index === this.index ) {
@@ -135,7 +106,6 @@
 		this.moveBg();
 		this.updateArrows();
 
-		// Не смикаємо фокус, якщо перемикали стрілками
 		if ( this.focusTab ) {
 			this.tabs[ index ].focus();
 			this.focusTab = false;
@@ -219,8 +189,6 @@
 		this.buildBg();
 		this.buildArrows();
 
-		// Роль табів: щоб скрінрідер озвучував їх як перемикачі,
-		// а не як звичайні абзаци
 		this.menu.setAttribute( 'role', 'tablist' );
 
 		this.tabs.forEach( function ( tab, i ) {
@@ -260,7 +228,6 @@
 			image.classList.toggle( 'is-active', i === 0 );
 		} );
 
-		// --- Ефект спотворення ---
 		var sources = this.images
 			.map( function ( figure ) {
 				return figure.querySelector( 'img' );
@@ -282,8 +249,6 @@
 		this.applyColor();
 		this.updateArrows();
 
-		// Позиція «пігулки» стає відомою лише після розкладки,
-		// а ширина табів залежить від шрифту
 		this.moveBg();
 
 		if ( 'ResizeObserver' in window ) {
@@ -313,3 +278,36 @@
 		init();
 	}
 } )( window );
+
+document.addEventListener('DOMContentLoaded', function() {
+        
+    function equalizeTabsHeight() {
+        const tabContainers = document.querySelectorAll('.tabs__sliderContent');
+        tabContainers.forEach(function(container) {
+            const items = container.querySelectorAll('.tabs__sliderContent__item');
+            const menu = container.querySelector('.tabs__menu');
+            let maxContentHeight = 0;
+            container.style.minHeight = '';
+            items.forEach(function(item) {
+                const isHidden = window.getComputedStyle(item).display === 'none';
+                if (isHidden) {
+                    item.style.cssText = 'display: block !important; position: absolute !important; visibility: hidden !important; width: 100%;';
+                }
+                const currentHeight = item.offsetHeight;
+                if (currentHeight > maxContentHeight) {
+                    maxContentHeight = currentHeight;
+                }
+                if (isHidden) {
+                    item.style.cssText = '';
+                }
+            });
+            const menuHeight = menu ? menu.offsetHeight : 0;
+            container.style.minHeight = (maxContentHeight + menuHeight) + 'px';
+        });
+    }
+    equalizeTabsHeight();
+    window.addEventListener('resize', function() {
+        clearTimeout(window.tabsResizeTimer);
+        window.tabsResizeTimer = setTimeout(equalizeTabsHeight, 150);
+    });
+});

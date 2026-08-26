@@ -1,10 +1,4 @@
-<?php
-/**
- * Шапка сайту.
- *
- * @package Starter
- */
-?>
+
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -40,7 +34,7 @@
 					?>
 				</div>
 
-				<div class="header__menu">
+				<div class="header__menu <?php if(get_field('blue_header')){ echo 'blue-header';} ?>">
 					<?php
 					wp_nav_menu( array(
 						'theme_location' => 'menu-1',

@@ -1,0 +1,244 @@
+@use "../settings/variables" as v;
+@use "../settings/glass" as glass;
+
+.webinarsHero {
+    background-color: #1A1A1A;
+    position: relative;
+    padding-top: 12.625rem;
+    @include v.down(v.$bp-md) {
+        padding-top: 7.5rem;
+    }
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 50%;
+        background-image: url('../images/Sticky-Stats.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    &__content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        @include v.down(v.$bp-lg) {
+            flex-direction: column;
+        }
+        &Wrapper {
+            background-color: var(--wp--preset--color--navy);
+            border-radius: 2.5rem;
+            padding: 3rem;
+            @include v.down(v.$bp-lg) {
+                padding: 2rem 1.5rem;
+            }
+            @include v.down(v.$bp-md) {
+                padding: 1.75rem 1.25rem;
+            }
+        }
+        &Info {
+            width: 46.3303%;
+            @include v.down(v.$bp-lg) {
+                width: 100%;
+                margin-top: 2rem;
+            }
+            @include v.down(v.$bp-md) {
+                width: 100%;
+                margin-top: 1.25rem;
+            }
+            &__dates {
+                @include glass.glass(
+                    $frost: 25px,
+                    $depth: 16px,
+                    $splay: 23%,
+                    $dispersion: 1.2px,
+                    $radius: 24px,
+                    $light: 0.8,
+                    $tint: transparent
+                );
+
+                @include glass.glass-fallbacks();
+                border-radius: 1.25rem;
+                background-color: color-mix(in srgb, var(--wp--preset--color--light) 10%, transparent);
+                padding: 1.5rem;
+                margin-bottom: 0.5rem;
+                &Title {
+                    font-weight: 700;
+                    color: var(--wp--preset--color--light);
+                    font-size: var(--wp--preset--font-size--text-l);
+                    line-height: 1.2083;
+                    margin-bottom: 0.5rem;
+                }
+                &Content {
+                    color: var(--wp--preset--color--light);
+                    ul {
+                        margin: 0;
+                        padding-left: 1rem;
+                        padding-bottom: 0.5rem;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.5rem;
+                    }
+                    li {
+                        font-size: var(--wp--preset--font-size--text-m);
+                        line-height: 1.25;
+                    }
+                }
+            }
+            &__register {
+                margin-top: 0.5rem;
+            }
+            &__previous {
+                padding-bottom: 1rem;
+                &Title {
+                    padding-top: 0.5rem;
+                    padding-bottom: 0.5rem;
+                    color: var(--wp--preset--color--light);
+                    font-size: var(--wp--preset--font-size--text-m);
+                    font-weight: 700;
+                }
+                .plyr--video {
+                    width: 43.81%;
+                    border-radius: 1.25rem;
+                    @include v.down(v.$bp-md) {
+                        width: 100%;
+                    }
+                    &.plyr--paused {
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            border-radius: 1.25rem;
+                            height: 100%;
+                            background-color: rgba( 0, 0, 0, 0.4);
+                        }
+                    }
+                    .plyr__controls {
+                        opacity: 0;
+                        transition: .3s;
+                    }
+                    &:hover .plyr__controls {
+                        opacity: 1;
+                    }
+                    button.plyr__control.plyr__control--overlaid {
+                        background-color: transparent;
+                        background-image: url('../images/pay-icon.png');
+                        background-size: contain;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        width: 2.8125rem;
+                        height: 2.8125rem;
+                        svg {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &__title {
+        @include glass.glass(
+			$frost: 25px,
+			$depth: 16px,
+			$splay: 23%,
+			$dispersion: 1.2px,
+			$radius: 24px,
+			$light: 0.8,
+			$tint: transparent
+		);
+		@include glass.glass-fallbacks();
+        background-color: color-mix(in srgb, var(--wp--preset--color--light) 5%, transparent);
+        border-radius: 100px;
+        text-align: center;
+        font-size: var(--wp--preset--font-size--heading-5);
+        color: var(--wp--preset--color--light);
+        padding: 1rem;
+        margin-bottom: 2rem;
+        width: 100%;
+        @include v.down(v.$bp-md) {
+            margin-bottom: 1rem;
+        }
+    }
+    &__text {
+        width: 46.3303%;
+        color: var(--wp--preset--color--light);
+        @include v.down(v.$bp-lg) {
+            width: 100%;
+        }
+        hr {
+            border-top: 1px solid color-mix(in srgb, var(--wp--preset--color--accent-2) 30%, transparent);
+        } 
+        strong {
+            font-size: var(--wp--preset--font-size--text-s);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            line-height: 1.2083;
+        }
+        p {
+            font-size: var(--wp--preset--font-size--text-m);
+            line-height: 1.25;
+        }
+        *:last-child {
+            margin-bottom: 0;
+        }
+    }
+    .ctaSimple__contentWrapper {
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+        @include v.down(v.$bp-md) {
+            margin-top: 3.25rem;
+            margin-bottom: 3.25rem;
+        }
+        .footer__topLeft__socialList {
+            gap: 1.5rem;
+            @include v.down(v.$bp-lg) {
+                gap: 1rem;
+            }
+            &__item {
+                width: 5rem;
+                height: 5rem;
+                @include v.down(v.$bp-lg) {
+                    width: 3rem;
+                    height: 3rem;
+                }
+                svg {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    @include v.down(v.$bp-lg) {
+                        width: 1rem;
+                        height: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.single-webinars {
+    .webinarsPreview__query {
+        gap: 1.5rem;
+    }
+    .webinarsPreview__listItem {
+        flex: 0 0 41.5%;
+        @include v.down(v.$bp-lg) {
+            flex: 0 0 52.5%;
+        }
+        @include v.down(v.$bp-md) {
+            flex: 0 0 90%;
+        }
+    }
+    .webinarsPreview__content {
+        flex-direction: column;
+        display: flex;
+    }
+    .blogPreview__arrows {
+        order: 1;
+    }
+    .blogPreview__viewport {
+        margin: 0;
+    }
+}

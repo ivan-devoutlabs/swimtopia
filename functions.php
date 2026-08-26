@@ -23,6 +23,8 @@ require THEME_DIR . '/inc/mega-menu.php';
 require THEME_DIR . '/inc/image-sizes.php';
 require THEME_DIR . '/inc/post-types.php';
 require THEME_DIR . '/inc/reading-time.php';
+require THEME_DIR . '/inc/blog-filter.php';
+require THEME_DIR . '/inc/webinars-list.php';
 
 
 
@@ -98,7 +100,7 @@ function theme_enqueue_components() {
 		);
 	}
 
-	if ( theme_content_has( 'tabs' ) ) {
+	if ( theme_content_has( 'tabs' ) || theme_content_has( 'role-tabs' ) ) {
 		wp_enqueue_script(
 			'features',
 			THEME_URI . '/js/tabs.js',
@@ -166,10 +168,30 @@ function theme_enqueue_components() {
 		);
 	}
 
+	if ( theme_content_has( 'accordion' ) ) {
+		wp_enqueue_script(
+			'accordion-js',
+			THEME_URI . '/js/accordion.js',
+			array( 'jquery' ),
+			null,
+			array( 'strategy' => 'defer', 'in_footer' => true )
+		);
+	}
+
 	if ( theme_content_has( 'blog-preview' ) ) {
 		wp_enqueue_script(
 			'blog-preview',
 			THEME_URI . '/js/blog-preview.js',
+			array( 'jquery' ),
+			null,
+			array( 'strategy' => 'defer', 'in_footer' => true )
+		);
+	}
+
+	if ( theme_content_has( 'form' ) ) {
+		wp_enqueue_script(
+			'form',
+			THEME_URI . '/js/form.js',
 			array( 'jquery' ),
 			null,
 			array( 'strategy' => 'defer', 'in_footer' => true )
@@ -197,6 +219,32 @@ function theme_enqueue_components() {
 		wp_enqueue_script(
 			'cards-slider',
 			THEME_URI . '/js/cards-slider.js',
+			array( 'jquery' ),
+			null,
+			array( 'strategy' => 'defer', 'in_footer' => true )
+		);
+	}
+	if ( theme_content_has( 'webinars-preview-list' ) ) {
+		wp_enqueue_script(
+			'webinars',
+			THEME_URI . '/js/webinars.js',
+			array( 'jquery' ),
+			null,
+			array( 'strategy' => 'defer', 'in_footer' => true )
+		);
+	}
+
+	if(is_singular()){
+		wp_enqueue_script(
+			'blog-preview',
+			THEME_URI . '/js/blog-preview.js',
+			array( 'jquery' ),
+			null,
+			array( 'strategy' => 'defer', 'in_footer' => true )
+		);
+		wp_enqueue_script(
+			'webinars',
+			THEME_URI . '/js/webinars.js',
 			array( 'jquery' ),
 			null,
 			array( 'strategy' => 'defer', 'in_footer' => true )

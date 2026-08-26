@@ -60,7 +60,7 @@
 				notices.createNotice(
 					'warning',
 					( window.starterCtaL10n && window.starterCtaL10n.pngOnly ) ||
-						'У цю секцію можна завантажувати лише PNG-зображення.',
+						'You can upload only PNG images.',
 					{
 						id: NOTICE_ID,
 						isDismissible: true,

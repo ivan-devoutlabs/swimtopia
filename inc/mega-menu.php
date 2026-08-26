@@ -1,56 +1,25 @@
 <?php
-/**
- * Мега-меню.
- *
- * ІДЕЯ
- *   Структуру меню клієнт тримає там, де звик — у «Вигляд → Меню».
- *   Вміст випадної панелі редагує блоками, як звичайну сторінку.
- *   Зв'язок між ними — вибір панелі просто в налаштуваннях пункту меню.
- *
- *   Так не доводиться ні описувати колонки полями (у ACF це виходить
- *   громіздко), ні змушувати клієнта вписувати CSS-класи.
- *
- * СКЛАДОВІ
- *   1. Тип запису «Панелі меню» — приховані записи з блоковим редактором.
- *   2. Поле «Панель меню» в кожному пункті меню.
- *   3. Walker, який підставляє вміст панелі замість звичайного підменю.
- *
- * Підключіть у functions.php:
- *   require THEME_DIR . '/inc/mega-menu.php';
- *
- * @package Starter
- */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/* ---------------------------------------------------------------------
- * 1. Тип запису для панелей
- * ------------------------------------------------------------------ */
 
-/**
- * Панелі — окремий тип запису, а не сторінки: інакше вони засмічували б
- * список сторінок і могли б випадково відкритися за своїм URL.
- *
- * public => false робить їх недоступними ззовні, але редагування
- * блоками лишається завдяки show_ui + show_in_rest.
- */
 function starter_register_menu_panels() {
 
 	register_post_type(
 		'starter_panel',
 		array(
 			'labels'          => array(
-				'name'          => __( 'Панелі меню', 'starter' ),
-				'singular_name' => __( 'Панель меню', 'starter' ),
-				'add_new_item'  => __( 'Додати панель', 'starter' ),
-				'edit_item'     => __( 'Редагувати панель', 'starter' ),
+				'name'          => __( 'Menu pannel', 'starter' ),
+				'singular_name' => __( 'Menu pannel', 'starter' ),
+				'add_new_item'  => __( 'Add pannel', 'starter' ),
+				'edit_item'     => __( 'Edit pannel', 'starter' ),
 			),
 			'public'          => false,
 			'show_ui'         => true,
-			'show_in_menu'    => 'themes.php',   // поруч із меню й віджетами
-			'show_in_rest'    => true,           // без цього не буде блоків
+			'show_in_menu'    => 'themes.php', 
+			'show_in_rest'    => true, 
 			'supports'        => array( 'title', 'editor', 'revisions' ),
 			'capability_type' => 'page',
 		)
@@ -58,18 +27,9 @@ function starter_register_menu_panels() {
 }
 add_action( 'init', 'starter_register_menu_panels' );
 
-/* ---------------------------------------------------------------------
- * 2. Поле вибору панелі в пункті меню
- * ------------------------------------------------------------------ */
 
-/**
- * Хук wp_nav_menu_item_custom_fields з'явився у WordPress 5.4 —
- * саме він дозволяє додати своє поле без плагінів і без хаків
- * із перевизначенням Walker_Nav_Menu_Edit.
- */
 function starter_menu_item_panel_field( $item_id, $item, $depth ) {
 
-	// Панель має сенс лише на верхньому рівні
 	if ( $depth > 0 ) {
 		return;
 	}
@@ -92,13 +52,13 @@ function starter_menu_item_panel_field( $item_id, $item, $depth ) {
 	?>
 	<p class="field-starter-panel description description-wide">
 		<label for="starter-panel-<?php echo esc_attr( $item_id ); ?>">
-			<?php esc_html_e( 'Панель меню', 'starter' ); ?><br>
+			<?php esc_html_e( 'Menu panel', 'starter' ); ?><br>
 			<select
 				id="starter-panel-<?php echo esc_attr( $item_id ); ?>"
 				name="starter_panel[<?php echo esc_attr( $item_id ); ?>]"
 				class="widefat"
 			>
-				<option value=""><?php esc_html_e( '— звичайне підменю —', 'starter' ); ?></option>
+				<option value=""><?php esc_html_e( '— sub menu —', 'starter' ); ?></option>
 				<?php foreach ( $panels as $panel ) : ?>
 					<option
 						value="<?php echo esc_attr( $panel->ID ); ?>"
@@ -114,12 +74,9 @@ function starter_menu_item_panel_field( $item_id, $item, $depth ) {
 }
 add_action( 'wp_nav_menu_item_custom_fields', 'starter_menu_item_panel_field', 10, 3 );
 
-/**
- * Збереження вибору.
- */
+
 function starter_save_menu_item_panel( $menu_id, $menu_item_db_id ) {
 
-	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- перевіряє ядро
 	$value = isset( $_POST['starter_panel'][ $menu_item_db_id ] )
 		? absint( $_POST['starter_panel'][ $menu_item_db_id ] )
 		: 0;
@@ -132,31 +89,14 @@ function starter_save_menu_item_panel( $menu_id, $menu_item_db_id ) {
 }
 add_action( 'wp_update_nav_menu_item', 'starter_save_menu_item_panel', 10, 2 );
 
-/* ---------------------------------------------------------------------
- * 3. Walker
- * ------------------------------------------------------------------ */
-
-/**
- * Підставляє вміст панелі замість звичайного підменю.
- *
- * Пункти без обраної панелі працюють як раніше — це важливо, бо в
- * одному меню зазвичай є і мега-панелі, і прості випадайки.
- */
 class Starter_Mega_Menu_Walker extends Walker_Nav_Menu {
 
-	/**
-	 * Кнопка-перемикач для клавіатури.
-	 *
-	 * Наведення мишкою вирішує CSS, але без кнопки панель була б
-	 * недоступна тим, хто ходить сайтом табом.
-	 */
 	private function toggle_button( $item ) {
 		return sprintf(
 			'<button type="button" class="menu-toggle" aria-expanded="false" aria-label="%s"><span class="menu-toggle__icon" aria-hidden="true"></span></button>',
 			esc_attr(
 				sprintf(
-					/* translators: %s: назва пункту меню */
-					__( 'Розгорнути «%s»', 'starter' ),
+					__( 'Expand «%s»', 'starter' ),
 					wp_strip_all_tags( $item->title )
 				)
 			)
@@ -188,19 +128,12 @@ class Starter_Mega_Menu_Walker extends Walker_Nav_Menu {
 		$output .= '<div class="mega-menu" hidden>';
 		$output .= '<div class="mega-menu__inner">';
 
-		/*
-		 * the_content потрібен, щоб працювали блоки, шорткоди та
-		 * стилі ядра. Вміст уже пройшов санітизацію в редакторі.
-		 */
 		$output .= apply_filters( 'the_content', $panel->post_content );
 
 		$output .= '</div></div>';
 	}
 }
 
-/* ---------------------------------------------------------------------
- * 4. Скрипт
- * ------------------------------------------------------------------ */
 
 function starter_mega_menu_assets() {
 	$path = THEME_DIR . '/js/mega-menu.js';
