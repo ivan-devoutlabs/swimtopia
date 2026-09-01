@@ -64,6 +64,7 @@
 		padding: 1.5rem;
 		border-radius: 2.5rem;
 		aspect-ratio: 1 / 0.4387096774;
+		cursor: pointer;
 
 		@include v.down(v.$bp-lg) {
 			flex-basis: 92.5%;
@@ -154,7 +155,7 @@
 		}
 	}
 
-	&__arrows {
+	& &__arrows {
 		z-index: 3;
 		display: flex;
 		gap: 0.5rem;
@@ -180,6 +181,9 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		cursor: pointer;
+		transition: .3s;
+		background-color: var(--wp--preset--color--blue);
+		background-image: url(../images/swimtopia-btn-arrow.png);
 		@include v.down(v.$bp-lg) {
 			width: 2.75rem;
 			height: 2.75rem;
@@ -188,14 +192,21 @@
 
 		&--prev {
 			transform: rotate(180deg);
+			
+		}
+
+		&[disabled] {
 			background-color: var(--wp--preset--color--light);
 			background-image: url(../images/btn-icon-style-2-blue.png);
 		}
+	}
 
-		&--next {
-			background-color: var(--wp--preset--color--blue);
-			background-image: url(../images/swimtopia-btn-arrow.png);
-		}
+	&__query {
+		flex-direction: column;
+		display: flex;
+	}
+	&__viewport {
+		overflow: visible;
 	}
 }
 
@@ -204,9 +215,77 @@
 	flex-basis: auto !important;
 	margin-bottom: 1.5rem;
 }
+.editor-styles-wrapper .caseStudyPreview__sliderItem__button{
+	display: block;
+}
 
 @media (prefers-reduced-motion: reduce) {
 	.caseStudyPreview__track {
 		transition: none;
 	}
 }
+
+
+// .caseStudyPreview {
+ 
+// 	&__slider {
+// 		display: flex;
+// 		gap: 1.5rem;
+// 		margin: 0;
+// 		padding: 0;
+// 		list-style: none;
+ 
+// 		@include v.down(v.$bp-md) {
+// 			gap: 1rem;
+// 		}
+ 
+// 		&.is-track {
+// 			transition: transform 0.55s cubic-bezier( 0.22, 0.61, 0.36, 1 );
+// 			will-change: transform;
+// 		}
+ 
+// 		> li {
+// 			flex: 0 0 80.358%;
+// 			margin: 0;
+ 
+// 			@include v.down(v.$bp-lg) {
+// 				flex-basis: 88%;
+// 			}
+ 
+// 			@include v.down(v.$bp-md) {
+			
+// 				flex-basis: 85%;
+// 			}
+// 		}
+// 	}
+ 
+// 	&__viewport {
+// 		overflow: hidden;
+ 
+// 		@include v.down(v.$bp-md) {
+		
+// 			margin-right: calc( var(--wp--preset--spacing--sm) * -1 );
+// 		}
+ 
+// 		&:focus-visible {
+// 			outline: 2px solid var(--wp--preset--color--accent-2);
+// 			outline-offset: 6px;
+// 			border-radius: 8px;
+// 		}
+// 	}
+ 
+
+// 	&__sliderItem {
+// 		width: 100%;
+// 		height: 100%;
+// 	}
+// }
+ 
+// .editor-styles-wrapper .caseStudyPreview__slider {
+// 	flex-wrap: wrap;
+// 	transform: none !important;
+ 
+// 	> li {
+// 		flex-basis: calc( 50% - 0.75rem );
+// 	}
+// }

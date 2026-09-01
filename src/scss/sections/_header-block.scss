@@ -9,12 +9,12 @@
 	background-position: center;
 
 	@include v.down(v.$bp-lg) {
-		padding-top: 11rem;
+		padding-top: 12.5rem;
 		padding-bottom: 9rem;
 	}
 
 	@include v.down(v.$bp-md) {
-		padding-top: 7.125rem;
+		padding-top: 10rem;
 		padding-bottom: 14.625rem;
 	}
 
@@ -102,6 +102,7 @@
 	&__title {
 		margin: 0 0 3.625rem;
 		line-height: 1.22222;
+		text-transform: capitalize;
 
 		@include v.down(v.$bp-lg) {
 			margin-bottom: 2.25rem;
@@ -110,6 +111,10 @@
 		@include v.down(v.$bp-md) {
 			margin-bottom: 0.5rem;
 			line-height: 1.225;
+			text-transform: none;
+			max-width: 700px;
+			margin-left: auto;
+			margin-right: auto;
 			br {
 				display: none;
 			}
@@ -153,6 +158,12 @@
 		&::before {
 		    left: 0;
     		bottom: -17.25%;
+		}
+		.container > .wp-block-paragraph {
+			max-width: 53%;
+			@include v.down(v.$bp-lg) {
+				max-width: 100%;
+			}
 		}
 	}
 
@@ -261,6 +272,9 @@
 				max-width: 100%;
 			}
 		}
+		&__title {
+			margin-bottom: 0.5rem;
+		}
 	}
 	
 	form {
@@ -315,6 +329,28 @@
 					color: color-mix(in srgb, var(--wp--preset--color--light) 50%, transparent);
 				}
 
+				&:-webkit-autofill,
+				&:-webkit-autofill:hover,
+				&:-webkit-autofill:focus,
+				&:-webkit-autofill:active {
+					-webkit-text-fill-color: color-mix(in srgb, var(--wp--preset--color--light) 50%, transparent);
+					transition: background-color 5000000s ease-in-out 0s;
+				}
+				&::-webkit-search-cancel-button,
+				&::-webkit-search-decoration,
+				&::-webkit-search-results-button,
+				&::-webkit-search-results-decoration {
+					-webkit-appearance: none;
+					appearance: none;
+					display: none;
+				}
+
+				&::-ms-clear {
+					display: none;
+					width: 0;
+					height: 0;
+				}
+
 			}
 			.wp-block-search__button {
 				padding: 0; 
@@ -330,6 +366,11 @@
 				background-repeat: no-repeat;
 				background-position: center;
 				border-radius: 50%;
+				transition: .3s;
+				&:hover {
+    				background-image: url(../images/swimtopia-btn-arrow.png);
+					background-color: var(--wp--preset--color--blue);
+				}
 				svg {
 					display: none;
 				}
@@ -344,5 +385,147 @@
 	> .wp-block-cover__inner-container {
 		position: relative;
 		z-index: 1;
+	}
+}
+
+
+.search-results,
+.search-no-results {
+	.headerBlock__title {
+		text-align: center;
+	}
+	.headerBlock__search {
+		form {
+			position: relative;
+			.screen-reader-text {
+				display: none;
+			}
+			label {
+				display: block;
+				border: 0;
+				padding: 0;
+				@include glass.glass(
+					$frost: 25px,
+					$depth: 16px,
+					$splay: 23%,
+					$dispersion: 1.2px, 
+					$radius: 24px,
+					$light: 0.8,
+					$tint: transparent
+				);
+
+				@include glass.glass-fallbacks();
+				border-radius: 100px;
+				background: color-mix(in srgb, var(--wp--preset--color--white) 5%, transparent);
+				&::before {
+					content: "";
+					width: 2rem;
+					height: 2rem;
+					left: 1rem;
+					top: 50%;
+					transform: translateY(-50%);
+					background: none;
+					background-image: url('../images/search-icon.png');
+					background-size: contain;
+					background-position: center;
+					background-repeat: no-repeat;
+					mask: none;
+					opacity: 1;
+				}
+			}
+			input[type="submit"] {
+				padding: 0; 
+				position: absolute;
+				background-color: var(--wp--preset--color--light);
+    			background-image: url(../images/btn-icon-style-2-blue.png);
+				background-size: 0.55rem;
+				width: 2.5rem;
+				height: 2.5rem;
+				right: 0.5rem;
+				top: 50%;
+				transform: translateY(-50%);
+				background-repeat: no-repeat;
+				background-position: center;
+				border-radius: 50%;
+				border: 0;
+				transition: .3s;
+				font-size: 0;
+				svg {
+					display: none;
+				}
+				&:hover {
+    				background-image: url(../images/swimtopia-btn-arrow.png);
+					background-color: var(--wp--preset--color--blue);
+				}
+			}
+			input[type="search"] {
+				background-color: transparent;
+				font-size: var(--wp--preset--font-size--text-l);
+				color: color-mix(in srgb, var(--wp--preset--color--light) 50%, transparent);
+				line-height: 1.2083;
+				padding: 0.8125rem 3.5rem;
+				width: 100%;
+				border: 0;
+				&::placeholder {
+					color: color-mix(in srgb, var(--wp--preset--color--light) 50%, transparent);
+				}
+				&:-webkit-autofill,
+				&:-webkit-autofill:hover,
+				&:-webkit-autofill:focus,
+				&:-webkit-autofill:active {
+					-webkit-text-fill-color: color-mix(in srgb, var(--wp--preset--color--light) 50%, transparent);
+					transition: background-color 5000000s ease-in-out 0s;
+				}
+				&::-webkit-search-cancel-button,
+				&::-webkit-search-decoration,
+				&::-webkit-search-results-button,
+				&::-webkit-search-results-decoration {
+					-webkit-appearance: none;
+					appearance: none;
+					display: none;
+				}
+
+				&::-ms-clear {
+					display: none;
+					width: 0;
+					height: 0;
+				}
+
+			}
+		}
+	}
+}
+
+.headerBlock--hasEffect {
+	.headerBlock__title {
+		
+		.headerBlock__rolodex {
+			display: inline-block;
+			vertical-align: top;
+			transition: opacity 0.2s ease, transform 0.2s ease;
+			
+			&.is-leaving {
+				opacity: 0;
+				transform: translateY(-0.25em);
+			}
+			
+			&.is-entering {
+				opacity: 0;
+				transform: translateY(0.25em);
+			}
+		}
+
+		.headerBlock__rolodexGhost {
+			position: absolute;
+			visibility: hidden;
+			pointer-events: none;
+			white-space: pre; 
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.headerBlock__title .headerBlock__rolodex {
+			transition: none;
+		}
 	}
 }

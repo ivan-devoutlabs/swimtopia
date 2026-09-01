@@ -67,6 +67,10 @@
 		height: 100%;
 		pointer-events: none;
 
+		figure > div {
+			height: 100%;
+		}
+
 		.wp-block-video,
 		.wp-block-image {
 			width: 100%;
@@ -234,7 +238,13 @@
 	padding-top: 0.5rem;
 	opacity: 1;
 }
-
+.editor-styles-wrapper .accordion__contentBg,
+.editor-styles-wrapper .accordion__button{
+	position: absolute;
+}
+.editor-styles-wrapper .accordion__listItem__text {
+	display: block;
+}
 @media (prefers-reduced-motion: reduce) {
 	.accordion__listItem__text,
 	.accordion__listItem__title::after {

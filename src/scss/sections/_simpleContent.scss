@@ -37,7 +37,6 @@
             @include v.down(v.$bp-lg) {
                 width: 100%;
                 margin-bottom: 1.25rem;
-                max-height: 375px;
             }
             @include v.down(v.$bp-md) {
                 border-radius: 1.5rem;

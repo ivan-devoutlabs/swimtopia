@@ -518,18 +518,37 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 jQuery(document).ready(function($) {
-	if(jQuery(window).width() > 781) {
-		$('.cardsSimple__listItem').hover(
-			function() {
-				
-				$(this).find('.cardsSimple__listItem__text').stop().slideDown(700);
-				
-			},
-			function() {
-				
-				$(this).find('.cardsSimple__listItem__text').stop().slideUp(700);
-				
-			}
-		);
-	}
+    function initCardHover() {
+        if ($(window).width() > 781) {
+            $('.cardsSimple__listItem').off('mouseenter mouseleave').hover(
+                function() {
+                    var $text = $(this).find('.cardsSimple__listItem__text');
+                    
+                    $text.stop(true, false).slideDown({
+                        duration: 700,
+                        queue: false
+                    });
+                },
+                function() {
+                    var $text = $(this).find('.cardsSimple__listItem__text');
+                    
+                    $text.stop(true, false).slideUp({
+                        duration: 700,
+                        queue: false
+                    });
+                }
+            );
+        } else {
+            $('.cardsSimple__listItem').off('mouseenter mouseleave');
+            $('.cardsSimple__listItem__text').removeAttr('style');
+        }
+    }
+
+    initCardHover();
+
+    var resizeTimer;
+    $(window).on('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(initCardHover, 250);
+    });
 });

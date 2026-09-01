@@ -57,9 +57,11 @@ function starter_blog_render_list( WP_Query $query ) {
 			<div class="blogPreview__listItem__content">
 
 				<div class="blogPreview__listItem__top">
+					<?php if(!empty(get_the_term_list( get_the_ID(), 'category', '', ', ' ))): ?>
 					<div class="blogPreview__listItem__tag">
 						<?php echo get_the_term_list( get_the_ID(), 'category', '', ', ' ); ?>
 					</div>
+					<?php endif; ?>
 					<div class="blogPreview__listItem__time">
 						<?php echo esc_html( reading_time_label() ); ?>
 					</div>
@@ -69,9 +71,9 @@ function starter_blog_render_list( WP_Query $query ) {
 					<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 				</h3>
 
-				<a class="blogPreview__listItem__button" href="<?php the_permalink(); ?>">
-					<?php esc_html_e( 'View Blog', 'starter' ); ?>
-				</a>
+				<div class="blogPreview__listItem__button">
+					<a class="wp-block-button__link wp-block-read-more" href="<?php the_permalink(); ?>" target="_self"><?php esc_html_e( 'View Blog', 'starter' ); ?></a>
+				</div>
 
 			</div>
 

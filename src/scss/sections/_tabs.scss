@@ -291,6 +291,9 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		cursor: pointer;
+		transition: .3s;
+		background-color: var(--wp--preset--color--blue);
+		background-image: url(../images/swimtopia-btn-arrow.png);
 		@include v.down(v.$bp-lg) {
 			width: 2.75rem;
 			height: 2.75rem;
@@ -299,13 +302,12 @@
 
 		&--prev {
 			transform: rotate(180deg);
-			background-color: var(--wp--preset--color--light);
-			background-image: url(../images/btn-icon-style-2-blue.png);
+			
 		}
 
-		&--next {
-			background-color: var(--wp--preset--color--blue);
-			background-image: url(../images/swimtopia-btn-arrow.png);
+		&[disabled] {
+			background-color: var(--wp--preset--color--light);
+			background-image: url(../images/btn-icon-style-2-blue.png);
 		}
 	}
 

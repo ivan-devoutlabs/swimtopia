@@ -8,6 +8,17 @@
 	initial-value: 0px;
 }
 
+@keyframes tagPulse {
+    0%, 100% {
+        transform: translateY(-50%) scale(0.375); 
+        opacity: 0.5; 
+    }
+    50% {
+        transform: translateY(-50%) scale(1); 
+        opacity: 1;
+    }
+}
+
 .hero {
 	position: relative;
 	overflow: hidden;
@@ -16,6 +27,7 @@
     padding-right: 0;
 	padding-top: 10rem;
 	padding-bottom: 5.4375rem;
+	z-index: 10;
 
 	transition: --spot-r 0.65s cubic-bezier(0.22, 0.61, 0.36, 1);
 
@@ -308,8 +320,8 @@
 
 		@include glass.glass-fallbacks();
         margin: 0;
-		position: absolute !important;
-		bottom: -2.75rem;
+		position: fixed !important;
+		bottom: 5%;
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
@@ -361,6 +373,7 @@
 				width: 3rem;
 				height: 3rem;
 				background-color: color-mix(in srgb, var(--wp--preset--color--accent-4) 70%, transparent);
+	            animation: tagPulse 2s ease-in-out infinite;
 
 				@include v.down(v.$bp-lg) {
 					width: 2.5rem;

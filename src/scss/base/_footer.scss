@@ -1,424 +1,645 @@
 @use "../settings/glass" as glass;
 @use "../settings/variables" as v;
 
-
 .footer {
-	background-color: var(--wp--preset--color--blue);
-	padding-top: 7.0625rem;
-	padding-bottom: 3.625rem;
 	position: relative;
 	overflow: hidden;
+	padding-top: 7.0625rem;
+	padding-bottom: 3.625rem;
+	background-color: var(--wp--preset--color--blue);
+	padding-left: 0;
+	padding-right: 0;
+
 	&::before {
 		content: "";
 		position: absolute;
-		top: 3.375rem;
-		width: 36.302%;
-		aspect-ratio: 1/1;
-		background-image: url('../images/footer--bg.png');
+		top: 1.875rem;
+		left: 15%;
+		width: 40.302%;
+		aspect-ratio: 1 / 1;
+		background-image: url('../images/footer-brand-bg.png');
 		background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
-		left: 15%;
+		pointer-events: none;
+
 		@include v.down(v.$bp-md) {
 			top: auto;
 			bottom: 17%;
-			width: 107%;
 			left: -25%;
+			width: 107%;
 		}
 	}
+
 	@include v.down(v.$bp-md) {
 		padding-top: 4rem;
 		padding-bottom: 4rem;
 	}
+
 	.container {
+		position: relative;
+		z-index: 1;
 		max-width: 1846px;
+		margin-inline: auto;
 	}
+
+
 	&__logo {
-		margin-bottom: 1.5rem;
 		display: flex;
+		margin: 0 0 1.5rem; 
+
 		img {
 			width: 100%;
+			height: auto;
 		}
 	}
+
+
 	&__top {
-		margin-bottom: 4.375rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
+		margin-bottom: 4.375rem;
+
 		@include v.down(v.$bp-lg) {
 			flex-direction: column;
-    		gap: 2rem;
+			gap: 2rem;
 		}
+
 		@include v.down(v.$bp-md) {
 			flex-direction: column-reverse;
 			margin-bottom: 2.5rem;
 		}
-		&Right {
-			display: flex;
-			border: 2px solid var(--wp--preset--color--accent-2);
-			border-radius: 0.625rem;
-			@include v.down(v.$bp-md) {
-				flex-direction: column;
-				width: 100%;
-				margin-bottom: 1rem;
-			}
-			&__menu {
-				padding: 1.5rem;
-				border-right: 2px solid var(--wp--preset--color--accent-2);
-				@include v.down(v.$bp-md) {
-					padding: 0;
-					padding-top: 1rem;
-					padding-bottom: 0.5rem;
-					border-bottom: 2px solid var(--wp--preset--color--accent-2);
-					border-right: 0;
-				}
-				
-				&:first-child {
-					padding-left: 1rem;
-					@include v.down(v.$bp-md) {
-						padding-left: 0;
-					}
-				}
-				&:last-child {
-					padding-right: 1rem;
-					border-right: 0;
-					@include v.down(v.$bp-md) {
-						padding-right: 0;
-						border: 0;
-					}
-				}
-				&Title {
-					padding-left: 1rem;
-					padding-bottom: 0.5rem;
-					font-size: var(--wp--preset--font-size--text-s);
-					font-weight: 700;
-					color: var(--wp--preset--color--light);
-					line-height: 1.2222;
-					@include v.down(v.$bp-md) {
-						padding-bottom: 0.25rem;
-						line-height: 1.25;
-					}
-				}
-				&List {
-				    display: flex;
-    				flex-direction: column;
-					&__item {
-						padding: 0.5rem 1rem;
-						padding-right: 2rem;
-						line-height: 1.20833;
-						position: relative;
-						color: var(--wp--preset--color--light);
-						display: inline-block;
-						font-weight: 700;
-						font-size: var(--wp--preset--font-size--text-l);
-						text-decoration: none;
-						width: fit-content;
-						&::after {
-							content: "";
-							right: 1rem;
-							top: 50%;
-							transform: translateY(-50%);
-							width: 0.5rem;
-							height: 0.75rem;
-							background-image: url(../images/swimtopia-btn-arrow.png);
-							position: absolute;
-							background-size: contain;
-							background-repeat: no-repeat;
-							background-position: center;
-							transition: 0.3s;
-						}
-						&::before {
-							content: "";
-							left: 0;
-							top: 0;
-							width: 100%;
-							height: 100%;
-							@include glass.glass(
-								$frost: 25px,
-								$depth: 16px,
-								$splay: 23%,
-								$dispersion: 1.2px,
-								$radius: 24px,
-								$light: 0.8,
-								$tint: transparent
-							);
+	}
 
-							@include glass.glass-fallbacks();
-							background-color: rgba( 255, 255, 255, 0.1 );
-							border-radius: 100px;
-							backdrop-filter: none;
-							position: absolute;
-							transition: .3s;
-							opacity: 0;
-							@include v.down(v.$bp-lg) {
-								// opacity: 1;
-							}
-						}
-						&:hover::before {
-							opacity: 1;
-						}
-						&:hover::after {
-							right: 0.75rem;
-						}
-						&.contact {
-							display: flex;
-							gap: 0.5rem;
-							padding-right: 1rem;
-							&.map {
-								font-weight: 400;
-							}
-							&::after {
-								display: none;
-							}
-						}
-					}
+	
+	&__topLeft__appsTitle,
+	&__topLeft__socialTitle,
+	&__topRight__menuTitle {
+		margin: 0;
+		padding-left: 1rem;
+		padding-bottom: 0.5rem;
+		font-size: var(--wp--preset--font-size--text-s);
+		font-weight: 700;
+		color: var(--wp--preset--color--light);
+		line-height: 1.2222;
+
+		@include v.down(v.$bp-md) {
+			padding-bottom: 0.25rem;
+			line-height: 1.25;
+		}
+	}
+
+
+	&__topRight {
+		display: flex;
+		border: 2px solid var(--wp--preset--color--accent-2);
+		border-radius: 0.625rem;
+
+		@include v.down(v.$bp-md) {
+			flex-direction: column;
+			width: 100%;
+			margin-bottom: 1rem;
+		}
+
+		&__menu {
+			padding: 1.5rem;
+			border-right: 2px solid var(--wp--preset--color--accent-2);
+
+			@include v.down(v.$bp-md) {
+				padding: 1rem 0 0.5rem;
+				border-right: 0;
+				border-bottom: 2px solid var(--wp--preset--color--accent-2);
+			}
+
+			&:first-child {
+				padding-left: 1rem;
+
+				@include v.down(v.$bp-md) {
+					padding-left: 0;
+				}
+			}
+
+			&:last-child {
+				padding-right: 1rem;
+				border-right: 0;
+
+				@include v.down(v.$bp-md) {
+					padding-right: 0;
+					border: 0;
 				}
 			}
 		}
-		&Left {
+
+		
+		&__menuList {
+			display: flex;
+			flex-direction: column;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+
+			li {
+				margin: 0;
+			}
+		}
+	}
+
+	
+	&__topRight__menuList li a,
+	&__topRight__menuList__item {
+		position: relative;
+		display: inline-block;
+		width: fit-content;
+		margin: 0;
+		padding: 0.5rem 2rem 0.5rem 1rem;
+		color: var(--wp--preset--color--light);
+		font-weight: 700;
+		font-size: var(--wp--preset--font-size--text-l);
+		line-height: 1.20833;
+		text-decoration: none;
+
+		&::after {
+			content: "";
+			position: absolute;
+			right: 1rem;
+			top: 50%;
+			width: 0.5rem;
+			height: 0.75rem;
+			transform: translateY(-50%);
+			background-image: url( '../images/swimtopia-btn-arrow.png' );
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			transition: 0.3s;
+		}
+
+		&::before {
+			@include glass.glass(
+				$frost: 25px,
+				$depth: 16px,
+				$splay: 23%,
+				$dispersion: 1.2px,
+				$radius: 24px,
+				$light: 0.8,
+				$tint: transparent
+			);
+
+			@include glass.glass-fallbacks();
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			border-radius: 100px;
+			opacity: 0;
+			transition: 0.3s;
+
+			background-color: rgba( 255, 255, 255, 0.1 );
+			backdrop-filter: none;
+		}
+
+		&:hover::before {
+			opacity: 1;
+		}
+
+		&:hover::after {
+			right: 0.75rem;
+		}
+	}
+
+	
+	&__topRight__menuList__item.contact {
+		display: flex;
+		gap: 0.5rem;
+		padding-right: 1rem;
+		a {
+			text-decoration: none;
+		}
+
+		&::after {
+			display: none;
+		}
+
+		&.map {
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		
+		&::before {
+			content: "";
+			flex: 0 0 auto;
+			width: 1.5rem;
+			height: 1.5rem;
+			background-color: currentColor;
+			opacity: 1;
+			border-radius: 0;
+			position: static;
+			transition: none;
+
+			box-shadow: none;
+			backdrop-filter: none;
+			mask-repeat: no-repeat;
+			mask-position: center;
+			mask-size: contain;
+			-webkit-mask-repeat: no-repeat;
+			-webkit-mask-position: center;
+			-webkit-mask-size: contain;
+		}
+
+		&:not(.map)::before {
+			mask-image: url( '../images/phone-icon.svg' );
+			-webkit-mask-image: url( '../images/phone-icon.svg' );
+		}
+
+		&.map::before {
+			mask-image: url( '../images/map-icon.svg' );
+			-webkit-mask-image: url( '../images/map-icon.svg' );
+		}
+	}
+
+
+	&__topLeft {
+
+		@include v.down(v.$bp-md) {
+			width: 100%;
+		}
+
+		&__apps {
+			margin-bottom: 3.75rem;
+
+			@include v.down(v.$bp-md) {
+				margin-bottom: 1rem;
+			}
+		}
+
+		&__appsList {
+			display: flex;
+			flex-direction: column;
+			width: fit-content;
+			gap: 0.5rem;
+
 			@include v.down(v.$bp-md) {
 				width: 100%;
 			}
-			&__apps {
-				margin-bottom: 3.75rem;
-				@include v.down(v.$bp-md) {
-					margin-bottom: 1rem;
-				}
-				&Title {
-					padding-left: 1rem;
-					padding-bottom: 0.5rem;
-					font-size: var(--wp--preset--font-size--text-s);
-					font-weight: 700;
-					color: var(--wp--preset--color--light);
-					line-height: 1.2222;
-					@include v.down(v.$bp-md) {
-						padding-bottom: 0.25rem;
-						line-height: 1.25;
-					}
-				}
-				&List {
-					display: flex;
-					flex-direction: column;
-					width: fit-content;
-					gap: 0.5rem;
-					@include v.down(v.$bp-md) {
-						width: 100%;
-					}
-					&__item {
-						padding: 0.625rem;
-						padding-left: 1.5rem;
-						padding-right: 3.75rem;
-						display: flex;
-						align-items: center;
-						text-decoration: none;
-						gap: 0.75rem;
-						font-size: 2.25rem;
-						font-weight: 700;
-						color: var(--wp--preset--color--light);
-						position: relative;
-						border: 2px solid var(--wp--preset--color--accent-2);
-						border-radius: 0.9375rem;
-						line-height: 1.2222;
-						transition: .3s;
-						@include v.down(v.$bp-md) {
-							// font-size: 24px;
-							line-height: 1.20833;
-							padding-top: 0.875rem;
-							padding-bottom: 0.875rem;
-						}
-						svg {
-							path {
-								transition: .3s;
-							}
-						}
-						&::after {
-							content: "";
-							right: 1.5rem;
-							top: 50%;
-							transform: translateY(-50%);
-						    width: 0.95rem;
-    						height: 1.45rem;
-							background-image: url(../images/swimtopia-btn-arrow.png);
-							position: absolute;
-							background-size: contain;
-							background-repeat: no-repeat;
-							background-position: center;
-							transition: 0.3s;
-							@include v.down(v.$bp-md) {
-								width: 0.75rem;
-								height: 1.125rem;
-							}
-						}
 
-						&:hover {
-							background-color: var(--wp--preset--color--light);
-							color: var(--wp--preset--color--blue);
-							svg {
-								path {
-									fill: var(--wp--preset--color--blue);
-								}
-							}
-							&::after {
-								background-image: url(../images/btn-icon-style-2-blue.png);
-							}
-						}
-					}
-				}
-			}
-			&__social {
-				@include v.down(v.$bp-md) {
-					width: 100%;
-				}
-				&Title {
-					padding-left: 1rem;
-					padding-bottom: 0.5rem;
-					font-size: var(--wp--preset--font-size--text-s);
-					font-weight: 700;
-					color: var(--wp--preset--color--light);
-					line-height: 1.2222;
-				}
-				&List {
+			&__item {
+				margin: 0;
+
+				a {
+					position: relative;
 					display: flex;
 					align-items: center;
-					gap: 1rem;
-					@include v.down(v.$bp-md) {
-						max-width: 21.4375rem;
-						display: grid;
-						grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-						width: 100%;
-					}
-					&__item {
-						width: 3.75rem;
-						height: 3.75rem;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						border-radius: 50%;
-						transition: .3s;
-						border: 2px solid var(--wp--preset--color--light);
-						@include v.down(v.$bp-md) {
-							width: auto;
-							height: auto;
-							aspect-ratio: 1 / 1;
-							svg {
-								width: 50%;
-							}
-						}
-						svg {
-							width: 1.875rem;
-							height: 1.875rem;
-							@include v.down(v.$bp-lg) {
-								width: 1.25rem;
-								height: 1.25rem;
-							}
-							path {
-								transition: .3s;
-							}
-						}
+					gap: 0.75rem;
+					padding: 0.625rem 3.75rem 0.625rem 1.5rem;
+					border: 2px solid var(--wp--preset--color--accent-2);
+					border-radius: 0.9375rem;
+					color: var(--wp--preset--color--light);
+					font-size: 2.25rem;
+					font-weight: 700;
+					line-height: 1.2222;
+					text-decoration: none;
+					transition: 0.3s;
 
-						&:hover {
-							background-color: var(--wp--preset--color--light);
-							svg {
-								path {
-									fill: var(--wp--preset--color--blue);
-								}
-							}
+					@include v.down(v.$bp-md) {
+						padding-top: 0.875rem;
+						padding-bottom: 0.875rem;
+						line-height: 1.20833;
+					}
+
+					&::before {
+						content: "";
+						flex: 0 0 auto;
+						width: 2rem;
+						height: 2rem;
+						background-color: currentColor;
+						mask-repeat: no-repeat;
+						mask-position: center;
+						mask-size: contain;
+						-webkit-mask-repeat: no-repeat;
+						-webkit-mask-position: center;
+						-webkit-mask-size: contain;
+						transition: 0.3s;
+					}
+
+					&::after {
+						content: "";
+						position: absolute;
+						right: 1.5rem;
+						top: 50%;
+						width: 0.95rem;
+						height: 1.45rem;
+						transform: translateY(-50%);
+						background-image: url( '../images/swimtopia-btn-arrow.png' );
+						background-size: contain;
+						background-repeat: no-repeat;
+						background-position: center;
+						transition: 0.3s;
+
+						@include v.down(v.$bp-md) {
+							width: 0.75rem;
+							height: 1.125rem;
 						}
+					}
+
+					&:hover {
+						background-color: var(--wp--preset--color--light);
+						color: var(--wp--preset--color--blue);
+
+						&::after {
+							background-image: url( '../images/btn-icon-style-2-blue.png' );
+						}
+					}
+				}
+
+				
+				&.apple a::before {
+					mask-image: url( '../images/Apple.svg' );
+					-webkit-mask-image: url( '../images/Apple.svg' );
+				}
+
+				&.google a::before {
+					mask-image: url( '../images/playmarket.svg' );
+					-webkit-mask-image: url( '../images/playmarket.svg' );
+				}
+			}
+		}
+
+
+		&__social {
+
+			@include v.down(v.$bp-md) {
+				width: 100%;
+			}
+		}
+
+		
+		&__socialList {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			margin: 0;
+			padding: 0;
+
+			@include v.down(v.$bp-md) {
+				display: grid;
+				grid-template-columns: repeat( 6, 1fr );
+				width: 100%;
+				max-width: 21.4375rem;
+				gap: 0.75rem
+			}
+
+			.wp-social-link {
+				width: 3.75rem;
+				height: 3.75rem;
+				margin: 0;
+				border: 2px solid var(--wp--preset--color--light);
+				border-radius: 50%;
+				background: none;
+				transition: 0.3s;
+
+				@include v.down(v.$bp-lg) {
+					width: auto;
+					height: auto;
+					aspect-ratio: 1 / 1;
+				}
+
+				a {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: 100%;
+					height: 100%;
+					padding: 0;
+					color: var(--wp--preset--color--light);
+				}
+
+				svg {
+					width: 1.875rem;
+					height: 1.875rem;
+					fill: currentColor;
+					transition: 0.3s;
+
+					@include v.down(v.$bp-lg) {
+						width: 1.25rem;
+						height: 1.25rem;
+					}
+
+					@include v.down(v.$bp-md) {
+						width: 50%;
+						height: 50%;
+					}
+				}
+
+				&:hover {
+					background-color: var(--wp--preset--color--light);
+
+					a {
+						color: var(--wp--preset--color--blue);
 					}
 				}
 			}
 		}
 	}
+
+
 	&__bottom {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		padding-top: 1rem;
 		border-top: 1px solid var(--wp--preset--color--light);
+
 		@include v.down(v.$bp-md) {
 			flex-direction: column;
 			align-items: flex-start;
 			padding-top: 1.5rem;
 		}
+
 		&Text {
+			margin: 0;
 			color: var(--wp--preset--color--light);
 			font-size: var(--wp--preset--font-size--text-m);
+
 			@include v.down(v.$bp-md) {
 				padding: 0 1rem;
-				line-height: 1.2222;
 				margin-bottom: 0.5rem;
+				line-height: 1.2222;
 			}
 		}
+
 		&Menu {
 			display: flex;
 			align-items: center;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+
 			@include v.down(v.$bp-md) {
 				flex-direction: column;
 				align-items: flex-start;
 			}
-			&__item {
+
+			li {
+				margin: 0;
 				font-weight: 700;
 				font-size: var(--wp--preset--font-size--text-m);
+
 				@include v.down(v.$bp-md) {
 					font-size: var(--wp--preset--font-size--text-l);
 					line-height: 1.25;
 				}
-				a {
-					padding: 0.5rem 1rem;
-					padding-right: 2rem;
-					line-height: 1.20833;
-					position: relative;
-					color: var(--wp--preset--color--light);
-					display: inline-block;
-					text-decoration: none;
-					&::after {
-						content: "";
-						right: 1rem;
-						top: 50%;
-						transform: translateY(-50%);
-						width: 0.5rem;
-						height: 0.75rem;
-						background-image: url(../images/swimtopia-btn-arrow.png);
-						position: absolute;
-						background-size: contain;
-						background-repeat: no-repeat;
-						background-position: center;
-						transition: 0.3s;
+			}
+
+			a {
+				position: relative;
+				display: inline-block;
+				padding: 0.5rem 2rem 0.5rem 1rem;
+				color: var(--wp--preset--color--light);
+				line-height: 1.20833;
+				text-decoration: none;
+
+				&::after {
+					content: "";
+					position: absolute;
+					right: 1rem;
+					top: 50%;
+					width: 0.5rem;
+					height: 0.75rem;
+					transform: translateY(-50%);
+					background-image: url( '../images/swimtopia-btn-arrow.png' );
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;
+					transition: 0.3s;
+				}
+
+				&::before {
+					@include glass.glass(
+						$frost: 25px,
+						$depth: 16px,
+						$splay: 23%,
+						$dispersion: 1.2px,
+						$radius: 24px,
+						$light: 0.8,
+						$tint: transparent
+					);
+
+					@include glass.glass-fallbacks();
+					content: "";
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 100%;
+					height: 100%;
+					border-radius: 100px;
+					opacity: 0;
+					transition: 0.3s;
+
+					background-color: rgba( 255, 255, 255, 0.1 );
+					backdrop-filter: none;
+
+					@include v.down(v.$bp-lg) {
+						display: none;
 					}
-					&::before {
-						content: "";
-						left: 0;
-						top: 0;
-						width: 100%;
-						height: 100%;
-						@include glass.glass(
-							$frost: 25px,
-							$depth: 16px,
-							$splay: 23%,
-							$dispersion: 1.2px,
-							$radius: 24px,
-							$light: 0.8,
-							$tint: transparent
-						);
-						@include glass.glass-fallbacks();
-						background-color: rgba( 255, 255, 255, 0.1 );
-						border-radius: 100px;
-						backdrop-filter: none;
-						position: absolute;
-						transition: .3s;
-						opacity: 0;
-						@include v.down(v.$bp-lg) {
-							opacity: 1;
-						}
-					}
-					&:hover::before {
-						opacity: 1;
-					}
-					&:hover::after {
-						right: 0.75rem;
-					}
+				}
+
+				&:hover::before {
+					opacity: 1;
+				}
+
+				&:hover::after {
+					right: 0.75rem;
 				}
 			}
 		}
 	}
+
+
+	&__notice {
+		margin-top: 1rem;
+		padding: 0.75rem 1rem;
+		border: 1px dashed var(--wp--preset--color--light);
+		border-radius: 6px;
+		color: var(--wp--preset--color--light);
+		font-size: var(--wp--preset--font-size--text-s);
+		opacity: 0.8;
+	}
+	.wp-social-link-facebook a,
+	.wp-social-link-x a,
+	.wp-social-link-instagram a,
+	.wp-social-link-linkedin a,
+	.wp-social-link-reddit a,
+	.wp-social-link-youtube a {
+		@include v.down(v.$bp-lg) {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
+	}
+	.wp-social-link-facebook a svg,
+	.wp-social-link-x a svg,
+	.wp-social-link-instagram a svg,
+	.wp-social-link-linkedin a svg,
+	.wp-social-link-reddit a svg,
+	.wp-social-link-youtube a svg {
+		display: none;
+	}
+	.wp-social-link-facebook a::before,
+	.wp-social-link-x a::before,
+	.wp-social-link-instagram a::before,
+	.wp-social-link-linkedin a::before,
+	.wp-social-link-reddit a::before,
+	.wp-social-link-youtube a::before {
+		content: "";
+		flex: 0 0 auto;
+		width: 2rem;
+		height: 2rem;
+		background-color: var(--wp--preset--color--light);
+		mask-repeat: no-repeat;
+		mask-position: center;
+		mask-size: contain;
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		-webkit-mask-size: contain;
+		transition: 0.3s;
+		@include v.down(v.$bp-lg) {
+			width: 1.25rem;
+			height: 1.25rem;
+		}
+	}
+	.wp-social-link-facebook a:hover::before,
+	.wp-social-link-x a:hover::before,
+	.wp-social-link-instagram a:hover::before,
+	.wp-social-link-linkedin a:hover::before,
+	.wp-social-link-reddit a:hover::before,
+	.wp-social-link-youtube a:hover::before {
+		background-color: var(--wp--preset--color--blue);
+	}
+	.wp-social-link-facebook a::before {
+		mask-image: url( '../images/Vector.svg' );
+		-webkit-mask-image: url( '../images/Vector.svg' );
+	}
+	.wp-social-link-x a::before {
+		mask-image: url( '../images/Vector-1.svg' );
+		-webkit-mask-image: url( '../images/Vector-1.svg' );
+	}
+	.wp-social-link-instagram a::before {
+		mask-image: url( '../images/Vector-2.svg' );
+		-webkit-mask-image: url( '../images/Vector-2.svg' );
+	}
+	.wp-social-link-linkedin a::before {
+		mask-image: url( '../images/Vector-3.svg' );
+		-webkit-mask-image: url( '../images/Vector-3.svg' );
+	}
+	.wp-social-link-reddit a::before {
+		mask-image: url( '../images/Vector-4.svg' );
+		-webkit-mask-image: url( '../images/Vector-4.svg' );
+	}
+	.wp-social-link-youtube a::before {
+		mask-image: url( '../images/Vector-5.svg' );
+		-webkit-mask-image: url( '../images/Vector-5.svg' );
+	}
+	
 }

@@ -21,6 +21,12 @@ function starter_webinars_query_args( $categories = array(), $paged = 1 ) {
 
     if ( $categories ) {
         $args['tax_query'] = array(
+            'relation' => 'AND',
+            array(
+                'taxonomy' => 'webinars-types',
+                'field'    => 'slug',
+                'terms'    => 'previous',
+            ),
             array(
                 'taxonomy' => 'webinars-categories',
                 'field'    => 'term_id',
@@ -57,10 +63,8 @@ function starter_webinars_render_list( WP_Query $query ) {
 				</div>
                 <div class="webinarsPreview__listItem__title"><?php the_title(); ?></div>
 				
-				<div class="wp-block-group webinarsPreview__listItem__button">
-                    <a class="blogPreview__listItem__button" href="<?php the_permalink(); ?>">
-                        <?php esc_html_e( 'View Webinar', 'starter' ); ?>
-                    </a>
+                <div class="blogPreview__listItem__button">
+					<a class="wp-block-button__link wp-block-read-more" href="<?php the_permalink(); ?>" target="_self"><?php esc_html_e( 'View Blog', 'starter' ); ?></a>
 				</div>
 			</div>
 		</div>

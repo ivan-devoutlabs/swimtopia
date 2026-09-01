@@ -1,0 +1,333 @@
+@use "../settings/glass" as glass;
+@use "../settings/variables" as v;
+
+.pricing {
+    padding-top: 15.9375rem;
+    padding-bottom: 3.625rem;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: var(--wp--preset--color--dark);
+    position: relative;
+    @include v.down(v.$bp-md) {
+        padding-top: 9rem;
+    }
+    .container {
+        max-width: 860px;
+        position: relative;
+    }
+    &__title {
+        line-height: 1.2222;
+        margin-bottom: 1rem;
+        color: var(--wp--preset--color--light);
+        text-align: center;
+    }
+    &__subtitle {
+        padding: 0.5rem 1.5rem;
+        color: var(--wp--preset--color--light);
+        border-radius: 100px;
+        text-align: center;
+        border: 3px solid var(--wp--preset--color--light);
+    }
+    &__top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 3rem;
+        @include v.down(v.$bp-md) {
+            margin-bottom: 1.75rem;
+        }
+    }
+    &__bg {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 72.5%;
+        max-width: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: left center;
+        }
+    }
+    &__tabs {
+        &List {
+            @include glass.glass(
+                $frost: 25px,
+                $depth: 16px,
+                $splay: 23%,
+                $dispersion: 1.2px, 
+                $radius: 100px,
+                $light: 0.8,
+                $tint: transparent
+            );
+            @include glass.glass-fallbacks();
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1rem;
+            &__item {
+                padding: 0.390625rem 1rem;
+                font-size: var(--wp--preset--font-size--text-m);
+                line-height: 1.25;
+                color: var(--wp--preset--color--light);
+                font-weight: 700;
+                margin-top: 0;
+                cursor: pointer;
+                margin-bottom: 0;
+            }
+            &__bg {
+                position: absolute;
+                background-color: var(--wp--preset--color--blue);
+                border-radius: 4.5rem;
+                transition: .3s;
+            }
+        }
+        &Item {
+            position: relative;
+            padding: 1.5rem;
+            display: none;
+            @include v.down(v.$bp-md) {
+                padding: 0.75rem;
+            }
+            &.active {
+                display: block;
+            }
+            & > * {
+                position: relative;
+            }
+            &::before {
+                @include glass.glass(
+                    $frost: 25px,
+                    $depth: 16px,
+                    $splay: 23%,
+                    $dispersion: 1.2px, 
+                    $radius: 30px,
+                    $light: 0.8,
+                    $tint: transparent
+                );
+                @include glass.glass-fallbacks();
+                background-color: color-mix(in srgb, var(--wp--preset--color--white) 10%, transparent);
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+            }
+            &Box {
+                position: relative;
+                padding: 1rem;
+                @include v.down(v.$bp-md) {
+                    padding: 0.75rem 0.5rem;
+                }
+                &::before {
+                    // @include glass.glass(
+                    //     $frost: 25px,
+                    //     $depth: 16px,
+                    //     $splay: 23%,
+                    //     $dispersion: 1.2px, 
+                    //     $radius: 20px,
+                    //     $light: 0.8,
+                    //     $tint: transparent
+                    // );
+                    // @include glass.glass-fallbacks();
+                    background-color: transparent;
+                    border-radius: 1.25rem;
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    border: 1px solid var(--wp--preset--color--accent-2);
+                }
+                &__options {
+                    &List {
+                        position: relative;
+                        display: flex;
+                        gap: 0.5rem;
+                        flex-wrap: wrap;
+                        margin-bottom: 1rem;
+                        @include v.down(v.$bp-md) {
+                            margin-bottom: 0.5rem;
+                        }
+                        &__item {
+                            padding: 0.5rem 1rem;
+                            padding-left: 2.5rem;
+                            position: relative;
+                            color: var(--wp--preset--color--light);
+                            line-height: 1.25;
+                            color: var(--wp--preset--color--light);
+                            font-weight: 600;
+                            position: relative;
+                            margin-top: 0;
+                            margin-bottom: 0;
+                            cursor: pointer;
+                            z-index: 1;
+                            &::before {
+                                @include glass.glass(
+                                    $frost: 25px,
+                                    $depth: 16px,
+                                    $splay: 23%,
+                                    $dispersion: 1.2px, 
+                                    $radius: 20px,
+                                    $light: 0.8,
+                                    $tint: transparent
+                                );
+                                @include glass.glass-fallbacks();
+                                content: "";
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                width: 100%;
+                                height: 100%;
+                                backdrop-filter: none;
+                                transition: .3s;
+                                z-index: -1;
+                            }
+                            &::after {
+                                content: "";
+                                top: 50%;
+                                left: 1rem;
+                                transform: translateY(-50%);
+                                border-radius: 50%;
+                                border: 2px solid var(--wp--preset--color--light);
+                                background-color: color-mix(in srgb, var(--wp--preset--color--light) 10%, transparent);
+                                transition: .3s;
+                                position: absolute;
+                                width: 1rem;
+                                height: 1rem;
+                            }
+                            &.active {
+                                &::before {
+                                    background-color: color-mix(in srgb, var(--wp--preset--color--blue) 50%, transparent);
+                                }
+                                &::after {
+                                    background-color: var(--wp--preset--color--blue);
+                                }
+                            }
+                        }
+                    }
+                    &Content {
+                        position: relative;
+                        &__item {
+                            color: var(--wp--preset--color--light);
+                            display: none;
+                            &.active {
+                                display: block;
+                            }
+                            &__title {
+                                & > * {
+                                    display: inline-block;
+                                }
+                                &.has-tag {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    @include v.down(v.$bp-lg) {
+                                        margin-bottom: 0.5rem;
+                                    }
+                                    @include v.down(v.$bp-md) {
+                                        flex-wrap: wrap;
+                                        row-gap: 0.25rem;
+                                        margin-bottom: .5rem;
+                                    }
+                                }
+                                h3 {
+                                    strong {
+                                        font-size: var(--wp--preset--font-size--text-xl);
+                                        font-weight: 400;
+                                        vertical-align: middle;
+                                    }
+                                }
+                                &Tag {
+                                    font-size: var(--wp--preset--font-size--text-m);
+                                    line-height: 1.25;
+                                    padding: 0.5rem 1rem;
+                                    padding-left: 2.5rem;
+                                    border-radius: 100px;
+                                    font-weight: 700;
+                                    position: relative;
+                                    background-color: var(--wp--preset--color--blue);
+                                    margin: 0;
+                                    &::before {
+                                        content: "";
+                                        top: 50%;
+                                        left: 1rem;
+                                        transform: translateY(-50%);
+                                        border-radius: 50%;
+                                        transition: .3s;
+                                        position: absolute;
+                                        width: 1.25rem;
+                                        height: 1.25rem;
+                                        background-image: url('../images/star.svg');
+                                        background-size: contain;
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                    }
+                                }
+                            }
+                            &Text {
+                                margin-bottom: 1rem;
+                                margin-top: 0;
+                                font-size: var(--wp--preset--font-size--text-s);
+                                line-height: 1.222;
+                                &:last-child {
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &__list {
+                padding-left: 0;
+                margin-top: 1.5rem;
+                margin-bottom: 2.5rem;
+                @include v.down(v.$bp-md) {
+                    margin-bottom: 1.5rem;
+                    margin-top: 1rem;
+                }
+                li {
+                    padding-left: 1.625rem;
+                    position: relative;
+                    color: var(--wp--preset--color--light);
+                    font-size: var(--wp--preset--font-size--text-l);
+                    font-weight: 600;
+                    list-style-type: none;
+                    line-height: 1.20833;
+                    margin-bottom: 1rem;
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                    &::before {
+                        content: "";
+                        width: 1.125rem;
+                        height: 1.125rem;
+                        left: 0;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background-image: url(../images/cards-list-icon-accent-2.png);
+                        background-size: contain;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        position: absolute;
+                    }
+                }
+            }
+            &__smallText {
+                color: var(--wp--preset--color--light);
+                font-size: var(--wp--preset--font-size--text-s);
+                padding-top: 0.5rem;
+                line-height: 1.2222;
+                padding-bottom: 1rem;
+                margin: 0;
+            }
+        }
+    }
+}

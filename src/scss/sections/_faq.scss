@@ -292,3 +292,14 @@
 		transition: none;
 	}
 }
+
+.block-editor-block-list__layout .faq__listItemQuestion {
+	position: static;
+}
+.block-editor-block-list__layout.is-selected .faq__listItemAnswear,
+.block-editor-block-list__layout.has-editable-outline .faq__listItemAnswear,
+.block-editor-block-list__layout.is-editing-content-only-section .faq__listItemAnswear,
+.block-editor-block-list__layout.has-child-selected .faq__listItemAnswear{
+	opacity: 1 !important;
+    width: 100%;
+}

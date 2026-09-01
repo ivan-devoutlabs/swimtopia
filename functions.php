@@ -25,234 +25,8 @@ require THEME_DIR . '/inc/post-types.php';
 require THEME_DIR . '/inc/reading-time.php';
 require THEME_DIR . '/inc/blog-filter.php';
 require THEME_DIR . '/inc/webinars-list.php';
-
-
-
-function theme_content_has( $needle ) {
-	if ( ! is_singular() ) {
-		return false;
-	}
-	$post = get_post();
-	return $post && false !== strpos( $post->post_content, $needle );
-}
-
-
-function theme_enqueue_components() {
-
-	if ( theme_content_has( 'faq' ) ) {
-		wp_enqueue_script(
-			'faq',
-			THEME_URI . '/js/faq.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'hero' ) ) {
-		wp_enqueue_script(
-			'hero',
-			THEME_URI . '/js/hero.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-		wp_enqueue_script(
-			'features',
-			THEME_URI . '/js/features.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-		wp_enqueue_script(
-			'features-distortion',
-			THEME_URI . '/js/features-distortion.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'logo-marquee' ) || theme_content_has( 'headline-marquee' ) ) {
-		wp_enqueue_script(
-			'logo-marquee',
-			THEME_URI . '/js/logo-marquee.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'features' ) ) {
-		wp_enqueue_script(
-			'features',
-			THEME_URI . '/js/features.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-		wp_enqueue_script(
-			'features-distortion',
-			THEME_URI . '/js/features-distortion.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'tabs' ) || theme_content_has( 'role-tabs' ) ) {
-		wp_enqueue_script(
-			'features',
-			THEME_URI . '/js/tabs.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-		wp_enqueue_script(
-			'features-distortion',
-			THEME_URI . '/js/features-distortion.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'cards-simple' ) ) {
-		wp_enqueue_script(
-			'features-distortion',
-			THEME_URI . '/js/features-distortion.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'ease-accordion' ) || theme_content_has( 'ease-accordion-with-testimonials' ) || theme_content_has( 'testimonials' ) ) {
-		wp_enqueue_script(
-			'ease-accordion',
-			THEME_URI . '/js/ease-accordion.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-	
-	if ( theme_content_has( 'content-testimonials' ) ) {
-		wp_enqueue_script(
-			'ease-accordion',
-			THEME_URI . '/js/ease-accordion.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-	
-
-	if ( theme_content_has( 'case-study-preview' ) ) {
-		wp_enqueue_script(
-			'case-study',
-			THEME_URI . '/js/case-study.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'sticky-stats' ) ) {
-		wp_enqueue_script(
-			'sticky-stats',
-			THEME_URI . '/js/sticky-stats.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'accordion' ) ) {
-		wp_enqueue_script(
-			'accordion-js',
-			THEME_URI . '/js/accordion.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'blog-preview' ) ) {
-		wp_enqueue_script(
-			'blog-preview',
-			THEME_URI . '/js/blog-preview.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'form' ) ) {
-		wp_enqueue_script(
-			'form',
-			THEME_URI . '/js/form.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'team-list' ) ) {
-		wp_enqueue_script(
-			'team-list',
-			THEME_URI . '/js/team.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if ( theme_content_has( 'cards-slider' ) ) {
-		wp_enqueue_script(
-			'features-distortion',
-			THEME_URI . '/js/features-distortion.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-		wp_enqueue_script(
-			'cards-slider',
-			THEME_URI . '/js/cards-slider.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-	if ( theme_content_has( 'webinars-preview-list' ) ) {
-		wp_enqueue_script(
-			'webinars',
-			THEME_URI . '/js/webinars.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-
-	if(is_singular()){
-		wp_enqueue_script(
-			'blog-preview',
-			THEME_URI . '/js/blog-preview.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-		wp_enqueue_script(
-			'webinars',
-			THEME_URI . '/js/webinars.js',
-			array( 'jquery' ),
-			null,
-			array( 'strategy' => 'defer', 'in_footer' => true )
-		);
-	}
-}
-add_action( 'wp_enqueue_scripts', 'theme_enqueue_components' );
-
+require THEME_DIR . '/inc/search.php';
+require THEME_DIR . '/inc/footer.php';
 
 
 
@@ -283,30 +57,6 @@ function starter_tabs_enqueue() {
 			)
 		);
 	}
- 
-	$path = THEME_DIR . '/js/tabs.js';
- 
-	wp_enqueue_script(
-		'starter-tabs',
-		THEME_URI . '/js/tabs.js',
-		array( 'starter-distortion' ),
-		file_exists( $path ) ? filemtime( $path ) : THEME_VERSION,
-		array(
-			'strategy'  => 'defer',
-			'in_footer' => true,
-		)
-	);
- 
-	wp_add_inline_script(
-		'starter-tabs',
-		'window.starterTabsL10n = ' . wp_json_encode(
-			array(
-				'prev' => __( 'Попередній таб', 'starter' ),
-				'next' => __( 'Наступний таб', 'starter' ),
-			)
-		) . ';',
-		'before'
-	);
 }
 add_action( 'wp_enqueue_scripts', 'starter_tabs_enqueue' );
 
@@ -361,12 +111,20 @@ add_action( 'init', 'register_image_size_styles' );
 
 add_action( 'init', 'register_member_position_block' );
 function register_member_position_block() {
+
+	wp_register_script(
+        'member-position-editor-script',
+        get_template_directory_uri() . '/js/member-position-block.js',
+        array( 'wp-blocks', 'wp-element', 'wp-block-editor' ),
+        filemtime( get_template_directory() . '/js/member-position-block.js' )
+    );
     register_block_type( 'theme/member-position', array(
         'api_version'     => 3,
         'title'           => 'Team Member Position',
         'icon'            => 'id-alt',
         'category'        => 'theme',
         'uses_context'    => array( 'postId' ),
+		'editor_script' => 'member-position-editor-script',
         'render_callback' => 'render_member_position_block'
     ) );
 }
@@ -385,4 +143,56 @@ function render_member_position_block( $attributes, $content, $block ) {
     }
 
     return '<div class="team__listItem__position">' . esc_html( $position ) . '</div>';
+}
+
+
+add_action('acf/init', 'my_acf_init');
+function my_acf_init() {
+
+    if (function_exists('acf_add_options_sub_page')) {
+
+        acf_add_options_page(
+            array(
+                'page_title' => __('General options'),
+                'menu_title' => __('General options'),
+                'menu_slug' => 'theme-general-settings',
+                'capability' => 'edit_posts',
+                'redirect' => false
+            )
+        );
+
+    }
+}
+
+
+function get_video_duration( $attachment_id ) {
+    if ( ! $attachment_id ) {
+        return '';
+    }
+
+    $meta = wp_get_attachment_metadata( $attachment_id );
+
+    if ( empty( $meta['length'] ) ) {
+        return '';
+    }
+
+    $total_seconds = (int) $meta['length'];
+    $hours         = (int) floor( $total_seconds / 3600 );
+    $minutes       = (int) floor( ( $total_seconds % 3600 ) / 60 );
+
+    $formatted_time = '';
+
+    if ( $hours > 0 ) {
+        $formatted_time .= $hours . 'hr ';
+    }
+
+    if ( $minutes > 0 ) {
+        $formatted_time .= $minutes . 'min';
+    }
+
+    if ( $hours === 0 && $minutes === 0 && $total_seconds > 0 ) {
+        $formatted_time = $total_seconds . 'sec';
+    }
+
+    return trim( $formatted_time );
 }

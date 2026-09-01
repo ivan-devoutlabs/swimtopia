@@ -24,6 +24,8 @@
             display: flex;
             flex-direction: column;
             min-height: 37.5rem;
+            justify-content: flex-end;
+            cursor: pointer;
             @include v.down(1200px) {
                 padding: 1.5rem;
             }
@@ -52,8 +54,14 @@
                     opacity: 0;
                 }
             }
-            &__top {
+            & &__top {
                 margin-bottom: auto;
+                position: absolute;
+                top: 2.5rem;
+                left: 2.5rem;
+                @include v.down(v.$bp-md) {
+                    position: static;
+                }
             }
             &__image {
                 display: flex;
@@ -92,11 +100,8 @@
                 background-color: var(--wp--preset--color--blue);
                 color: var(--wp--preset--color--light);
                 padding: 0.5625rem 1rem 0.5625rem 2.9375rem;
-                &::after {
-                    right: calc( 100% - 2.375rem );
-                    background-color: var(--wp--preset--color--light);
-                    background-image: url("../images/btn-icon-style-2-blue.png");
-                }
+                background-image: url('../images/btn-arrow-white.png');
+                background-position: 0.5rem center;
             }
             &__title {
                 color: var(--wp--preset--color--light);
@@ -221,6 +226,9 @@
     &.list .has-navy-background-color .cardsSimple__listItem__content li::before{
         background-image: url('../images/cards-list-icon-accent-2.png');
     }
+    &.list .has-accent-2-background-color .cardsSimple__listItem__content li::before{
+        background-image: url('../images/cards-list-icon-blue.png');
+    }
     .headerBlock + & {
         margin-top: -16.875rem;
         @include v.down(v.$bp-md) {
@@ -231,7 +239,7 @@
     &__title {
         color: var(--wp--preset--color--light);
         line-height: 1.234375;
-        max-width: 50rem;
+        max-width: 65%;
         @include v.down(v.$bp-lg) {
             max-width: 40rem;
         }
@@ -331,6 +339,7 @@
     
  
 	.cardsSimple__viewport {
+        overflow: visible;
  
 		&:focus-visible {
 			outline: 2px solid var(--wp--preset--color--blue);
@@ -342,7 +351,7 @@
 	.cardsSimple__list {
 		flex-wrap: nowrap;
 		justify-content: flex-start;
-		gap: var(--cards-gap);
+        gap: 0;
  
 		&.is-track {
 			transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -351,10 +360,10 @@
 	}
  
 	.cardsSimple__listItem {
-		flex: 0 0 calc(
-			(100% - var(--cards-gap) * (var(--cards-visible) - 1)) /
-			var(--cards-visible)
-		);
+		// flex: 0 0 calc(
+		// 	(100% - var(--cards-gap) * (var(--cards-visible) - 1)) /
+		// 	var(--cards-visible)
+		// );
 		width: auto;
 	}
  
@@ -389,6 +398,9 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		cursor: pointer;
+        transition: .3s;
+        background-color: var(--wp--preset--color--blue);
+		background-image: url(../images/swimtopia-btn-arrow.png);
 		@include v.down(v.$bp-lg) {
 			width: 2.75rem;
 			height: 2.75rem;
@@ -397,13 +409,11 @@
 
 		&--prev {
 			transform: rotate(180deg);
-			background-color: var(--wp--preset--color--light);
-			background-image: url(../images/btn-icon-style-2-blue.png);
 		}
 
-		&--next {
-			background-color: var(--wp--preset--color--blue);
-			background-image: url(../images/swimtopia-btn-arrow.png);
+		&[disabled] {
+			background-color: var(--wp--preset--color--light);
+			background-image: url(../images/btn-icon-style-2-blue.png);
 		}
 	}
     .cardsSimple__listItem__title {
@@ -473,4 +483,45 @@
 
 .cardsSimple__listItem:hover canvas.features__canvas {
     transform: scale(1);
+}
+
+
+.cardsSimple.list .cardsSimple__listItem__top {
+    position: static;
+}
+
+
+
+.block-editor-block-list__layout.is-selected .cardsSimple__listItem__text,
+.block-editor-block-list__layout.has-editable-outline .cardsSimple__listItem__text,
+.block-editor-block-list__layout.is-editing-content-only-section .cardsSimple__listItem__text,
+.block-editor-block-list__layout.has-child-selected .cardsSimple__listItem__text{
+	display: block;
+}
+
+
+.block-editor-block-list__layout .cardsSimple__list {
+    flex-wrap: nowrap !important;
+    gap: 1rem !important;
+}
+.block-editor-block-list__layout .cardsSimple__listItem {
+    flex: 0 0 33% !important;
+}
+.block-editor-block-list__layout.is-selected .cardsSimple__listItem .cardsSimple__listItem__top,
+.block-editor-block-list__layout.has-editable-outline .cardsSimple__listItem .cardsSimple__listItem__top,
+.block-editor-block-list__layout.is-editing-content-only-section .cardsSimple__listItem .cardsSimple__listItem__top,
+.block-editor-block-list__layout.has-child-selected .cardsSimple__listItem .cardsSimple__listItem__top {
+    position: static;
+}
+.block-editor-block-list__layout.is-selected .cardsSimple__list,
+.block-editor-block-list__layout.has-editable-outline .cardsSimple__list,
+.block-editor-block-list__layout.is-editing-content-only-section .cardsSimple__list,
+.block-editor-block-list__layout.has-child-selected .cardsSimple__list {
+    flex-wrap: wrap !important;
+}
+.block-editor-block-list__layout.is-selected .cardsSimple__listItem,
+.block-editor-block-list__layout.has-editable-outline .cardsSimple__listItem,
+.block-editor-block-list__layout.is-editing-content-only-section .cardsSimple__listItem,
+.block-editor-block-list__layout.has-child-selected .cardsSimple__listItem {
+    flex: 0 0 calc( 50% - 0.5rem ) !important;
 }

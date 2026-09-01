@@ -16,12 +16,14 @@ function starter_register_team_post_type() {
 				'add_new_item'  => __( 'Add Team Member', 'starter' ),
 				'edit_item'     => __( 'Edit Team Member', 'starter' ),
 			),
-			'public'       => true,
-			'has_archive'  => false,
+			'public' => true,
+			'has_archive' => false,
+			'publicly_queryable'  => true,
+			'exclude_from_search' => true,
 			'menu_icon'    => 'dashicons-groups',
 			'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'custom-fields' ),
 			'show_in_rest' => true,
-			'rewrite'      => array( 'slug' => 'team' ),
+    		'rewrite' => false,
 		)
 	);
 
@@ -44,6 +46,19 @@ function starter_register_team_post_type() {
 	);
 }
 add_action( 'init', 'starter_register_team_post_type' );
+
+function starter_disable_team_single() {
+    if ( is_singular( 'team' ) ) {
+        global $wp_query;
+        $wp_query->set_404();
+        status_header( 404 );
+        nocache_headers();
+        include get_query_template( '404' );
+        exit;
+    }
+}
+add_action( 'template_redirect', 'starter_disable_team_single' );
+
 
 function starter_register_team_meta() {
 

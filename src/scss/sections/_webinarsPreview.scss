@@ -34,18 +34,21 @@
             margin-bottom: 1.5rem;
         }
     }
+    &__query,
+    &__viewport {
+        overflow: visible;
+    }
     &__list {
         display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: 0;
         & > li {
-            width: calc( 33.33% - 1rem );
-            @include v.down(v.$bp-lg) {
-                width: calc( 50% - 0.75rem );
-            }
-            @include v.down(v.$bp-md) {
-                width: 100%;
-            }
+            // width: calc( 33.33% - 1rem );
+            // @include v.down(v.$bp-lg) {
+            //     width: calc( 50% - 0.75rem );
+            // }
+            // @include v.down(v.$bp-md) {
+            //     width: 100%;
+            // }
         }
         &Item {
             background-color: var(--wp--preset--color--blue);
@@ -66,6 +69,7 @@
             &__image {
                 flex: 1;
                 position: relative;
+                width: 100%;
                 img {
                     border-radius: 1.875rem;
                     position: absolute;
@@ -96,6 +100,7 @@
                 padding: 1rem;
                 border-radius: 1.875rem;
                 background-color: color-mix(in srgb, var(--wp--preset--color--white) 5%, transparent);
+                width: 100%;
                 @include v.down(v.$bp-md) {
                     border-radius: 1.25rem;
                     padding: 0.75rem;
@@ -139,13 +144,44 @@
                 color: var(--wp--preset--color--light);
                 line-height: 1.2083;
             }
-            &__button {
-                padding-top: 1rem;
-                display: none;
-                @include v.down(v.$bp-md) {
-                    display: block !important;
-                    height: auto !important;
-                    padding-top: 1rem !important;
+            & &__button,
+            & .blogPreview__listItem__button {
+                display: grid;
+                grid-template-rows: 0fr;
+                margin-top: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                opacity: 0;
+                visibility: hidden;
+                width: fit-content;
+
+                transition: 
+                    grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                    margin-top 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+                    opacity 0.5s ease,
+                    visibility 0.5s ease;
+
+                > * {
+                    overflow: hidden;
+                }
+                .wp-block-button__link {
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+            }
+
+            &:hover &__button,
+            &:focus-within &__button,
+            &__button:focus-visible,
+            &:hover .blogPreview__listItem__button,
+            &:focus-within .blogPreview__listItem__button,
+            .blogPreview__listItem__button:focus-visible {
+                grid-template-rows: 1fr;
+                margin-top: 1.25rem;
+                opacity: 1;
+                visibility: visible;
+                .wp-block-button__link {
+                    padding: 0.5625rem 2.9375rem 0.5625rem 1rem;
                 }
             }
         }

@@ -49,7 +49,11 @@
 
 							<!-- wp:post-title {"level":3,"isLink":true,"className":"blogPreview__listItem__title"} /-->
 
-							<!-- wp:read-more {"content":"View Blog","className":"blogPreview__listItem__button"} /-->
+							<!-- wp:group {"className":"blogPreview__listItem__button"} -->
+							<div class="blogPreview__listItem__button">
+								<!-- wp:read-more {"content":"View Blog","className":"wp-block-button__link"} /-->
+							</div>
+							<!-- /wp:group -->
 
 						</div>
 						<!-- /wp:group -->

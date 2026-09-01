@@ -17,20 +17,25 @@
     }
     .container {
         max-width: 1860px;
+        margin-left: auto;
+        margin-right: auto;
     }
     &__list {
         display: flex;
         flex-wrap: wrap;
         gap: 1.5rem;
+        @include v.down(v.$bp-lg) {
+            gap: 1rem;
+        }
         & > li {
             width: calc(25% - 1.125rem);
             padding-top: 0;
             padding-bottom: 0;
             @include v.down(v.$bp-lg) {
-                width: calc( 50% - 1.25rem );
+                width: calc( 33.33% - 2rem /3 );
             }
             @include v.down(620px) {
-                width: 100%;
+                width: calc(50% - 0.5rem);
                 max-width: 400px;
                 margin-left: auto;
                 margin-right: auto;
@@ -42,11 +47,23 @@
             display: flex;
             flex-direction: column;
             aspect-ratio: 1 / 1.2962962963;
+            @include v.down(v.$bp-lg) {
+                border-radius: 1rem;
+                aspect-ratio: 1 / 1.5;
+                padding: 0.5rem;
+            }
+            @include v.down(v.$bp-md) {
+                border-radius: 1.25rem;
+                aspect-ratio: 1 / 1.75;
+            }
             &__image {
                 display: flex;
                 margin-bottom: 1rem;
                 flex: 1;
                 position: relative;
+                @include v.down(v.$bp-md) {
+                    margin-bottom: 0.5rem;
+                }
                 img {
                     width: 100%;
                     border-radius: 1.875rem;
@@ -56,6 +73,12 @@
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
+                    @include v.down(v.$bp-lg) {
+                        border-radius: 1rem;
+                    }
+                    @include v.down(v.$bp-md) {
+                        border-radius: 0.75rem;
+                    }
                 }
             }
             &__text {
@@ -75,17 +98,34 @@
 
                 @include glass.glass-fallbacks();
                 background-color: color-mix(in srgb, var(--wp--preset--color--light) 20%, transparent);
+                @include v.down(v.$bp-lg) {
+                    border-radius: 0.75rem;
+                    padding: 0.5rem;
+                }
             }
             &__title {
                 color: var(--wp--preset--color--light);
                 line-height: 1.21875;
                 margin-bottom: 0.5rem;
+                @include v.down(v.$bp-lg) {
+                    font-size: var(--wp--preset--font-size--text-s);
+                }
+                @include v.down(v.$bp-md) {
+                    margin-bottom: 0.25rem;
+                    font-size: 14px;
+                }
             }
             &__position {
                 font-size: var(--wp--preset--font-size--text-m);
                 color: var(--wp--preset--color--light);
                 font-weight: 700;
                 line-height: 1.25;
+                @include v.down(v.$bp-lg) {
+                    font-size: var(--wp--preset--font-size--text-xs);
+                }
+                @include v.down(v.$bp-md) {
+                    font-size: 10px;
+                }
             }
             &--color-1 {
                 background-color: var(--wp--preset--color--blue); 
@@ -110,6 +150,17 @@
                     display: block !important;
                     height: auto !important;
                     padding-top: 1rem !important;
+                    .wp-block-button__link {
+                        background-size: 1.5rem;
+                        font-size: var(--wp--preser--font-size--text-m);
+                    }
+                }
+                @include v.down(v.$bp-md) {
+                    padding-top: 0.5rem !important;
+                    .wp-block-button__link {
+                        font-size: 12px;
+                        background-size: 1.275rem;
+                    }
                 }
             }
         }
@@ -127,16 +178,22 @@
     max-width: 100%;
     z-index: 9999;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
     margin-top: 0;
+    @include v.down(v.$bp-md) {
+        align-items: center;
+    }
 
     &.is-open {
         opacity: 1;
         visibility: visible;
+        .team__popupModal__wrapper {
+            transform: none;
+        }
     }
 
     .team__popupOverlay {
@@ -168,6 +225,9 @@
             justify-content: center;
             position: relative;
             z-index: 1;
+            margin-bottom: -2.5rem;
+            transform: translateY(10%);
+            transition: .3s;
             @include v.down(v.$bp-lg) {
                 max-height: 90vh;
                 overflow: scroll;
@@ -245,7 +305,7 @@
         justify-content: center;
         cursor: pointer;
         z-index: 10;
-        transition: transform 0.3s ease, background 0.3s;
+        transition: transform 0.5s ease, background 0.5s;
         background-size: 0.875rem;
         background-position: center;
         background-repeat: no-repeat;
@@ -342,6 +402,9 @@
         font-size: var(--wp--preset--font-size--heading-2);
         line-height: 1.234375;
         margin-bottom: 0.5rem;
+        @include v.down(v.$bp-md) {
+            font-size: var(--wp--preset--font-size--heading-5);
+        }
     }
 
     .team__popupPosition {
@@ -349,6 +412,7 @@
         font-weight: 700;
         margin: 0 0 1.5rem;
         @include v.down(v.$bp-md) {
+            font-size: var(--wp--preset--font-size--text-s);
             margin-bottom: 0.75rem;
         }
     }
@@ -367,6 +431,9 @@
         font-size: var(--wp--preset--font-size--text-m, 1rem);
         line-height: 1.5;
         opacity: 0.9;
+        @include v.down(v.$bp-md) {
+            font-size: var(--wp--preset--font-size--text-xs);
+        }
         
         p { margin: 0 0 1rem; }
         p:last-child { margin-bottom: 0; }

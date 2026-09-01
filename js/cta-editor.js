@@ -74,4 +74,120 @@
 			}
 		} );
 	} );
+	
+
+	 var registerFormatType = wp.richText.registerFormatType;
+    var toggleFormat = wp.richText.toggleFormat;
+    var applyFormat = wp.richText.applyFormat;
+    var getActiveFormat = wp.richText.getActiveFormat;
+    var RichTextToolbarButton = wp.blockEditor.RichTextToolbarButton;
+    var Popover = wp.components.Popover;
+    var TextControl = wp.components.TextControl;
+    var Button = wp.components.Button;
+    var useState = wp.element.useState;
+    var createElement = wp.element.createElement;
+    var Fragment = wp.element.Fragment;
+
+    var FORMAT_NAME = 'starter/cta-rotating-text';
+
+    var RotatingTextEdit = function ( props ) {
+        var value = props.value;
+        var onChange = props.onChange;
+        var isActive = props.isActive;
+
+        var activeFormat = getActiveFormat( value, FORMAT_NAME );
+        var currentWords = activeFormat && activeFormat.attributes && activeFormat.attributes['data-words']
+            ? activeFormat.attributes['data-words']
+            : '';
+
+        var state = useState( false );
+        var isWriting = state[0];
+        var setIsWriting = state[1];
+
+        var textState = useState( currentWords );
+        var textValue = textState[0];
+        var setTextValue = textState[1];
+
+        return createElement(
+            Fragment,
+            {},
+            createElement( RichTextToolbarButton, {
+                icon: 'update',
+                title: 'Rotating Text',
+                onClick: function () {
+                    if ( isActive ) {
+                        setTextValue( currentWords );
+                        setIsWriting( ! isWriting );
+                    } else {
+                        setTextValue( '' );
+                        setIsWriting( true );
+                    }
+                },
+                isActive: isActive
+            } ),
+            isWriting && createElement(
+                Popover,
+                {
+                    onClose: function () {
+                        setIsWriting( false );
+                    },
+                    position: 'bottom center'
+                },
+                createElement(
+                    'div',
+                    { style: { padding: '16px', minWidth: '260px' } },
+                    createElement( TextControl, {
+                        label: 'Rotating Words (comma separated)',
+                        help: 'e.g. Teams, Leagues, Admins',
+                        value: textValue,
+                        onChange: function ( newVal ) {
+                            setTextValue( newVal );
+                        }
+                    } ),
+                    createElement(
+                        'div',
+                        { style: { display: 'flex', gap: '8px', marginTop: '8px' } },
+                        createElement(
+                            Button,
+                            {
+                                variant: 'primary',
+                                onClick: function () {
+                                    onChange( applyFormat( value, {
+                                        type: FORMAT_NAME,
+                                        attributes: {
+                                            'data-words': textValue
+                                        }
+                                    } ) );
+                                    setIsWriting( false );
+                                }
+                            },
+                            'Save'
+                        ),
+                        isActive && createElement(
+                            Button,
+                            {
+                                variant: 'terrible',
+                                isDestructive: true,
+                                onClick: function () {
+                                    onChange( toggleFormat( value, { type: FORMAT_NAME } ) );
+                                    setIsWriting( false );
+                                }
+                            },
+                            'Remove'
+                        )
+                    )
+                )
+            )
+        );
+    };
+
+    registerFormatType( FORMAT_NAME, {
+        title: 'Rotating Text',
+        tagName: 'span',
+        className: 'cta-rotating-text',
+        attributes: {
+            'data-words': 'data-words'
+        },
+        edit: RotatingTextEdit
+    } );
 } )( window.wp );

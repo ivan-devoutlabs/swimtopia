@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: CTA Simnple 
+ * Title: CTA Simple 
  * Slug: theme/cta-simple
  * Categories: theme
  */

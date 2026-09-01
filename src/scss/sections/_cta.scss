@@ -5,6 +5,7 @@
 .cta {
 	position: relative;
     padding: 0;
+	overflow: hidden;
 
 	--cta-reveal-duration: 300ms;
 	--cta-reveal-easing: ease-in-out;
@@ -103,9 +104,29 @@
 		margin: 0;
 	}
 
-	&__title strong {
-		font-weight: inherit;
-	}
+	
+	&__title strong,
+    .cta-rotating-text {
+        font-weight: inherit;
+    }
+
+    .cta-rotating-text {
+        display: inline-block;
+        vertical-align: bottom;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: left;
+
+        transition:
+            width 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+            opacity 0.22s ease,
+            transform 0.22s ease;
+
+        &.is-leaving {
+            opacity: 0;
+            transform: translateY(-0.25em);
+        }
+    }
 
 	&__rolodex {
 		display: inline-block;

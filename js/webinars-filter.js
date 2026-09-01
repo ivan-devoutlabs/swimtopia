@@ -177,35 +177,375 @@
 
 } )( window );
 
-jQuery(document).ready(function($){
-    $(document).on('click', '.blog__filterList__toggle', function(e) {
-        e.preventDefault();
-        var $btn = $(this);
-        var $wrapper = $btn.closest('.blog__filterList__wrapper');
-        var $list = $wrapper.find('.blog__filterList');
-        var isOpened = $wrapper.hasClass('opened');
+// jQuery(document).ready(function($){
+//     $(document).on('click', '.blog__filterList__toggle', function(e) {
+//         e.preventDefault();
+//         var $btn = $(this);
+//         var $wrapper = $btn.closest('.blog__filterList__wrapper');
+//         var $list = $wrapper.find('.blog__filterList');
+//         var isOpened = $wrapper.hasClass('opened');
 
-        if ( ! $wrapper.data('initialWidth') ) { $wrapper.data('initialWidth', $wrapper.width()); }
-        var initialWidth = $wrapper.data('initialWidth');
+//         if ( ! $wrapper.data('initialWidth') ) { $wrapper.data('initialWidth', $wrapper.width()); }
+//         var initialWidth = $wrapper.data('initialWidth');
 
-        if (!isOpened) {
-            $wrapper.addClass('opened');
-            $btn.attr('aria-expanded', 'true');
-            $list.stop().slideDown(); 
-            var targetWidth = $(window).width() < 1025 ? '45vw' : '33vw';
-            $wrapper.stop().animate({ width: targetWidth }, 400); 
-        } else {
-            $wrapper.removeClass('opened');
-            $btn.attr('aria-expanded', 'false');
-            $list.stop().slideUp(); 
-            $wrapper.stop().animate({ width: initialWidth }, 400, function() { $(this).css('width', ''); });
+//         if (!isOpened) {
+//             $wrapper.addClass('opened');
+//             $btn.attr('aria-expanded', 'true');
+//             $list.stop().slideDown(); 
+//             var targetWidth = $(window).width() < 1025 ? '45vw' : '33vw';
+//             $wrapper.stop().animate({ width: targetWidth }, 400); 
+//         } else {
+//             $wrapper.removeClass('opened');
+//             $btn.attr('aria-expanded', 'false');
+//             $list.stop().slideUp(); 
+//             $wrapper.stop().animate({ width: initialWidth }, 400, function() { $(this).css('width', ''); });
+//         }
+//     });
+
+//     $(window).resize(function() {
+//         $('.blog__filterList__wrapper:not(.opened)').each(function() {
+//             $(this).css('width', ''); 
+//             $(this).data('initialWidth', $(this).width());
+//         });
+//     });
+// });
+
+
+( function () {
+    'use strict';
+ 
+    var WRAPPER = '.blog__filterList__wrapper';
+    var TOP = '.blog__filterList__top';
+    var TOGGLE = '.blog__filterList__toggle';
+    var LIST = '.blog__filterList';
+    var ITEM = '.blog__filterList__item';
+ 
+    var OPEN = 'opened';
+    var DURATION = 320;   
+ 
+    function Filters( wrapper ) {
+        this.wrapper = wrapper;
+        this.top = wrapper.querySelector( TOP );
+        this.toggle = wrapper.querySelector( TOGGLE );
+        this.list = wrapper.querySelector( LIST );
+        this.isOpen = false;
+        this.timer = null;
+    }
+ 
+    Filters.prototype.measure = function ( withList ) {
+        var wrapper = this.wrapper;
+        var list = this.list;
+ 
+        var savedWidth = wrapper.style.width;
+        var savedDisplay = list.style.display;
+        var savedVisibility = list.style.visibility;
+        var savedTransition = wrapper.style.transition;
+ 
+        // Вимикаємо анімацію на час заміру
+        wrapper.style.transition = 'none';
+        list.style.visibility = 'hidden';
+        list.style.display = withList ? 'block' : 'none';
+        wrapper.style.width = 'auto';
+ 
+        var width = wrapper.getBoundingClientRect().width;
+ 
+        wrapper.style.width = savedWidth;
+        list.style.display = savedDisplay;
+        list.style.visibility = savedVisibility;
+        
+        void wrapper.offsetWidth;
+        wrapper.style.transition = savedTransition;
+ 
+        return width;
+    };
+ 
+    Filters.prototype.toPx = function ( value ) {
+        value = String( value ).trim();
+        if ( ! value ) return 0;
+ 
+        var number = parseFloat( value );
+        if ( isNaN( number ) ) return 0;
+ 
+        if ( value.indexOf( 'rem' ) !== -1 ) {
+            var root = parseFloat( window.getComputedStyle( document.documentElement ).fontSize ) || 16;
+            return number * root;
         }
-    });
+        
+        if ( value.indexOf( 'vw' ) !== -1 ) {
+            return (number * window.innerWidth) / 100;
+        }
 
-    $(window).resize(function() {
-        $('.blog__filterList__wrapper:not(.opened)').each(function() {
-            $(this).css('width', ''); 
-            $(this).data('initialWidth', $(this).width());
-        });
-    });
-});
+        if ( value.indexOf( '%' ) !== -1 ) {
+            var parent = this.wrapper.parentElement;
+            var parentW = parent ? parent.getBoundingClientRect().width : window.innerWidth;
+            return (number * parentW) / 100;
+        }
+ 
+        return number;
+    };
+ 
+    Filters.prototype.openWidth = function () {
+        var styles = window.getComputedStyle( this.wrapper );
+        var declared = styles.getPropertyValue( '--filters-open-width' );
+ 
+        if ( ! declared.trim() ) {
+            return this.measure( true );
+        }
+ 
+        var base = this.toPx( declared );
+        
+        // Читаємо padding-right, який у вашому SCSS розраховує відстань до краю екрана
+        var edge = parseFloat( styles.paddingRight ) || 0; 
+ 
+        // Ширина = 36rem + відстань до краю екрана. Більше жодних лімітів.
+        return base + edge;
+    };
+ 
+    Filters.prototype.closedWidth = function () {
+        return this.measure( false );
+    };
+ 
+    Filters.prototype.open = function () {
+        if ( this.isOpen ) return;
+ 
+        var self = this;
+        var fromWidth = this.wrapper.getBoundingClientRect().width;
+        var toWidth = this.openWidth();
+        var savedTransition = this.wrapper.style.transition;
+
+        // 1. БЕЗПЕЧНИЙ ЗАМІР ВИСОТИ
+        this.wrapper.style.transition = 'none';
+        this.list.style.transition = 'none';
+        
+        // Розтягуємо обгортку до фінальної ширини ПЕРЕД заміром висоти (усуває стрибок висоти)
+        this.wrapper.style.width = toWidth + 'px';
+        
+        this.list.style.visibility = 'hidden';
+        this.list.style.display = 'block';
+        this.list.style.height = 'auto';
+        this.list.style.paddingTop = '';
+        this.list.style.paddingBottom = '';
+        
+        var computedList = window.getComputedStyle(this.list);
+        var pt = computedList.paddingTop;
+        var pb = computedList.paddingBottom;
+        var toHeight = this.list.offsetHeight;
+        
+        // 2. СТАРТОВА ПОЗИЦІЯ ДЛЯ АНІМАЦІЇ
+        this.list.style.height = '0px';
+        this.list.style.paddingTop = '0px';
+        this.list.style.paddingBottom = '0px';
+        this.list.style.overflow = 'hidden';
+        this.list.style.visibility = ''; 
+        
+        this.wrapper.style.width = fromWidth + 'px';
+
+        void this.wrapper.offsetWidth; // Форсуємо рендер стартового стану
+
+        // 3. ДОДАЄМО КЛАСИ
+        this.isOpen = true;
+        this.wrapper.classList.add( OPEN );
+        this.toggle.setAttribute( 'aria-expanded', 'true' );
+
+        // 4. СИНХРОННА АНІМАЦІЯ ПО ДВОХ ОСЯХ
+        this.wrapper.style.transition = savedTransition; 
+        this.list.style.transition = 'all ' + DURATION + 'ms cubic-bezier(0.22, 0.61, 0.36, 1)';
+        
+        this.wrapper.style.width = toWidth + 'px';
+        
+        this.list.style.height = toHeight + 'px';
+        this.list.style.paddingTop = pt;
+        this.list.style.paddingBottom = pb;
+
+        window.clearTimeout( this.timer );
+        
+        // 5. ОЧИЩЕННЯ
+        this.timer = window.setTimeout( function () {
+            self.list.style.height = '';
+            self.list.style.paddingTop = '';
+            self.list.style.paddingBottom = '';
+            self.list.style.overflow = '';
+            self.list.style.transition = '';
+        }, DURATION );
+    };
+ 
+    Filters.prototype.close = function () {
+        if ( ! this.isOpen ) return;
+ 
+        var self = this;
+        var fromWidth = this.wrapper.getBoundingClientRect().width;
+        var toWidth = this.closedWidth();
+        
+        var computedList = window.getComputedStyle(this.list);
+        var h = this.list.offsetHeight;
+        var pt = computedList.paddingTop;
+        var pb = computedList.paddingBottom;
+ 
+        this.isOpen = false;
+        this.wrapper.classList.remove( OPEN );
+        this.toggle.setAttribute( 'aria-expanded', 'false' );
+
+        // 1. ФІКСУЄМО СТАН ПЕРЕД ЗВУЖЕННЯМ
+        var savedTransition = this.wrapper.style.transition;
+        this.wrapper.style.transition = 'none';
+        this.list.style.transition = 'none';
+        
+        this.wrapper.style.width = fromWidth + 'px';
+        this.list.style.height = h + 'px';
+        this.list.style.paddingTop = pt;
+        this.list.style.paddingBottom = pb;
+        this.list.style.overflow = 'hidden';
+
+        void this.wrapper.offsetWidth;
+ 
+        // 2. АНІМУЄМО В НУЛЬ
+        this.wrapper.style.transition = savedTransition;
+        this.list.style.transition = 'all ' + DURATION + 'ms cubic-bezier(0.22, 0.61, 0.36, 1)';
+        
+        this.wrapper.style.width = toWidth + 'px';
+        this.list.style.height = '0px';
+        this.list.style.paddingTop = '0px';
+        this.list.style.paddingBottom = '0px';
+ 
+        window.clearTimeout( this.timer );
+
+        // 3. ПРИХОВУЄМО ТА ОЧИЩАЄМО
+        this.timer = window.setTimeout( function () {
+            self.list.style.display = 'none';
+            self.list.style.height = '';
+            self.list.style.paddingTop = '';
+            self.list.style.paddingBottom = '';
+            self.list.style.overflow = '';
+            self.list.style.transition = '';
+            self.wrapper.style.width = ''; 
+        }, DURATION );
+    };
+ 
+    Filters.prototype.toggleOpen = function () {
+        if ( this.isOpen ) {
+            this.close();
+        } else {
+            this.open();
+        }
+    };
+ 
+    Filters.prototype.enhance = function () {
+        if ( ! this.list.id ) {
+            this.list.id = 'blog-filters-' + Math.random().toString( 36 ).slice( 2, 7 );
+        }
+ 
+        this.toggle.setAttribute( 'aria-expanded', 'false' );
+        this.toggle.setAttribute( 'aria-controls', this.list.id );
+ 
+        this.list.setAttribute( 'role', 'group' );
+        this.list.setAttribute( 'aria-label', 'Categories' );
+        
+        if ( ! this.isOpen ) {
+            this.list.style.display = 'none';
+        }
+ 
+        this.syncItems();
+    };
+ 
+    Filters.prototype.syncItems = function () {
+        Array.prototype.forEach.call(
+            this.list.querySelectorAll( ITEM ),
+            function ( item ) {
+                item.removeAttribute( 'aria-pressed' );
+ 
+                if ( item.classList.contains( 'is-active' ) ) {
+                    item.setAttribute( 'aria-current', 'true' );
+                } else {
+                    item.removeAttribute( 'aria-current' );
+                }
+            }
+        );
+    };
+ 
+    Filters.prototype.init = function () {
+        if ( ! this.toggle || ! this.list ) return;
+ 
+        var self = this;
+        this.enhance();
+ 
+        this.toggle.addEventListener( 'click', function () {
+            self.toggleOpen();
+        } );
+ 
+        if ( 'MutationObserver' in window ) {
+            new MutationObserver( function () {
+                self.syncItems();
+            } ).observe( this.list, {
+                attributes: true,
+                subtree: true,
+                attributeFilter: [ 'class' ],
+            } );
+        }
+ 
+        this.wrapper.addEventListener( 'keydown', function ( event ) {
+            if ( event.key === 'Escape' && self.isOpen ) {
+                self.close();
+                self.toggle.focus();
+                return;
+            }
+ 
+            if ( event.key !== 'ArrowDown' && event.key !== 'ArrowUp' ) return;
+ 
+            var items = Array.prototype.slice.call( self.list.querySelectorAll( ITEM ) );
+            var index = items.indexOf( document.activeElement );
+            if ( index === -1 ) return;
+ 
+            var next = event.key === 'ArrowDown' ? index + 1 : index - 1;
+            if ( items[ next ] ) {
+                event.preventDefault();
+                items[ next ].focus();
+            }
+        } );
+ 
+        document.addEventListener( 'click', function ( event ) {
+            if ( ! self.isOpen ) return;
+            if ( ! event.target.closest( WRAPPER ) ) {
+                self.close();
+            }
+        } );
+ 
+        this.wrapper.addEventListener( 'focusout', function ( event ) {
+            if ( ! self.isOpen ) return;
+            if ( ! self.wrapper.contains( event.relatedTarget ) ) {
+                self.close();
+            }
+        } );
+ 
+        var resizeTimer;
+        window.addEventListener( 'resize', function () {
+            window.clearTimeout( resizeTimer );
+ 
+            resizeTimer = window.setTimeout( function () {
+                if ( self.isOpen ) {
+                    var previous = self.wrapper.style.transition;
+                    self.wrapper.style.transition = 'none';
+                    self.wrapper.style.width = self.openWidth() + 'px';
+ 
+                    window.requestAnimationFrame( function () {
+                        self.wrapper.style.transition = previous;
+                    } );
+                    return;
+                }
+                self.wrapper.style.width = '';
+            }, 150 );
+        }, { passive: true } );
+    };
+ 
+    function init() {
+        var wrappers = document.querySelectorAll( WRAPPER );
+        Array.prototype.forEach.call( wrappers, function ( wrapper ) {
+            new Filters( wrapper ).init();
+        } );
+    }
+ 
+    if ( document.readyState === 'loading' ) {
+        document.addEventListener( 'DOMContentLoaded', init );
+    } else {
+        init();
+    }
+} )();

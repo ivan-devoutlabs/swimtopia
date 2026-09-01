@@ -9,65 +9,77 @@
 
 <!-- wp:group {"align":"full","className":"upcomingWebinars blogPreview","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull upcomingWebinars blogPreview">
+    
     <!-- wp:group {"align":"full","className":"upcomingWebinars__content"} -->
     <div class="wp-block-group alignfull upcomingWebinars__content">
-	<!-- wp:group {"className":"container"} -->
-	<div class="wp-block-group container">
+        
+        <!-- wp:group {"className":"container"} -->
+        <div class="wp-block-group container">
 
-		<!-- wp:paragraph {"className":"upcomingWebinars__tag"} -->
-		<p class="upcomingWebinars__tag">Upcoming Webinars</p>
-		<!-- /wp:paragraph -->
+            <!-- wp:paragraph {"className":"upcomingWebinars__tag"} -->
+            <p class="upcomingWebinars__tag">Upcoming Webinars</p>
+            <!-- /wp:paragraph -->
 
-		<!-- wp:query {"queryId":4,"query":{"perPage":100,"pages":0,"offset":0,"postType":"webinars","order":"asc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":null,"parents":[]},"className":"upcomingWebinars__query"} -->
-		<div class="wp-block-query upcomingWebinars__query">
+            <!-- wp:query {"queryId":4,"query":{"perPage":100,"pages":0,"offset":0,"postType":"webinars","order":"asc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":null,"parents":[]},"className":"upcomingWebinars__query blogPreview__query"} -->
+            <div class="wp-block-query upcomingWebinars__query blogPreview__query">
 
-			<!-- wp:post-template {"className":"upcomingWebinars__list blogPreview__list"} -->
+                <!-- wp:post-template {"className":"upcomingWebinars__list blogPreview__list"} -->
 
-				<!-- wp:group {"className":"upcomingWebinars__listItem webinarsPreview__listItem"} -->
-				<div class="wp-block-group upcomingWebinars__listItem webinarsPreview__listItem">
+                    <!-- wp:group {"className":"upcomingWebinars__listItem webinarsPreview__listItem blogPreview__listItem"} -->
+                    <div class="wp-block-group upcomingWebinars__listItem webinarsPreview__listItem blogPreview__listItem">
 
-					<!-- wp:post-featured-image {"isLink":true,"className":"webinarsPreview__listItem__image"} /-->
+                        <!-- wp:post-featured-image {"isLink":true,"className":"webinarsPreview__listItem__image"} /-->
 
-					<!-- wp:group {"className":"webinarsPreview__listItem__content"} -->
-					<div class="wp-block-group webinarsPreview__listItem__content">
+                        <!-- wp:group {"className":"webinarsPreview__listItem__content"} -->
+                        <div class="wp-block-group webinarsPreview__listItem__content">
 
-						<!-- wp:group {"className":"webinarsPreview__listItem__top"} -->
-						<div class="wp-block-group webinarsPreview__listItem__top">
+                            <!-- wp:group {"className":"webinarsPreview__listItem__top"} -->
+                            <div class="wp-block-group webinarsPreview__listItem__top">
 
-							<!-- wp:post-terms {"term":"webinars-categories","className":"webinarsPreview__listItem__cat"} /-->
+                                <!-- wp:post-terms {"term":"webinars-categories","className":"webinarsPreview__listItem__cat"} /-->
 
-							<!-- wp:post-date {"format":"d/m/y","className":"webinarsPreview__listItem__date"} /-->
+                                <!-- wp:post-date {"format":"d/m/y","className":"webinarsPreview__listItem__date"} /-->
 
-						</div>
-						<!-- /wp:group -->
+                            </div>
+                            <!-- /wp:group -->
 
-						<!-- wp:post-title {"level":3,"isLink":true,"className":"webinarsPreview__listItem__title"} /-->
-                        <!-- wp:group {"className":"webinarsPreview__listItem__top"} -->
-						<div class="wp-block-group webinarsPreview__listItem__button">
-						    <!-- wp:read-more {"content":"View Webinar","className":"wp-block-button__link"} /-->
+                            <!-- wp:post-title {"level":3,"isLink":true,"className":"webinarsPreview__listItem__title"} /-->
+                            
+                            <!-- wp:group {"className":"webinarsPreview__listItem__button blogPreview__listItem__button"} -->
+                            <div class="wp-block-group webinarsPreview__listItem__button blogPreview__listItem__button">
+                                <!-- wp:read-more {"content":"View Webinar","className":"wp-block-button__link"} /-->
+                            </div>
+                            <!-- /wp:group -->
+                            
                         </div>
-					    <!-- /wp:group -->
-					</div>
-					<!-- /wp:group -->
+                        <!-- /wp:group -->
 
-				</div>
-				<!-- /wp:group -->
+                    </div>
+                    <!-- /wp:group -->
 
-			<!-- /wp:post-template -->
+                <!-- /wp:post-template -->
 
-			<!-- wp:query-no-results -->
-				<!-- wp:paragraph -->
-				<p>No webinars found.</p>
-				<!-- /wp:paragraph -->
-			<!-- /wp:query-no-results -->
+                <!-- wp:query-no-results -->
+                    <!-- wp:paragraph -->
+                    <p>No webinars found.</p>
+                    <!-- /wp:paragraph -->
+                <!-- /wp:query-no-results -->
 
-		</div>
-		<!-- /wp:query -->
+            </div>
+            <!-- /wp:query -->
 
-	</div>
-	<!-- /wp:group -->
+            <!-- wp:html -->
+            <div class="blogPreview__arrows">
+                <button class="blogPreview__arrow blogPreview__arrow--prev" aria-label="Previous"></button>
+                <button class="blogPreview__arrow blogPreview__arrow--next" aria-label="Next"></button>
+            </div>
+            <!-- /wp:html -->
 
-</div>
-<!-- /wp:group -->
+        </div>
+        <!-- /wp:group -->
+
+    </div>
+    <!-- /wp:group -->
+    
 </div>
 <!-- /wp:group -->

@@ -148,6 +148,12 @@ document.addEventListener('DOMContentLoaded', function() {
     closeBtn.addEventListener('click', closePopup);
     overlay.addEventListener('click', closePopup);
 
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popupWrapper.classList.contains('is-open')) {
+            closePopup();
+        }
+    });
+
     function slide(direction) {
         if (isAnimating) return;
         isAnimating = true;

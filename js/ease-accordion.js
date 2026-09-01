@@ -1,7 +1,7 @@
 ( function ( global ) {
     'use strict';
 
-    var MOBILE = window.matchMedia( '(max-width: 781px)' );
+    var MOBILE = window.matchMedia( '(max-width: 767px)' );
 
     function Slider( viewport, options ) {
         this.viewport = viewport;

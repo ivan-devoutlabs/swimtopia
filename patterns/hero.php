@@ -44,6 +44,10 @@
 				<!-- wp:group {"className":"hero__banner"} -->
 				<div class="wp-block-group hero__banner">
 
+					<!-- wp:html -->
+                    <button class="hero__bannerClose" aria-label="Close banner" type="button">&times;</button>
+                    <!-- /wp:html -->
+
 					<!-- wp:group {"className":"hero__bannerContent"} -->
 					<div class="wp-block-group hero__bannerContent">
 

@@ -56,7 +56,6 @@
 
 
 	&__viewport {
-		margin: 0 -0.75rem;
 
 		&:focus-visible {
 			outline: 2px solid var(--wp--preset--color--light);
@@ -78,8 +77,8 @@
 
 		> li {
 			flex: 0 0 42.891%;
-			padding: 0 0.75rem;
 			margin: 0;
+			height: auto;
 
 			@include v.down(v.$bp-lg) {
 				flex-basis: 60%;
@@ -91,6 +90,9 @@
 		}
 	}
 
+	&__query {
+		overflow: visible;
+	}
 
 	&__listItem {
 		position: relative;
@@ -193,10 +195,46 @@
 			}
 		}
 
-		&__button {
-			display: none;
-			padding-top: 1rem;
+		& &__button {
+			display: grid;
+			grid-template-rows: 0fr;
+			margin-top: 0;
+			padding-top: 0;
+			padding-bottom: 0;
+			opacity: 0;
+			visibility: hidden;
+			width: fit-content;
+
+			transition: 
+				grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+				margin-top 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+				opacity 0.5s ease,
+				visibility 0.5s ease;
+
+			> * {
+				overflow: hidden;
+			}
+			.wp-block-button__link {
+				padding-top: 0;
+				padding-bottom: 0;
+			}
 		}
+
+		&:hover &__button,
+		&:focus-within &__button,
+		&__button:focus-visible {
+			grid-template-rows: 1fr;
+			margin-top: 1.25rem;
+			opacity: 1;
+			visibility: visible;
+			.wp-block-button__link {
+				padding: 0.5625rem 2.9375rem 0.5625rem 1rem;
+				&:hover {
+					padding: 0.5625rem 1rem 0.5625rem 2.9375rem;
+				}
+			}
+		}
+		
 	}
 
 	.blogPreview__listItem__time {
@@ -235,6 +273,9 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		cursor: pointer;
+		background-color: var(--wp--preset--color--blue);
+		background-image: url(../images/swimtopia-btn-arrow.png);
+		transition: .3s;
 		@include v.down(v.$bp-lg) {
 			width: 2.75rem;
 			height: 2.75rem;
@@ -243,17 +284,21 @@
 
 		&--prev {
 			transform: rotate(180deg);
+		}
+		&[disabled] {
 			background-color: var(--wp--preset--color--light);
 			background-image: url(../images/btn-icon-style-2-blue.png);
 		}
 
-		&--next {
-			background-color: var(--wp--preset--color--blue);
-			background-image: url(../images/swimtopia-btn-arrow.png);
-		}
+		// &--next {
+		// 	background-color: var(--wp--preset--color--blue);
+		// 	background-image: url(../images/swimtopia-btn-arrow.png);
+		// }
 	}
 }
-
+.editor-styles-wrapper .blogPreview__listItem__image {
+	position: absolute;
+}
 .editor-styles-wrapper .blogPreview__list {
 	flex-wrap: wrap;
 	transform: none !important;

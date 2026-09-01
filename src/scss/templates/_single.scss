@@ -69,7 +69,7 @@
 			align-items: center;
 			justify-content: space-between;
 			@include v.down(v.$bp-lg) {
-				flex-direction: column-reverse;
+				flex-direction: column;
 				gap: 2.5rem;
 			}
 			@include v.down(v.$bp-md) {
@@ -194,4 +194,28 @@
 			}
 		}
 	}
+}
+
+
+.copy-copyMessage-notification {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    background-color: var(--wp--preset--color--blue);
+    color: #ffffff;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+	font-weight: 600;
+    font-size: var(--wp--preset--font-size--text-xs);
+    z-index: 99999;
+    pointer-events: none; 
+    
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.copy-copyMessage-notification.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }

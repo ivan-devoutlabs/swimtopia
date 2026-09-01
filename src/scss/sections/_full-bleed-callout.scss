@@ -4,6 +4,33 @@
 .fullBleedCallout {
 	padding-top: 19.125rem;
 	padding-bottom: 6.125rem;
+	position: relative;
+    overflow: hidden;
+	&__canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none; // Щоб події миші проходили на контейнер секції
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .wp-block-cover__background {
+        z-index: 0;
+    }
+
+    // Текст і кнопка завжди над ефектом
+    .wp-block-cover__inner-container {
+        position: relative;
+        z-index: 2;
+    }
 
 	@include v.down(v.$bp-md) {
 		padding-top: 5rem;

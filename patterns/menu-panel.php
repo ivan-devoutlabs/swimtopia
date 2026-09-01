@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Панель меню — три колонки з фото
+ * Title: Menu Pannel
  * Slug: starter/menu-panel
  * Categories: starter
  */
@@ -18,7 +18,7 @@
             <!-- /wp:image -->
 
             <!-- wp:heading {"level":3,"fontSize":"text-medium"} -->
-            <h3 class="wp-block-heading has-text-medium-font-size">Заголовок розділу</h3>
+            <h3 class="wp-block-heading has-text-medium-font-size">Title</h3>
             <!-- /wp:heading -->
         </div>
 	    <!-- /wp:column -->
@@ -26,16 +26,16 @@
 		<!-- wp:column {"className":"menuPanel__bottom"} -->
 	    <div class="wp-block-column menuPanel__bottom">
             <!-- wp:paragraph {"fontSize":"text-small"} -->
-            <p class="has-text-small-font-size">Короткий опис розділу — одне речення.</p>
+            <p class="has-text-small-font-size">Description</p>
             <!-- /wp:paragraph -->
 
             <!-- wp:list {"className":"menuPanel__list"} -->
             <ul class="wp-block-list menuPanel__list">
                 <!-- wp:list-item -->
-                <li><a href="#">Перше посилання</a></li>
+                <li><a href="#">Link</a></li>
                 <!-- /wp:list-item -->
                 <!-- wp:list-item -->
-                <li><a href="#">Друге посилання</a></li>
+                <li><a href="#">Link</a></li>
                 <!-- /wp:list-item -->
             </ul>
             <!-- /wp:list -->
@@ -54,23 +54,23 @@
             <!-- /wp:image -->
 
             <!-- wp:heading {"level":3,"fontSize":"text-medium"} -->
-            <h3 class="wp-block-heading has-text-medium-font-size">Заголовок розділу</h3>
+            <h3 class="wp-block-heading has-text-medium-font-size">Title</h3>
             <!-- /wp:heading -->
         </div>
 	    <!-- /wp:column -->
         <!-- wp:column {"className":"menuPanel__bottom"} -->
 	    <div class="wp-block-column menuPanel__bottom">
             <!-- wp:paragraph {"fontSize":"text-small"} -->
-            <p class="has-text-small-font-size">Короткий опис розділу — одне речення.</p>
+            <p class="has-text-small-font-size">Description</p>
             <!-- /wp:paragraph -->
 
             <!-- wp:list {"className":"menuPanel__list"} -->
             <ul class="wp-block-list menuPanel__list">
                 <!-- wp:list-item -->
-                <li><a href="#">Перше посилання</a></li>
+                <li><a href="#">Link</a></li>
                 <!-- /wp:list-item -->
                 <!-- wp:list-item -->
-                <li><a href="#">Друге посилання</a></li>
+                <li><a href="#">Link</a></li>
                 <!-- /wp:list-item -->
             </ul>
             <!-- /wp:list -->

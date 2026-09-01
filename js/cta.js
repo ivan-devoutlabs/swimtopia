@@ -1,142 +1,142 @@
 ( function () {
-	'use strict';
+    'use strict';
 
-	function initHover() {
-		var sections = document.querySelectorAll( '.cta' );
+    function initHover() {
+        var sections = document.querySelectorAll( '.cta' );
 
-		Array.prototype.forEach.call( sections, function ( section ) {
+        Array.prototype.forEach.call( sections, function ( section ) {
+            var triggers = section.querySelectorAll(
+                '.cta__button .wp-block-button__link, .cta__button a'
+            );
 
-			var triggers = section.querySelectorAll(
-				'.cta__button .wp-block-button__link, .cta__button a'
-			);
+            if ( ! triggers.length ) {
+                return;
+            }
 
-			if ( ! triggers.length ) {
-				return;
-			}
+            function on() {
+                section.classList.add( 'is-hovered' );
+            }
 
-			function on() {
-				section.classList.add( 'is-hovered' );
-			}
+            function off() {
+                section.classList.remove( 'is-hovered' );
+            }
 
-			function off() {
-				section.classList.remove( 'is-hovered' );
-			}
+            Array.prototype.forEach.call( triggers, function ( trigger ) {
+                trigger.addEventListener( 'mouseenter', on );
+                trigger.addEventListener( 'mouseleave', off );
 
-			Array.prototype.forEach.call( triggers, function ( trigger ) {
-				trigger.addEventListener( 'mouseenter', on );
-				trigger.addEventListener( 'mouseleave', off );
+                trigger.addEventListener( 'focus', on );
+                trigger.addEventListener( 'blur', off );
+            } );
+        } );
+    }
 
-				trigger.addEventListener( 'focus', on );
-				trigger.addEventListener( 'blur', off );
-			} );
-		} );
-	}
+    function initRolodex() {
+        var config = window.starterCtaRolodex || {};
+        var interval = config.interval || 2200;
 
+        // Шукаємо елементи з класом .cta-rotating-text або з дата-атрибутом data-words
+        var targets = document.querySelectorAll( '.cta-rotating-text, [data-words]' );
 
-	function initRolodex() {
-		var config = window.starterCtaRolodex || {};
-		var words = config.words || [];
-		var interval = config.interval || 2200;
+        Array.prototype.forEach.call( targets, function ( target ) {
+            var rawWords = target.getAttribute( 'data-words' ) || '';
+            var original = target.textContent.trim();
 
-		if ( words.length < 2 ) {
-			return;
-		}
+            var words = rawWords.split( ',' ).map( function ( w ) {
+                return w.trim();
+            } ).filter( Boolean );
 
-		var targets = document.querySelectorAll( '.cta__title strong' );
+            // Переконуємось, що початкове слово присутнє в масиві
+            if ( original && words.indexOf( original ) === -1 ) {
+                words.unshift( original );
+            }
 
-		Array.prototype.forEach.call( targets, function ( target ) {
-			target.classList.add( 'cta__rolodex' );
+            if ( words.length < 2 ) {
+                return;
+            }
 
-			var list = words.slice();
-			var original = target.textContent.trim();
+            target.classList.add( 'cta__rolodex' );
 
-			if ( list.indexOf( original ) === -1 ) {
-				list.unshift( original );
-			}
+            var ghost = document.createElement( 'span' );
+            ghost.className = 'cta__rolodexGhost';
+            ghost.setAttribute( 'aria-hidden', 'true' );
+            target.parentNode.insertBefore( ghost, target.nextSibling );
 
-			var index = list.indexOf( original );
+            function widthOf( text ) {
+                ghost.textContent = text;
+                return ghost.getBoundingClientRect().width;
+            }
 
-			var ghost = document.createElement( 'span' );
-			ghost.className = 'cta__rolodexGhost';
-			ghost.setAttribute( 'aria-hidden', 'true' );
-			target.parentNode.insertBefore( ghost, target.nextSibling );
+            target.style.width = widthOf( original ) + 'px';
+            target.setAttribute( 'aria-hidden', 'true' );
 
-			function widthOf( text ) {
-				ghost.textContent = text;
-				return ghost.getBoundingClientRect().width;
-			}
+            var sr = document.createElement( 'span' );
+            sr.className = 'screen-reader-text';
+            sr.textContent = original;
+            target.parentNode.insertBefore( sr, target );
 
-			target.style.width = widthOf( original ) + 'px';
+            var index = words.indexOf( original );
+            var timer = null;
 
-			target.setAttribute( 'aria-hidden', 'true' );
+            function next() {
+                index = ( index + 1 ) % words.length;
+                var word = words[ index ];
 
-			var sr = document.createElement( 'span' );
-			sr.className = 'screen-reader-text';
-			sr.textContent = original;
-			target.parentNode.insertBefore( sr, target );
+                target.classList.add( 'is-leaving' );
 
-			var timer = null;
+                window.setTimeout( function () {
+                    target.textContent = word;
+                    target.style.width = widthOf( word ) + 'px';
+                    target.classList.remove( 'is-leaving' );
+                }, 220 );
+            }
 
-			function next() {
-				index = ( index + 1 ) % list.length;
+            function start() {
+                if ( ! timer ) {
+                    timer = window.setInterval( next, interval );
+                }
+            }
 
-				var word = list[ index ];
+            function stop() {
+                window.clearInterval( timer );
+                timer = null;
+            }
 
-				target.classList.add( 'is-leaving' );
+            if ( 'IntersectionObserver' in window ) {
+                var section = target.closest( '.cta' ) || target;
 
-				window.setTimeout( function () {
-					target.textContent = word;
-					target.style.width = widthOf( word ) + 'px';
-					target.classList.remove( 'is-leaving' );
-				}, 220 );
-			}
+                new IntersectionObserver( function ( entries ) {
+                    entries.forEach( function ( entry ) {
+                        if ( entry.isIntersecting ) {
+                            start();
+                        } else {
+                            stop();
+                        }
+                    } );
+                }, { threshold: 0.2 } ).observe( section );
+            } else {
+                start();
+            }
 
-			function start() {
-				if ( ! timer ) {
-					timer = window.setInterval( next, interval );
-				}
-			}
+            if ( document.fonts && document.fonts.ready ) {
+                document.fonts.ready.then( function () {
+                    target.style.width = widthOf( target.textContent ) + 'px';
+                } );
+            }
+        } );
+    }
 
-			function stop() {
-				window.clearInterval( timer );
-				timer = null;
-			}
+    function init() {
+        initHover();
 
-			if ( 'IntersectionObserver' in window ) {
-				var section = target.closest( '.cta' ) || target;
+        if ( ! window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ) {
+            initRolodex();
+        }
+    }
 
-				new IntersectionObserver( function ( entries ) {
-					entries.forEach( function ( entry ) {
-						if ( entry.isIntersecting ) {
-							start();
-						} else {
-							stop();
-						}
-					} );
-				}, { threshold: 0.2 } ).observe( section );
-			} else {
-				start();
-			}
-
-			if ( document.fonts && document.fonts.ready ) {
-				document.fonts.ready.then( function () {
-					target.style.width = widthOf( target.textContent ) + 'px';
-				} );
-			}
-		} );
-	}
-
-	function init() {
-		initHover();
-
-		if ( ! window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ) {
-			initRolodex();
-		}
-	}
-
-	if ( document.readyState === 'loading' ) {
-		document.addEventListener( 'DOMContentLoaded', init );
-	} else {
-		init();
-	}
+    if ( document.readyState === 'loading' ) {
+        document.addEventListener( 'DOMContentLoaded', init );
+    } else {
+        init();
+    }
 } )();

@@ -87,12 +87,22 @@ function reading_time_label( $post_id = null ) {
 }
 add_action( 'init', 'starter_register_reading_time_block' );
 function starter_register_reading_time_block() {
+
+	wp_register_script(
+        'starter-reading-time-editor',
+        get_theme_file_uri( '/js/reading-time-block.js' ), 
+        array( 'wp-blocks', 'wp-element' ),
+        '1.0',
+        true
+    );
+
     register_block_type( 'starter/reading-time', array(
-        'api_version'  => 3,
-        'title'        => 'Reading Time',
-        'icon'         => 'clock',
-        'category'     => 'theme',
-        'uses_context' => array( 'postId' ),
+        'api_version'     => 3,
+        'title'           => 'Reading Time',
+        'icon'            => 'clock',
+        'category'        => 'theme',
+        'uses_context'    => array( 'postId' ),
+        'editor_script'   => 'starter-reading-time-editor',
         'render_callback' => 'starter_render_reading_time_block'
     ) );
 }

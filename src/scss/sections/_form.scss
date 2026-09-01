@@ -122,6 +122,15 @@
                         line-height: 1.2222;
                         border: 0;
                         padding: 0.84375rem 1.25rem;
+                        &:-webkit-autofill,
+                        &:-webkit-autofill:hover, 
+                        &:-webkit-autofill:focus, 
+                        &:-webkit-autofill:active {
+                            -webkit-text-fill-color: var(--wp--preset--color--light) !important;
+                            transition: background-color 5000s ease-in-out 0s;
+                            border-radius: 10px !important;
+                            background-color: transparent !important;
+                        }
                     }
                     span {
                         position: absolute;
@@ -144,6 +153,7 @@
                     }
                     &:hover {
                         background-position: 100% center;
+            			background-image: url('../images/btn-arrow-white.png');
                     }
                 }
                 
@@ -330,6 +340,57 @@
                 padding-left: 0.5rem;
                 margin-bottom: 1rem;
             }
+        }
+    }
+    .wpcf7-response-output {
+        @include glass.glass(
+            $frost: 25px,
+            $depth: 16px,
+            $splay: 23%,
+            $dispersion: 1.2px, 
+            $radius: 10px,
+            $light: 0.8,
+            $tint: transparent
+        );
+        @include glass.glass-fallbacks();
+        background-color: #ffb900;
+        color: #fff;
+        border: 0;
+    }
+}
+.wpcf7-form {
+    &.invalid {
+        .wpcf7-response-output {
+            @include glass.glass(
+                $frost: 25px,
+                $depth: 16px,
+                $splay: 23%,
+                $dispersion: 1.2px, 
+                $radius: 10px,
+                $light: 0.8,
+                $tint: transparent
+            );
+            @include glass.glass-fallbacks();
+            background-color: #ffb900;
+            color: #fff;
+            border: 0;
+        }
+    }
+    &.failed {
+        .wpcf7-response-output {
+            @include glass.glass(
+                $frost: 25px,
+                $depth: 16px,
+                $splay: 23%,
+                $dispersion: 1.2px, 
+                $radius: 10px,
+                $light: 0.8,
+                $tint: transparent
+            );
+            @include glass.glass-fallbacks();
+            background-color: #dc3232;
+            color: #fff;
+            border: 0;
         }
     }
 }

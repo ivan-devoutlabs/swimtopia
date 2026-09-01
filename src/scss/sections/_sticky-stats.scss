@@ -50,14 +50,13 @@
 	&__heading {
 		margin: 0 0 0.5rem;
 		color: var(--wp--preset--color--light);
-		font-size: var(--wp--preset--font-size--title-s);
 		line-height: 1.23333;
 	}
 
 	&__title {
 		margin: 0 0 3rem;
 		color: var(--wp--preset--color--light);
-		font-size: var(--wp--preset--font-size--title-l);
+		font-size: var(--wp--preset--font-size--heading-1);
 		line-height: 1.225;
 		@include v.down(1480px) {
 			@include v.up(v.$bp-lg) {
@@ -137,10 +136,17 @@
 			&__title {
 				position: relative;
 				margin: 0 0 1rem;
-				padding-left: 0;
+				
+				padding-left: 2.5rem; 
+				
 				color: var(--wp--preset--color--light);
+				font-size: var(--wp--preset--font-size--text-xl);
 				line-height: 1.2368421;
-				transition: padding-left 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+				
+				transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+				@include v.down(v.$bp-md) {
+					padding-left: 2rem;
+				}
 
 				&::before {
 					content: "";
@@ -149,12 +155,12 @@
 					left: 0;
 					width: 2rem;
 					height: 2rem;
-					background-image: url("../images/stats-tick.png");
+					background-image: url("../images/sticky-stats-checkmark.svg");
 					background-size: contain;
 					background-position: center;
 					background-repeat: no-repeat;
 
-					transform: translateY(-50%) scale(0);
+					transform: translateY(-50%) translateX(2.5rem) scale(0);
 					transform-origin: left center;
 					opacity: 0;
 					transition:
@@ -171,6 +177,7 @@
 						height: 1.5rem;
 					}
 				}
+
 			}
 
 			&__text {
@@ -182,19 +189,13 @@
 
 
 			&.is-visible &__title {
-				padding-left: 2.5rem;
-
-				@include v.down(v.$bp-md) {
-					padding-left: 2rem;
+				transform: translateX(0); 
+				&::before {
+					opacity: 1;
+					transform: translateY(-50%) translateX(0) scale(1); 
 				}
 			}
 
-			&.is-visible &__title::before {
-				transform: translateY(-50%) scale(1);
-				opacity: 1;
-
-				transition-delay: 0.15s;
-			}
 		}
 	}
 }

@@ -10,7 +10,7 @@ get_header();
 
 <section class="errorPage">
     <div class="errorPage__bg">
-        <video src="<?php echo get_template_directory_uri(); ?>/assets/videos/grok-video-a39e70d4-0dbe-484a-acbb-f6a62cd7bffe.mp4" muted autoplay loop></video>
+        <video src="<?php echo get_template_directory_uri(); ?>/assets/videos/404-bg-video.webm" muted autoplay loop></video>
     </div>
     <div class="container">
         <div class="errorPage__tag">404 Error</div>

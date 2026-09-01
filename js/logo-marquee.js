@@ -112,7 +112,7 @@
             this.track.style.transform =
                 'translate3d(' + -this.offset.toFixed( 2 ) + 'px, 0, 0)';
 
-            if ( this.itemData ) {
+            if ( this.itemData && this.section.classList.contains( 'has-highlight' ) ) {
                 var currentOffset = this.offset;
                 var center = this.containerCenter;
 

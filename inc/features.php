@@ -63,26 +63,11 @@ function starter_features_enqueue() {
 	if ( ! $post || false === strpos( $post->post_content, 'features__slider' ) ) {
 		return;
 	}
-
-	$distortion = THEME_DIR . '/js/features-distortion.js';
-
-	wp_enqueue_script(
-		'starter-features-distortion',
-		THEME_URI . '/js/features-distortion.js',
-		array(),
-		file_exists( $distortion ) ? filemtime( $distortion ) : THEME_VERSION,
-		array(
-			'strategy'  => 'defer',
-			'in_footer' => true,
-		)
-	);
-
 	$path = THEME_DIR . '/js/features.js';
 
 	wp_enqueue_script(
 		'starter-features',
 		THEME_URI . '/js/features.js',
-		array( 'starter-features-distortion' ),
 		file_exists( $path ) ? filemtime( $path ) : THEME_VERSION,
 		array(
 			'strategy'  => 'defer',
@@ -93,7 +78,7 @@ function starter_features_enqueue() {
 	wp_add_inline_script(
 		'starter-features',
 		'window.starterFeaturesL10n = ' . wp_json_encode(
-			array( 'next' => __( 'Наступний слайд', 'starter' ) )
+			array( 'next' => __( 'Next', 'starter' ) )
 		) . ';',
 		'before'
 	);

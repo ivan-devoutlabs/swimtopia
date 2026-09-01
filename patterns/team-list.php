@@ -7,7 +7,7 @@
 ?>
 
 <!-- wp:group {"tagName":"section","className":"team","layout":{"type":"constrained"}} -->
-<div class="wp-block-group team">
+<div class="wp-block-group team teamBlock">
 
     <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
     <div class="wp-block-group container">
@@ -38,7 +38,7 @@
                     </div>
                     <!-- /wp:group -->
 
-                    <!-- wp:post-excerpt {"showMoreOnNewLine":false,"className":"team__listItem__text"} /-->
+                    <!-- wp:post-content {"showMoreOnNewLine":false,"className":"team__listItem__text"} /-->
 
                 </div>
                 <!-- /wp:group -->

@@ -30,29 +30,5 @@ function starter_tabs_enqueue() {
 			)
 		);
 	}
-
-	$path = STARTER_DIR . '/js/tabs.js';
-
-	wp_enqueue_script(
-		'starter-tabs',
-		STARTER_URI . '/js/tabs.js',
-		array( 'starter-distortion' ),
-		file_exists( $path ) ? filemtime( $path ) : STARTER_VERSION,
-		array(
-			'strategy'  => 'defer',
-			'in_footer' => true,
-		)
-	);
-
-	wp_add_inline_script(
-		'starter-tabs',
-		'window.starterTabsL10n = ' . wp_json_encode(
-			array(
-				'prev' => __( 'Попередній таб', 'starter' ),
-				'next' => __( 'Наступний таб', 'starter' ),
-			)
-		) . ';',
-		'before'
-	);
 }
 add_action( 'wp_enqueue_scripts', 'starter_tabs_enqueue' );

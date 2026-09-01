@@ -8,31 +8,39 @@
 ?>
 
 <!-- wp:cover {"dimRatio":20,"overlayColor":"neutral-900","align":"full","className":"fullBleedCallout"} -->
-<div class="wp-block-cover alignfull fullBleedCallout"><span aria-hidden="true" class="wp-block-cover__background has-neutral-900-background-color has-background-dim-20 has-background-dim"></span><div class="wp-block-cover__inner-container">
+<div class="wp-block-cover alignfull fullBleedCallout">
+    
+    <!-- Контейнер для WebGL Canvas ефекту рябі -->
+    <div class="fullBleedCallout__canvas" id="fullBleedCalloutCanvas"></div>
 
-	<!-- wp:heading {"className":"fullBleedCallout__title"} -->
-	<h2 class="wp-block-heading fullBleedCallout__title">Swimming Runs Through Our Lanes</h2>
-	<!-- /wp:heading -->
+    <span aria-hidden="true" class="wp-block-cover__background has-neutral-900-background-color has-background-dim-20 has-background-dim"></span>
+    
+    <div class="wp-block-cover__inner-container">
 
-	<!-- wp:group {"className":"fullBleedCallout__box"} -->
-	<div class="wp-block-group fullBleedCallout__box">
+        <!-- wp:heading {"className":"fullBleedCallout__title"} -->
+        <h2 class="wp-block-heading fullBleedCallout__title">Swimming Runs Through Our Lanes</h2>
+        <!-- /wp:heading -->
 
-		<!-- wp:paragraph {"className":"fullBleedCallout__boxText"} -->
-		<p class="fullBleedCallout__boxText">We're swimmers, parents, coaches, officials, and volunteers who understand what it takes to run a great season. Every feature we build is designed around the realities of competitive swimming. Because when swimming runs better, everyone enjoys the season more.</p>
-		<!-- /wp:paragraph -->
+        <!-- wp:group {"className":"fullBleedCallout__box"} -->
+        <div class="wp-block-group fullBleedCallout__box">
 
-		<!-- wp:buttons {"className":"fullBleedCallout__boxBtn"} -->
-		<div class="wp-block-buttons fullBleedCallout__boxBtn">
+            <!-- wp:paragraph {"className":"fullBleedCallout__boxText"} -->
+            <p class="fullBleedCallout__boxText">We're swimmers, parents, coaches, officials, and volunteers who understand what it takes to run a great season. Every feature we build is designed around the realities of competitive swimming. Because when swimming runs better, everyone enjoys the season more.</p>
+            <!-- /wp:paragraph -->
 
-			<!-- wp:button -->
-			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Get to know Swimtopia</a></div>
-			<!-- /wp:button -->
+            <!-- wp:buttons {"className":"fullBleedCallout__boxBtn"} -->
+            <div class="wp-block-buttons fullBleedCallout__boxBtn">
 
-		</div>
-		<!-- /wp:buttons -->
+                <!-- wp:button -->
+                <div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Get to know Swimtopia</a></div>
+                <!-- /wp:button -->
 
-	</div>
-	<!-- /wp:group -->
+            </div>
+            <!-- /wp:buttons -->
 
-</div></div>
+        </div>
+        <!-- /wp:group -->
+
+    </div>
+</div>
 <!-- /wp:cover -->
