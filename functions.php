@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'THEME_VERSION', wp_get_theme()->get( 'Version' ) );
+define( 'THEME_VERSION', '7.0.41' );
 define( 'THEME_DIR', get_template_directory() );
 define( 'THEME_URI', get_template_directory_uri() );
 
@@ -27,7 +27,9 @@ require THEME_DIR . '/inc/blog-filter.php';
 require THEME_DIR . '/inc/webinars-list.php';
 require THEME_DIR . '/inc/search.php';
 require THEME_DIR . '/inc/footer.php';
-
+require THEME_DIR . '/inc/webinar-duration.php';
+require THEME_DIR . '/inc/synced-patterns.php';
+require THEME_DIR . '/inc/webinar-form.php';
 
 
 
@@ -195,4 +197,37 @@ function get_video_duration( $attachment_id ) {
     }
 
     return trim( $formatted_time );
+}
+
+
+add_action('init', function() {
+    unregister_taxonomy_for_object_type('post_tag', 'post');
+});
+
+
+add_action( 'template_redirect', 'starter_redirect_taxonomy_archives' );
+function starter_redirect_taxonomy_archives() {
+    if ( is_category() ) {
+        $category = get_queried_object();
+        
+        $blog_page = get_page_by_path( 'blog' ); 
+        $base_url  = $blog_page ? get_permalink( $blog_page ) : home_url( '/blog/' );
+        
+        $redirect_url = add_query_arg( 'cats', $category->slug, $base_url );
+        
+        wp_safe_redirect( $redirect_url, 301 );
+        exit;
+    }
+    
+    if ( is_tax( 'webinars-categories' ) ) {
+        $term = get_queried_object();
+        
+        $webinars_page = get_page_by_path( 'webinars' ); 
+        $base_url      = $webinars_page ? get_permalink( $webinars_page ) : home_url( '/webinars/' );
+        
+        $redirect_url = add_query_arg( 'cats', $term->slug, $base_url );
+        
+        wp_safe_redirect( $redirect_url, 301 );
+        exit;
+    }
 }

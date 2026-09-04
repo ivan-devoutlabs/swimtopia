@@ -66,12 +66,7 @@
 	}
 }
 
-.editor-styles-wrapper .textMarquee__list {
-	width: auto;
-	flex-wrap: wrap;
-	gap: 1rem;
-	transform: none !important;
-}
+
 
 @media (prefers-reduced-motion: reduce) {
 	.textMarquee__list {
@@ -79,12 +74,4 @@
 	}
 }
 
-.block-editor-block-list__layout .textMarquee__list {
-	flex-wrap: nowrap;
-}
-.block-editor-block-list__layout.is-selected .textMarquee__list,
-.block-editor-block-list__layout.has-editable-outline .textMarquee__list,
-.block-editor-block-list__layout.is-editing-content-only-section .textMarquee__list,
-.block-editor-block-list__layout.has-child-selected .textMarquee__list{
-	flex-wrap: wrap;
-}
+

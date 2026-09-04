@@ -20,7 +20,7 @@
     Webinars.prototype.readFromUrl = function () {
         var value = new URLSearchParams( global.location.search ).get( 'cats' );
         if ( ! value ) return [];
-        return value.split( ',' ).map( function ( id ) { return parseInt( id, 10 ); } ).filter( Boolean );
+        return value.split( ',' ).filter( Boolean );
     };
 
     Webinars.prototype.readPaged = function () {
@@ -42,7 +42,7 @@
         var self = this;
         var items = this.filterList ? this.filterList.querySelectorAll( '.blog__filterList__item' ) : [];
         Array.prototype.forEach.call( items, function ( item ) {
-            var id = parseInt( item.getAttribute( 'data-term' ), 10 );
+            var id = item.getAttribute( 'data-term' );
             var isActive = self.selected.indexOf( id ) !== -1;
             item.classList.toggle( 'is-active', isActive );
             item.setAttribute( 'aria-pressed', isActive ? 'true' : 'false' );
@@ -144,7 +144,7 @@
                 var item = event.target.closest( '.blog__filterList__item' );
                 if ( ! item ) return;
                 event.preventDefault();
-                self.toggle( parseInt( item.getAttribute( 'data-term' ), 10 ) );
+                self.toggle( item.getAttribute( 'data-term' ) );
             } );
         }
         if ( this.clearBtn ) { this.clearBtn.addEventListener( 'click', function () { self.clear(); } ); }

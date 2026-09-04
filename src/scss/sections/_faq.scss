@@ -101,6 +101,8 @@
 			transition: 0.5s;
 			cursor: pointer;
             margin: 0;
+			overflow: hidden;
+			min-height: 19rem;
 
 			@include v.down(v.$bp-lg) {
 				width: calc(50% - 0.75rem);
@@ -110,6 +112,7 @@
 			@include v.down(v.$bp-md) {
 				width: 100%;
 				padding: 1rem 4rem 1rem 1rem;
+				min-height: auto;
 				border: 0;
 			}
 
@@ -210,8 +213,8 @@
 				color: var(--wp--preset--color--light);
 				font-size: var(--wp--preset--font-size--text-l);
 				line-height: 1.2083;
-				text-transform: capitalize;
 				opacity: 0;
+				visibility: hidden;
 				transition: 0.3s;
 
 				@include v.down(1852px) {
@@ -241,6 +244,7 @@
 
 				@include v.down(v.$bp-md) {
 					opacity: 1 !important;
+					visibility: visible;
 				}
 			}
 
@@ -293,13 +297,3 @@
 	}
 }
 
-.block-editor-block-list__layout .faq__listItemQuestion {
-	position: static;
-}
-.block-editor-block-list__layout.is-selected .faq__listItemAnswear,
-.block-editor-block-list__layout.has-editable-outline .faq__listItemAnswear,
-.block-editor-block-list__layout.is-editing-content-only-section .faq__listItemAnswear,
-.block-editor-block-list__layout.has-child-selected .faq__listItemAnswear{
-	opacity: 1 !important;
-    width: 100%;
-}

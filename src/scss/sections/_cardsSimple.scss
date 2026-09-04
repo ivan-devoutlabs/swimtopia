@@ -422,17 +422,7 @@
     }
 }
  
-.editor-styles-wrapper .cardsSimple.slider {
- 
-	.cardsSimple__list {
-		flex-wrap: wrap;
-		transform: none !important;
-	}
- 
-	.cardsSimple__listItem {
-		flex-basis: calc(50% - 0.75rem);
-	}
-}
+
  
 @media (prefers-reduced-motion: reduce) {
 	.cardsSimple__list.is-track {
@@ -491,37 +481,3 @@
 }
 
 
-
-.block-editor-block-list__layout.is-selected .cardsSimple__listItem__text,
-.block-editor-block-list__layout.has-editable-outline .cardsSimple__listItem__text,
-.block-editor-block-list__layout.is-editing-content-only-section .cardsSimple__listItem__text,
-.block-editor-block-list__layout.has-child-selected .cardsSimple__listItem__text{
-	display: block;
-}
-
-
-.block-editor-block-list__layout .cardsSimple__list {
-    flex-wrap: nowrap !important;
-    gap: 1rem !important;
-}
-.block-editor-block-list__layout .cardsSimple__listItem {
-    flex: 0 0 33% !important;
-}
-.block-editor-block-list__layout.is-selected .cardsSimple__listItem .cardsSimple__listItem__top,
-.block-editor-block-list__layout.has-editable-outline .cardsSimple__listItem .cardsSimple__listItem__top,
-.block-editor-block-list__layout.is-editing-content-only-section .cardsSimple__listItem .cardsSimple__listItem__top,
-.block-editor-block-list__layout.has-child-selected .cardsSimple__listItem .cardsSimple__listItem__top {
-    position: static;
-}
-.block-editor-block-list__layout.is-selected .cardsSimple__list,
-.block-editor-block-list__layout.has-editable-outline .cardsSimple__list,
-.block-editor-block-list__layout.is-editing-content-only-section .cardsSimple__list,
-.block-editor-block-list__layout.has-child-selected .cardsSimple__list {
-    flex-wrap: wrap !important;
-}
-.block-editor-block-list__layout.is-selected .cardsSimple__listItem,
-.block-editor-block-list__layout.has-editable-outline .cardsSimple__listItem,
-.block-editor-block-list__layout.is-editing-content-only-section .cardsSimple__listItem,
-.block-editor-block-list__layout.has-child-selected .cardsSimple__listItem {
-    flex: 0 0 calc( 50% - 0.5rem ) !important;
-}

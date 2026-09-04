@@ -32,4 +32,13 @@ jQuery(document).ready(function($){
             currentSubMenu.toggleClass('show').stop().slideToggle();
         });
     }
+    
+
+    $(window).on('scroll', function(){
+        if($('.header__menu').offset().top > $('header').outerHeight() * 1.2) {
+            $('header').addClass('fixed');
+        } else {
+            $('header').removeClass('fixed');
+        }
+    })
 })

@@ -233,21 +233,12 @@
 }
 
 
-.editor-styles-wrapper .accordion__listItem__text {
-	grid-template-rows: 1fr;
-	padding-top: 0.5rem;
-	opacity: 1;
-}
-.editor-styles-wrapper .accordion__contentBg,
-.editor-styles-wrapper .accordion__button{
-	position: absolute;
-}
-.editor-styles-wrapper .accordion__listItem__text {
-	display: block;
-}
+
 @media (prefers-reduced-motion: reduce) {
 	.accordion__listItem__text,
 	.accordion__listItem__title::after {
 		transition: none;
 	}
 }
+
+

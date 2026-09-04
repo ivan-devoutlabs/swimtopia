@@ -198,6 +198,17 @@
                             display: none;
                         }
                     }
+
+                    &.plyr--youtube.plyr--paused {
+                        button.plyr__control.plyr__control--overlaid {
+                            display: none;
+                        }
+                    }
+                    &.plyr--youtube.plyr--paused.plyr--stopped {
+                        button.plyr__control.plyr__control--overlaid {
+                            display: block;
+                        }
+                    }
                 }
             }
         }
@@ -297,12 +308,32 @@
             &__item {
                 width: 5rem;
                 height: 5rem;
+                margin: 0;
+                border: 2px solid var(--wp--preset--color--light);
+                border-radius: 50%;
+                background: none;
+                transition: 0.3s;
+                background-color: transparent;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
                 @include v.down(v.$bp-lg) {
                     width: 3rem;
                     height: 3rem;
                 }
+                &:hover {
+                    background-color: var(--wp--preset--color--light);
+                    transform: scale(1.05);
+                    svg {
+                        path {
+                            fill: var(--wp--preset--color--blue);
+                        }
+                    }
+                }
                 svg {
                     width: 1.5rem;
+                    transition: 0.3s;
                     height: 1.5rem;
                     @include v.down(v.$bp-lg) {
                         width: 1rem;

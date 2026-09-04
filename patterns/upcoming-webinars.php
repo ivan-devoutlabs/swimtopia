@@ -40,6 +40,8 @@
 
                                 <!-- wp:post-date {"format":"d/m/y","className":"webinarsPreview__listItem__date"} /-->
 
+                                <!-- wp:starter/webinar-duration /-->
+
                             </div>
                             <!-- /wp:group -->
 

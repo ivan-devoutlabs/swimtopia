@@ -168,6 +168,8 @@
 			font-size: var(--wp--preset--font-size--text-s);
 			font-weight: 700;
 			line-height: 1.2222;
+		    display: none;
+    		visibility: hidden;
             @include v.down(v.$bp-md) {
     			font-size: var(--wp--preset--font-size--text-xs);
                 padding: 0.35rem 0.65rem;
@@ -296,18 +298,7 @@
 		// }
 	}
 }
-.editor-styles-wrapper .blogPreview__listItem__image {
-	position: absolute;
-}
-.editor-styles-wrapper .blogPreview__list {
-	flex-wrap: wrap;
-	transform: none !important;
 
-	> li {
-		flex-basis: 45%;
-		margin-bottom: 1.5rem;
-	}
-}
 
 @media (prefers-reduced-motion: reduce) {
 	.blogPreview__list.is-track {

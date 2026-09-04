@@ -88,6 +88,12 @@ function starter_search_card_webinar() {
 						<?php echo esc_html( get_the_date( 'd/m/y' ) ); ?>
 					</time>
 				</div>
+				<?php $video_duration = get_field('video_duration');
+                if($video_duration): ?>
+                <div class="webinarsPreview__listItem__time">
+                    <?php echo esc_html( $video_duration ); ?>
+                </div>
+                <?php endif; ?>
 			</div>
 
 			<h3 class="webinarsPreview__listItem__title">

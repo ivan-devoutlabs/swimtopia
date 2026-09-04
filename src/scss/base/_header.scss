@@ -3,7 +3,7 @@
 
 
 .header {
-	position: fixed;
+	position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -11,11 +11,13 @@
 	padding: 2rem 0;
 	@include v.down(v.$bp-lg) {
 		padding: 1rem 0;
+		position: fixed;
 	}
 	&__inner {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		padding: 0.875rem 0;
 		@include v.down(v.$bp-lg) {
 			padding: 0.25rem;
 			padding-left: 1rem;
@@ -209,7 +211,10 @@
 		}
 	}
 	&__menu {
-		transform: translateX(-5%);
+		transform: translateX(-55%);
+		position: fixed;
+		top: 2rem;
+		left: 50%;
 		@include v.down(v.$bp-lg) {
 			position: absolute;
 			left: 0;
@@ -241,6 +246,21 @@
 				width: 100%;
 				height: 100%;
 				z-index: -1;
+			}
+		}
+		&Logo {
+			width: 2.5rem;
+			height: 2.5rem;
+			position: absolute;
+			z-index: 1;
+			left: 2rem;
+			top: 50%;
+			transform: translateY(-50%);
+			transform-origin: left center;
+			transition: .3s;
+			transform: translateY(-50%) scale(0);
+			@include v.down(v.$bp-lg) {
+				display: none;
 			}
 		}
 		&.blue-header ul::before {
@@ -336,6 +356,7 @@
 				);
 
 				@include glass.glass-fallbacks();
+				background-color: var(--wp--preset--color--blue);
 				position: absolute;
 				left: 0;
 				top: 0;
@@ -353,6 +374,8 @@
 			align-items: center;
 			gap: 1rem;
 			padding: 1rem;
+			padding-left: 2rem;
+			transition: .3s;
 			@include v.down(v.$bp-lg) {
 				flex-direction: column;
 				align-items: flex-end;
@@ -381,6 +404,7 @@
 							$tint: transparent
 						);
 						@include glass.glass-fallbacks();
+						background-color: var(--wp--preset--color--blue);
 					}
 
 					border-radius: 1.875rem;
@@ -434,7 +458,8 @@
 							background-position: center;
 							transition: .3s;
 						}
-						&:hover::after {
+						&:hover::after,
+						&:focus-visible::after {
 							right: 0.75rem;
 						}
 					}
@@ -443,7 +468,9 @@
 					display: none;
 				}
 				&:hover .sub-menu,
-				&:hover .mega-menu {
+				&:hover .mega-menu,
+				&:focus-within .sub-menu,
+				&:focus-within .mega-menu {
 					opacity: 1;
 					visibility: visible;
 				}
@@ -464,6 +491,7 @@
 							$tint: transparent
 						);
 						@include glass.glass-fallbacks();
+						background-color: var(--wp--preset--color--blue);
 						border-radius: 1.875rem;
 					}
 					position: absolute;
@@ -525,7 +553,8 @@
 										background-position: center;
 										transition: .3s;
 									}
-									&:hover::after {
+									&:hover::after,
+									&:focus-visible::after {
 										right: 0.75rem;
 									}
 								}
@@ -707,7 +736,8 @@
 					}
 				}
 			}
-			& > .menu-item > a:hover::before {
+			& > .menu-item > a:hover::before,
+			& > .menu-item > a:focus-visible::before {
 				opacity: 1;
 			}
 			& > .menu-item:not(.menu-item.menu-item-has-children, .button) a {
@@ -730,10 +760,123 @@
 				}
 			}
 		}
+		.fixed & {
+			.menu {
+				padding-left: 5rem;
+			}
+			.header__menuLogo {
+				transform: translateY(-50%) scale(1);
+			}
+		}
 	}
 }
 
 .header__menu.blue-header .menu > .menu-item .sub-menu,
 .header__menu.blue-header .menu > .menu-item .mega-menu {
 	background-color: color-mix(in srgb, var(--wp--preset--color--blue) 50%, transparent);
+}
+
+
+
+
+.header {
+ 
+	/*
+	 * The toggle is a <button> now, so the browser's own button styling
+	 * has to be cleared. The bars themselves keep whatever the existing
+	 * rules give them.
+	 */
+	&__toggle {
+		display: block;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+ 
+		&:focus-visible {
+			outline: 2px solid currentColor;
+			outline-offset: 4px;
+			border-radius: 4px;
+		}
+	}
+ 
+	/*
+	 * Support and Account are links now. The label is read out but only
+	 * shown where there is room for it.
+	 */
+	&__buttonsItem {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		text-decoration: none;
+ 
+		&:focus-visible {
+			outline: 2px solid currentColor;
+			outline-offset: 3px;
+			border-radius: 4px;
+		}
+ 
+		img {
+			// Decorative: the link already has a name
+			pointer-events: none;
+		}
+	}
+ 
+	/*
+	 * Hidden visually, still announced. Not display: none, which would
+	 * remove it from the accessibility tree along with everything else.
+	 */
+	&__buttonsLabel {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip-path: inset( 50% );
+		white-space: nowrap;
+	}
+ 
+	@media ( max-width: 1024px ) {
+ 
+		&__buttonsLabel {
+			position: static;
+			width: auto;
+			height: auto;
+			margin: 0;
+			overflow: visible;
+			clip-path: none;
+			white-space: normal;
+		}
+	}
+ 
+	/*
+	 * Every focusable thing in the header needs a visible ring. Removing
+	 * outlines for looks and leaving nothing behind is the single most
+	 * common way a keyboard user gets lost.
+	 */
+	a:focus-visible,
+	button:focus-visible {
+		outline: 2px solid currentColor;
+		outline-offset: 3px;
+	}
+}
+ 
+/*
+ * The page behind the open drawer doesn't scroll. Without this the
+ * background moves under the panel and, on iOS, focus jumps around as
+ * it does.
+ */
+body.is-menu-open {
+	overflow: hidden;
+}
+ 
+/*
+ * inert has no visual effect of its own, so the closed panel still
+ * needs hiding — but it must be hidden in a way that also removes it
+ * from the tab order. The attribute does that; these rules only handle
+ * appearance.
+ */
+.header__menu[ inert ] {
+	pointer-events: none;
 }

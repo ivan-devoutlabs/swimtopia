@@ -1,95 +1,143 @@
 @use "../settings/variables" as v;
 
-
 .logoMarquee {
+	overflow: hidden;
 	padding: 4rem 0;
 	background-color: var(--wp--preset--color--light-blue-bg);
-	overflow: hidden;
-
-	--marquee-visible: 6;
-
-	@include v.down(v.$bp-lg) {
-		--marquee-visible: 3.5;
-	}
 
 	@include v.down(v.$bp-md) {
-		--marquee-visible: 2.5;
 		padding: 1.5rem 0;
 	}
 
-	&__list {
-		display: flex;
-		width: max-content; 
-        max-width: 100%;
+	--logo-width: 12.5rem;
+	--logo-gap: 1.5rem;
+	--logo-ratio: 16 / 9;
+	--logo-frame: #fff;
 
-		will-change: transform;
-		transform: translate3d(0, 0, 0);
-		backface-visibility: hidden;
-
-		&Item {
-			flex: 0 0 calc(var(--marquee-container, 100%) / var(--marquee-visible));
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin: 0;
-			padding: 0 2.5rem;
-
-			@include v.down(v.$bp-md) {
-				padding: 0 0.75rem;
-			}
-
-			img {
-				display: block;
-				width: 100%;
-				height: auto;
-				object-fit: contain;
-			}
-		}
+	@include v.down(v.$bp-lg) {
+		--logo-width: 10rem;
+		--logo-gap: 1rem;
 	}
+
+	@include v.down(v.$bp-md) {
+		--logo-width: 8rem;
+		--logo-gap: 0.75rem;
+	}
+
+
 	&__top {
-		text-align: center;
 		margin-bottom: 3.25rem;
+		text-align: center;
+
 		@include v.down(v.$bp-lg) {
 			margin-bottom: 2.25rem;
 		}
+
 		@include v.down(v.$bp-md) {
 			margin-bottom: 1.25rem;
 		}
 	}
+
 	&__title {
-		margin-bottom: 0.5rem;
-		line-height: 1.23684;
+		margin: 0 0 0.5rem;
 		color: var(--wp--preset--color--navy);
-		@include v.down(v.$bp-md){
+		line-height: 1.23684;
+
+		@include v.down(v.$bp-md) {
 			margin-bottom: 0;
 		}
 	}
+
 	&__text {
-		font-size: var(--wp--preset--font-size--text-m);
-		line-height: 1.25;
+		margin: 0;
 		color: var(--wp--preset--color--navy);
+		font-size: var(--wp--preset--font-size--text-m);
 		font-weight: 600;
+		line-height: 1.25;
+
 		@include v.down(v.$bp-md) {
 			font-size: var(--wp--preset--font-size--text-s);
 		}
 	}
 
 
+	&__list {
+		display: flex;
+		align-items: center;
+
+		width: 100%;
+		max-width: 100%;
+
+		backface-visibility: hidden;
+
+
+		--marquee-distance: 0px;
+		--marquee-duration: 30s;
+	}
+
+
 	&.is-ready &__list {
-		transition: none;
+		animation: logoMarqueeScroll var( --marquee-duration ) linear infinite;
+		will-change: transform;
+	}
+
+	&:hover &__list {
+		animation-play-state: paused;
+	}
+
+	&.is-offscreen &__list {
+		animation-play-state: paused;
+	}
+
+
+	&__listItem {
+		flex: 0 0 var( --logo-width );
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: var( --logo-width );
+		margin: 0 calc( var( --logo-gap ) / 2 );
+		padding: 1rem;
+		border-radius: 1rem;
+		background-color: var( --logo-frame );
+
+		@include v.down(v.$bp-md) {
+			padding: 0.75rem;
+		}
+
+		img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			aspect-ratio: var( --logo-ratio );
+			object-fit: contain;
+			object-position: center;
+		}
+	}
+}
+
+@keyframes logoMarqueeScroll {
+	from {
+		transform: translate3d( 0, 0, 0 );
+	}
+
+
+	to {
+		transform: translate3d( calc( var( --marquee-distance ) * -1 ), 0, 0 );
 	}
 }
 
 
-.editor-styles-wrapper .logoMarquee__list {
-	width: auto;
-	flex-wrap: wrap;
-	transform: none !important;
-}
 
 
-@media (prefers-reduced-motion: reduce) {
+@media ( prefers-reduced-motion: reduce ) {
+
 	.logoMarquee__list {
+		animation: none !important;
 		transform: none !important;
+		flex-wrap: wrap;
+		justify-content: center;
+		width: 100%;
+		row-gap: 1rem;
 	}
 }

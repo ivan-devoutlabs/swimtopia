@@ -43,29 +43,22 @@ $base_url = remove_query_arg( array( 'cats', 'paged' ), $base_url );
 
 				?>
 				<div class="blog__filterActive">
-					<?php foreach ( $selected as $term_id ) : ?>
-						<?php $term = get_term( $term_id, 'category' ); ?>
-						<?php if ( $term && ! is_wp_error( $term ) ) : ?>
-							<div class="blog__filterActive__item" data-term="<?php echo esc_attr( $term_id ); ?>">
-								<button
-									type="button"
-									class="blog__filterActive__itemRemove"
-									aria-label="
-									<?php
-									echo esc_attr(
-										sprintf(
-											__( 'Remove Filters «%s»', 'starter' ),
-											$term->name
-										)
-									);
-									?>
-									"
-								></button>
-								<span class="blog__filterActive__itemLabel"><?php echo esc_html( $term->name ); ?></span>
-							</div>
-						<?php endif; ?>
-					<?php endforeach; ?>
-				</div>
+                    <?php foreach ( $selected as $term_slug ) : ?>
+                        <?php 
+                        $term = get_term_by( 'slug', $term_slug, 'category' ); 
+                        ?>
+                        <?php if ( $term && ! is_wp_error( $term ) ) : ?>
+                            <div class="blog__filterActive__item" data-term="<?php echo esc_attr( $term_slug ); ?>">
+                                <button
+                                    type="button"
+                                    class="blog__filterActive__itemRemove"
+                                    aria-label="<?php echo esc_attr( sprintf( __( 'Remove Filters «%s»', 'starter' ), $term->name ) ); ?>"
+                                ></button>
+                                <span class="blog__filterActive__itemLabel"><?php echo esc_html( $term->name ); ?></span>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
 
 				<div class="blog__filterList__wrapper">
 
@@ -80,28 +73,28 @@ $base_url = remove_query_arg( array( 'cats', 'paged' ), $base_url );
 					</div>
 
 					<div class="blog__filterList">
-						<?php foreach ( $terms as $term ) : ?>
-							<?php
-							$is_active = in_array( $term->term_id, $selected, true );
+                        <?php foreach ( $terms as $term ) : ?>
+                            <?php
+                            $is_active = in_array( $term->slug, $selected, true );
 
-							$next = $is_active
-								? array_diff( $selected, array( $term->term_id ) )
-								: array_merge( $selected, array( $term->term_id ) );
+                            $next = $is_active
+                                ? array_diff( $selected, array( $term->slug ) )
+                                : array_merge( $selected, array( $term->slug ) );
 
-							$href = $next
-								? add_query_arg( 'cats', implode( ',', $next ), $base_url )
-								: $base_url;
-							?>
-							<a
-								class="blog__filterList__item<?php echo $is_active ? ' is-active' : ''; ?>"
-								href="<?php echo esc_url( $href ); ?>"
-								data-term="<?php echo esc_attr( $term->term_id ); ?>"
-								aria-pressed="<?php echo $is_active ? 'true' : 'false'; ?>"
-							>
-								<?php echo esc_html( $term->name ); ?>
-							</a>
-						<?php endforeach; ?>
-					</div>
+                            $href = $next
+                                ? add_query_arg( 'cats', implode( ',', $next ), $base_url )
+                                : remove_query_arg( array( 'cats', 'paged' ), $base_url );
+                            ?>
+                            <a
+                                class="blog__filterList__item<?php echo $is_active ? ' is-active' : ''; ?>"
+                                href="<?php echo esc_url( $href ); ?>"
+                                data-term="<?php echo esc_attr( $term->slug ); ?>" 
+                                aria-pressed="<?php echo $is_active ? 'true' : 'false'; ?>"
+                            >
+                                <?php echo esc_html( $term->name ); ?>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
 
 				</div>
 

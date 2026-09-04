@@ -26,20 +26,38 @@ $register_btn = get_field('register_btn');
             <div class="webinarsHero__content">
                 <div class="webinarsHero__text"><?php the_content(); ?></div>
                 <div class="webinarsHero__contentInfo">
-                    <?php if($times): ?>
                     <div class="webinarsHero__contentInfo__dates">
+                        <?php if($times): ?>
                         <div class="webinarsHero__contentInfo__datesTitle"><?php _e('Webinar Times', 'theme'); ?></div>
                         <div class="webinarsHero__contentInfo__datesContent"><?php echo $times; ?></div>
-                        <?php if($register_btn): ?>
-                        <div class="webinarsHero__contentInfo__register"><a href="<?php echo $register_btn['url']; ?>" class="wp-block-button__link"><?php echo $register_btn['title']; ?></a></div>
                         <?php endif; ?>
+                        <?php starter_webinar_form( $register_btn ); ?>
                     </div>
-                    <?php endif; ?>
                     <div class="webinarsHero__contentInfo__previous">
                         <div class="webinarsHero__contentInfo__previousTitle">
-                        Previously Recorded Webinar
+                            Previously Recorded Webinar
                         </div>
-                        <video src="<?php echo $previous_webinar['url']; ?>" id="player"></video>
+                        
+                        <?php 
+                        $video_url = is_array($previous_webinar) && isset($previous_webinar['url']) ? $previous_webinar['url'] : $previous_webinar;
+
+                        if ( $video_url ) :
+                            $is_external = preg_match('/(youtube\.com|youtu\.be|vimeo\.com)/i', $video_url);
+
+                            if ( $is_external ) : ?>
+                                
+                                <div class="plyr__video-embed" id="player">
+                                    <?php echo wp_oembed_get( $video_url ); ?>
+                                </div>
+
+                            <?php else : ?>
+                                
+                                <video id="player" playsinline controls>
+                                    <source src="<?php echo esc_url($video_url); ?>" type="video/mp4" />
+                                </video>
+
+                            <?php endif; 
+                        endif; ?>
                     </div>
                 </div>
             </div>
@@ -76,20 +94,41 @@ $register_btn = get_field('register_btn');
     </div>
 </section>
 <?php elseif($webinarsTypes == 'previous'):
-$webinar_video = get_field('webinar_video'); ?>
+$webinar_video = get_field('webinar_video');
+$video_duration = get_field('video_duration');
+?>
     <section class="webinarsHero previous">
         <div class="container">
             <div class="webinarsHero__contentWrapper">
                 <div class="webinarsHero__top">
                     <div class="webinarsHero__date"><?php echo get_the_date('m-d-y'); ?></div>
                     <h1 class="webinarsHero__title"><?php the_title(); ?></h1>
-                    <?php if ( ! empty( $webinar_video['ID'] ) ): ?>
-                        <div class="webinarsHero__time"><?php echo esc_html( get_video_duration( $webinar_video['ID'] ) ); ?></div>
+                    <?php if ( ! empty( $video_duration ) ): ?>
+                        <div class="webinarsHero__time"><?php echo esc_html( $video_duration ); ?></div>
                     <?php endif; ?>
                 </div>
                 <div class="webinarsHero__content">
                     <div class="webinarsHero__video">
-                        <video src="<?php echo $webinar_video['url']; ?>" id="player"></video>
+                        <?php 
+                        $video_url = is_array($webinar_video) && isset($webinar_video['url']) ? $webinar_video['url'] : $webinar_video;
+
+                        if ( $video_url ) :
+                            $is_external = preg_match('/(youtube\.com|youtu\.be|vimeo\.com)/i', $video_url);
+
+                            if ( $is_external ) : ?>
+                                
+                                <div class="plyr__video-embed" id="player">
+                                    <?php echo wp_oembed_get( $video_url ); ?>
+                                </div>
+
+                            <?php else : ?>
+                                
+                                <video id="player" playsinline controls>
+                                    <source src="<?php echo esc_url($video_url); ?>" type="video/mp4" />
+                                </video>
+
+                            <?php endif; 
+                        endif; ?>
                     </div>
                     <div class="webinarsHero__text"><?php the_content(); ?></div>
                 </div>
@@ -116,10 +155,6 @@ $webinar_video = get_field('webinar_video'); ?>
 						<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode( get_permalink() ); ?>" class="footer__topLeft__socialList__item" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook (opens in a new tab)" title="Share on Facebook">
 							<?php echo str_replace('<svg', '<svg aria-hidden="true" focusable="false"', file_get_contents(get_template_directory() . '/assets/images/Vector.svg')); ?>
 						</a>
-
-						<button type="button" class="footer__topLeft__socialList__item share-copy" aria-label="Copy link" title="Copy link">
-							<?php echo str_replace('<svg', '<svg aria-hidden="true" focusable="false"', file_get_contents(get_template_directory() . '/assets/images/Vector-2.svg')); ?>
-						</button>
 					</nav>
 				</div>
 			</div>
@@ -133,14 +168,6 @@ $args = array(
     'post_status'    => 'publish',
     'posts_per_page' => 6,
     'paged'          => max( 1, (int) $paged ),
-    'tax_query'      => array(
-        'relation' => 'AND',
-        array(
-            'taxonomy' => 'webinars-types',
-            'field'    => 'slug',
-            'terms'    => 'upcoming',
-        ),
-    ),
 );
 
 
@@ -178,6 +205,12 @@ if ( $query->have_posts() ) {
                                                 <?php echo get_the_term_list( get_the_ID(), 'webinars-categories', '', ', ' ); ?>
                                             </div>
                                             <div class="webinarsPreview__listItem__date"><?php echo get_the_date('d/m/y'); ?></div>
+                                            <?php $video_duration = get_field('video_duration');
+                                            if($video_duration): ?>
+                                            <div class="webinarsPreview__listItem__time">
+                                                <?php echo esc_html( $video_duration ); ?>
+                                            </div>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="webinarsPreview__listItem__title"><?php the_title(); ?></div>
                                         

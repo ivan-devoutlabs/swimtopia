@@ -342,6 +342,15 @@ function theme_enqueue_block_assets() {
         );
     }
 
+    if ( starter_page_has( 'compareComponent' ) ) {
+        wp_enqueue_script(
+            'compareComponent',
+            THEME_URI . '/js/compareComponent.js',
+            array( 'jquery' ),
+            filemtime( get_theme_file_path( '/js/compareComponent.js' ) ),
+            array( 'strategy' => 'defer', 'in_footer' => true )
+        );
+    }
 	
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_block_assets' );

@@ -17,8 +17,8 @@ function starter_webinars_query_args( $categories = array(), $paged = 1 ) {
         ),
     );
 
-    $categories = array_filter( array_map( 'absint', (array) $categories ) );
-
+    $categories = array_filter( array_map( 'sanitize_title', (array) $categories ) );
+    
     if ( $categories ) {
         $args['tax_query'] = array(
             'relation' => 'AND',
@@ -29,7 +29,7 @@ function starter_webinars_query_args( $categories = array(), $paged = 1 ) {
             ),
             array(
                 'taxonomy' => 'webinars-categories',
-                'field'    => 'term_id',
+                'field'    => 'slug',
                 'terms'    => $categories,
                 'operator' => 'IN',
             ),
@@ -60,6 +60,12 @@ function starter_webinars_render_list( WP_Query $query ) {
                         <?php echo get_the_term_list( get_the_ID(), 'webinars-categories', '', ', ' ); ?>
                     </div>
                     <div class="webinarsPreview__listItem__date"><?php echo get_the_date('d/m/y'); ?></div>
+                    <?php $video_duration = get_field('video_duration');
+                    if($video_duration): ?>
+                    <div class="webinarsPreview__listItem__time">
+                        <?php echo esc_html( $video_duration ); ?>
+                    </div>
+                    <?php endif; ?>
 				</div>
                 <div class="webinarsPreview__listItem__title"><?php the_title(); ?></div>
 				
@@ -89,14 +95,17 @@ function starter_webinars_render_pagination( WP_Query $query, $paged = 1 ) {
 function starter_webinars_current_categories() {
     $raw = isset( $_GET['cats'] ) ? sanitize_text_field( wp_unslash( $_GET['cats'] ) ) : '';
     if ( ! $raw ) { return array(); }
-    return array_values( array_filter( array_map( 'absint', explode( ',', $raw ) ) ) );
+    
+    return array_values( array_filter( array_map( 'sanitize_title', explode( ',', $raw ) ) ) );
 }
 
 function starter_webinars_filter_ajax() {
     check_ajax_referer( 'starter_webinars_filter', 'nonce' );
+    
     $categories = isset( $_POST['cats'] )
-        ? array_filter( array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $_POST['cats'] ) ) ) ) )
+        ? array_filter( array_map( 'sanitize_title', explode( ',', sanitize_text_field( wp_unslash( $_POST['cats'] ) ) ) ) )
         : array();
+        
     $paged = isset( $_POST['paged'] ) ? absint( $_POST['paged'] ) : 1;
 
     $query = new WP_Query( starter_webinars_query_args( $categories, $paged ) );

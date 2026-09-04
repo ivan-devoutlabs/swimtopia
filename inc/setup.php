@@ -19,6 +19,7 @@ function starter_setup() {
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'editor-styles' );
 	add_editor_style( 'assets/css/main.css' );
+	add_editor_style( 'assets/css/editor.css' );
 
 	add_theme_support(
 		'html5',

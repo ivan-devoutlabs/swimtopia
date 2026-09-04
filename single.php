@@ -8,7 +8,7 @@ get_header();
 			<div class="postHero__content">
 				<h1 class="postHero__title"><?php the_title(); ?></h1>
 				<div class="postHero__bottom">
-					<div class="postHero__cat"><?php echo get_the_term_list( get_the_ID(), 'category', '', ', ' ); ?></div>
+					<!-- <div class="postHero__cat"><?php //echo get_the_term_list( get_the_ID(), 'category', '', ', ' ); ?></div> -->
 					<div class="postHero__time"><?php echo esc_html( reading_time_label() ); ?></div>
 				</div>
 			</div>
@@ -45,10 +45,6 @@ $single_post_cta_text = get_field('single_post_cta_text', 'options');
 						<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode( get_permalink() ); ?>" class="footer__topLeft__socialList__item" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook (opens in a new tab)" title="Share on Facebook">
 							<?php echo str_replace('<svg', '<svg aria-hidden="true" focusable="false"', file_get_contents(get_template_directory() . '/assets/images/Vector.svg')); ?>
 						</a>
-
-						<button type="button" class="footer__topLeft__socialList__item share-copy" aria-label="Copy link" title="Copy link">
-							<?php echo str_replace('<svg', '<svg aria-hidden="true" focusable="false"', file_get_contents(get_template_directory() . '/assets/images/Vector-2.svg')); ?>
-						</button>
 					</nav>
 				</div>
 			</div>

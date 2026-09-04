@@ -8,29 +8,27 @@ define( 'THEME_BLOG_PER_PAGE', 9 );
 
 
 function starter_blog_query_args( $categories = array(), $paged = 1 ) {
+    $args = array(
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'posts_per_page' => THEME_BLOG_PER_PAGE,
+        'paged'          => max( 1, (int) $paged ),
+    );
 
-	$args = array(
-		'post_type'      => 'post',
-		'post_status'    => 'publish',
-		'posts_per_page' => THEME_BLOG_PER_PAGE,
-		'paged'          => max( 1, (int) $paged ),
-	);
+    $categories = array_filter( array_map( 'sanitize_title', (array) $categories ) );
 
-	$categories = array_filter( array_map( 'absint', (array) $categories ) );
+    if ( $categories ) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'category',
+                'field'    => 'slug', 
+                'terms'    => $categories,
+                'operator' => 'IN',
+            ),
+        );
+    }
 
-	if ( $categories ) {
-		$args['tax_query'] = array(
-			array(
-				'taxonomy' => 'category',
-				'field'    => 'term_id',
-				'terms'    => $categories,
-
-				'operator' => 'IN',
-			),
-		);
-	}
-
-	return $args;
+    return $args;
 }
 
 
@@ -106,14 +104,13 @@ function starter_blog_render_pagination( WP_Query $query, $paged = 1 ) {
 
 
 function starter_blog_current_categories() {
+    $raw = isset( $_GET['cats'] ) ? sanitize_text_field( wp_unslash( $_GET['cats'] ) ) : '';
 
-	$raw = isset( $_GET['cats'] ) ? sanitize_text_field( wp_unslash( $_GET['cats'] ) ) : '';
+    if ( ! $raw ) {
+        return array();
+    }
 
-	if ( ! $raw ) {
-		return array();
-	}
-
-	return array_values( array_filter( array_map( 'absint', explode( ',', $raw ) ) ) );
+    return array_values( array_filter( array_map( 'sanitize_title', explode( ',', $raw ) ) ) );
 }
 
 
@@ -149,29 +146,22 @@ function starter_blog_section() {
 				<div class="blog__filterWrapper">
 
 					<div class="blog__filterActive">
-						<?php foreach ( $selected as $term_id ) : ?>
-							<?php $term = get_term( $term_id, 'category' ); ?>
-							<?php if ( $term && ! is_wp_error( $term ) ) : ?>
-								<div class="blog__filterActive__item" data-term="<?php echo esc_attr( $term_id ); ?>">
-									<button
-										type="button"
-										class="blog__filterActive__itemRemove"
-										aria-label="
-										<?php
-										echo esc_attr(
-											sprintf(
-												__( 'Clear Filters «%s»', 'starter' ),
-												$term->name
-											)
-										);
-										?>
-										"
-									></button>
-									<span class="blog__filterActive__itemLabel"><?php echo esc_html( $term->name ); ?></span>
-								</div>
-							<?php endif; ?>
-						<?php endforeach; ?>
-					</div>
+                    <?php foreach ( $selected as $term_slug ) : ?>
+                        <?php 
+                        $term = get_term_by( 'slug', $term_slug, 'category' ); 
+                        ?>
+                        <?php if ( $term && ! is_wp_error( $term ) ) : ?>
+                            <div class="blog__filterActive__item" data-term="<?php echo esc_attr( $term_slug ); ?>">
+                                <button
+                                    type="button"
+                                    class="blog__filterActive__itemRemove"
+                                    aria-label="<?php echo esc_attr( sprintf( __( 'Remove Filters «%s»', 'starter' ), $term->name ) ); ?>"
+                                ></button>
+                                <span class="blog__filterActive__itemLabel"><?php echo esc_html( $term->name ); ?></span>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
 
 					<div class="blog__filterList__wrapper">
 
@@ -188,11 +178,11 @@ function starter_blog_section() {
 						<div class="blog__filterList">
 							<?php foreach ( $terms as $term ) : ?>
 								<?php
-								$is_active = in_array( $term->term_id, $selected, true );
+								$is_active = in_array( $term->slug, $selected, true );
 
 								$next = $is_active
-									? array_diff( $selected, array( $term->term_id ) )
-									: array_merge( $selected, array( $term->term_id ) );
+									? array_diff( $selected, array( $term->slug ) )
+									: array_merge( $selected, array( $term->slug ) );
 
 								$href = $next
 									? add_query_arg( 'cats', implode( ',', $next ), $base_url )
@@ -201,7 +191,7 @@ function starter_blog_section() {
 								<a
 									class="blog__filterList__item<?php echo $is_active ? ' is-active' : ''; ?>"
 									href="<?php echo esc_url( $href ); ?>"
-									data-term="<?php echo esc_attr( $term->term_id ); ?>"
+									data-term="<?php echo esc_attr( $term->slug ); ?>" 
 									aria-pressed="<?php echo $is_active ? 'true' : 'false'; ?>"
 								>
 									<?php echo esc_html( $term->name ); ?>
@@ -234,13 +224,13 @@ function starter_blog_filter_ajax() {
 
 	check_ajax_referer( 'starter_blog_filter', 'nonce' );
 
-	$categories = isset( $_POST['cats'] )
-		? array_filter( array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $_POST['cats'] ) ) ) ) )
-		: array();
+    $categories = isset( $_POST['cats'] )
+        ? array_filter( array_map( 'sanitize_title', explode( ',', sanitize_text_field( wp_unslash( $_POST['cats'] ) ) ) ) )
+        : array();
 
-	$paged = isset( $_POST['paged'] ) ? absint( $_POST['paged'] ) : 1;
+    $paged = isset( $_POST['paged'] ) ? absint( $_POST['paged'] ) : 1;
 
-	$query = new WP_Query( starter_blog_query_args( $categories, $paged ) );
+    $query = new WP_Query( starter_blog_query_args( $categories, $paged ) );
 
 	ob_start();
 	starter_blog_render_list( $query );

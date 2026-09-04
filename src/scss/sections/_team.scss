@@ -81,6 +81,46 @@
                     }
                 }
             }
+            & &__button {
+                display: grid;
+                grid-template-rows: 0fr;
+                margin-top: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                opacity: 0;
+                // visibility: hidden;
+                width: fit-content;
+                position: relative;
+                z-index: 1;
+
+                transition: 
+                    grid-template-rows 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                    margin-top 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+                    opacity 0.5s ease;
+
+                > * {
+                    overflow: hidden;
+                }
+                .wp-block-button__link {
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+            }
+
+            &:hover &__button,
+            &:focus-within &__button,
+            &__button:focus-visible {
+                grid-template-rows: 1fr;
+                margin-top: 1.25rem;
+                opacity: 1;
+                // visibility: visible;
+                .wp-block-button__link {
+                    padding: 0.5625rem 2.9375rem 0.5625rem 1rem;
+                    &:hover {
+                        padding: 0.5625rem 1rem 0.5625rem 2.9375rem;
+                    }
+                }
+            }
             &__text {
                 display: none;
             }
@@ -186,6 +226,11 @@
     margin-top: 0;
     @include v.down(v.$bp-md) {
         align-items: center;
+    }
+    .team__popupText{
+        scrollbar-color: var(--wp--preset--color--blue) transparent;
+        max-height: 17.5rem;
+        overflow-y: scroll;
     }
 
     &.is-open {

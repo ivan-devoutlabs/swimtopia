@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "starter/webinar-duration",
+	"version": "1.0.0",
+	"title": "Webinar duration",
+	"category": "text",
+	"icon": "clock",
+	"description": "Length of the webinar video, read from the attached file.",
+	"textdomain": "starter",
+	"usesContext": [ "postId" ],
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+	"attributes": {
+		"field": {
+			"type": "string",
+			"default": "webinar_video"
+		}
+	},
+	"render": "file:./render.php"
+}

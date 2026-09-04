@@ -185,13 +185,13 @@ document.addEventListener('DOMContentLoaded', function() {
     prevBtn.addEventListener('click', () => slide('prev'));
 });
 
-jQuery(document).ready(function($){
-    $('.team__listItem').hover(
-        function(){
-            $(this).find('.team__listItem__button').stop().slideDown();
-        },
-        function(){
-            $(this).find('.team__listItem__button').stop().slideUp();
-        }
-    );
-});
+// jQuery(document).ready(function($){
+//     $('.team__listItem').hover(
+//         function(){
+//             $(this).find('.team__listItem__button').stop().slideDown();
+//         },
+//         function(){
+//             $(this).find('.team__listItem__button').stop().slideUp();
+//         }
+//     );
+// });

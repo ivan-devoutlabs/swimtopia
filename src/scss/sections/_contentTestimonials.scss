@@ -199,15 +199,3 @@
 	}
 }
 
-.block-editor-block-list__layout .easeAccordion__testimonialsItem {
-	display: none;
-	&:first-child {
-		display: block;
-	}
-}
-.block-editor-block-list__layout.is-selected .easeAccordion__testimonialsItem,
-.block-editor-block-list__layout.has-editable-outline .easeAccordion__testimonialsItem,
-.block-editor-block-list__layout.is-editing-content-only-section .easeAccordion__testimonialsItem,
-.block-editor-block-list__layout.has-child-selected .easeAccordion__testimonialsItem{
-	display: block;
-}

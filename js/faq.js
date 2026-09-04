@@ -36,6 +36,30 @@
             return Math.abs( this.offsetTop - top ) < 2;
         } );
     }
+
+    function measureHeights( $grid ) {
+        if ( isMobile() ) return; 
+
+        $grid.find( SELECTORS.item ).each( function () {
+            var $item = $( this );
+            var $answer = $item.find( SELECTORS.answer );
+            var isExpanded = $item.hasClass( CLASSES.active );
+
+            $answer.css( { 'transition': 'none', 'visibility': 'hidden', 'display': 'block', 'height': 'auto' } );
+            
+            var h = $answer.get(0).scrollHeight;
+            
+            $answer.attr( 'data-height', h );
+
+            $answer.css( 'transition', '' );
+            
+            if ( isExpanded ) {
+                $answer.css( { 'height': h + 'px', 'opacity': 1, 'visibility': 'visible', 'display': '' } );
+            } else {
+                $answer.css( { 'height': 0, 'opacity': 0, 'visibility': 'hidden', 'display': '' } );
+            }
+        } );
+    }
  
     function collapse( $grid ) {
         $grid
@@ -47,7 +71,11 @@
         if ( isMobile() ) {
             $grid.find( SELECTORS.answer ).stop( true, true ).slideUp( duration() );
         } else {
-            $grid.find( SELECTORS.answer ).css( 'opacity', 0 );
+            $grid.find( SELECTORS.answer ).css( {
+                'opacity': 0,
+                'visibility': 'hidden',
+                'height': '0',
+            } );
         }
     }
  
@@ -60,14 +88,21 @@
         var $answer = $item.find( SELECTORS.answer );
  
         if ( isMobile() ) {
-            $answer.stop( true, true ).css( 'opacity', 1 ).slideDown( duration() );
+            $answer.stop( true, true ).css( {
+                'opacity': 1,
+                'visibility': 'visible',
+            } ).slideDown( duration() );
             return;
         }
  
         rowSiblings( $grid, $item ).not( $item ).addClass( CLASSES.shrunk );
  
         setTimeout( function () {
-            $answer.css( 'opacity', 1 );
+            $answer.css( {
+                'opacity': 1,
+                'visibility': 'visible',
+                'height': $answer.attr( 'data-height' ) + 'px', 
+            } );
         }, duration() > 0 ? 500 : 0 );
     }
  
@@ -109,6 +144,8 @@
                     'aria-controls': answerId
                 } );
             } );
+
+            measureHeights( $grid );
  
             $grid.on( 'click', SELECTORS.item, function ( event ) {
                 event.preventDefault();
@@ -141,7 +178,11 @@
             $grids.each( function () {
                 var $grid = $( this );
                 collapse( $grid );
-                clearInline( $grid );
+                clearInline( $grid ); 
+                
+                if ( !isMobile() ) {
+                    measureHeights( $grid );
+                }
             } );
         }
  
@@ -150,7 +191,23 @@
         } else {
             MOBILE.addListener( onModeChange ); 
         }
+
+        var resizeTimer;
+        $(window).on('resize', function() {
+            if ( isMobile() ) return;
+            
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                $grids.each(function() {
+                    measureHeights($(this));
+                });
+            }, 150);
+        });
     }
  
-    init();
+    if ( document.readyState === 'loading' ) {
+        document.addEventListener( 'DOMContentLoaded', init );
+    } else {
+        init();
+    }
 } )( jQuery );

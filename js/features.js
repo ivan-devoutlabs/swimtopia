@@ -70,7 +70,7 @@
 
     Features.prototype.label = function () {
         var l10n = window.starterFeaturesL10n || {};
-        return l10n.next || 'Наступний слайд';
+        return l10n.next || 'Next Slide';
     };
 
     Features.prototype.setProgress = function ( value ) {
@@ -266,17 +266,19 @@
         var maxContentHeight = 0;
         var maxItemHeight = 0;
 
-        // ЕТАП 1: Читання висоти верхнього блоку
         var topContent = this.section.querySelector('.features__contentTop');
         var offsetMargin = 0;
+        var offsetBottom = 0;
         var topHeight = 0;
 
         if (topContent) {
             topHeight = topContent.getBoundingClientRect().height;
             offsetMargin = Math.ceil(topHeight * 1.5);
+            offsetBottom = Math.ceil(topHeight * 0.75);
+            const shiftY = Math.ceil(topHeight * 0.375);
+            document.querySelector('.features__slider').style.setProperty('--center-shift', `${shiftY}px`);
         }
 
-        // ЕТАП 2: Запис стилів (застосування відступу до контенту)
         if (topContent) {
             this.section.style.setProperty('--top-content-height', topHeight + 'px');
             this.section.style.setProperty('--top-content-offset', offsetMargin + 'px');
@@ -288,7 +290,7 @@
             if ( content ) {
                 if ( ! TABLET.matches && offsetMargin > 0 ) {
                     content.style.marginTop = offsetMargin + 'px';
-                    content.style.marginBottom = offsetMargin + 'px';
+                    content.style.marginBottom = offsetBottom + 'px';
                 } else {
                     content.style.marginTop = '';
                     content.style.marginBottom = '';
@@ -296,7 +298,6 @@
             }
         } );
 
-        // ЕТАП 3: Читання висоти для слайдера (після застосування відступів)
         this.slides.forEach( function ( slide ) {
             var content = slide.querySelector( '.features__sliderItem__content' );
 
@@ -307,14 +308,12 @@
                 }
             }
 
-            // Вимірюємо висоту всього слайда (разом з картинкою та відступами)
             var itemHeight = slide.getBoundingClientRect().height;
             if ( itemHeight > maxItemHeight ) {
                 maxItemHeight = itemHeight;
             }
         } );
 
-        // ЕТАП 4: Фінальний запис (встановлюємо висоту контейнерам)
         if ( maxContentHeight > 0 ) {
             this.slider.style.setProperty(
                 '--features-content-height',
@@ -322,11 +321,10 @@
             );
         }
 
-        // Задаємо жорстку висоту для features__slider на десктопі
         if ( ! MOBILE.matches && maxItemHeight > 0 ) {
             this.slider.style.height = Math.ceil( maxItemHeight ) + 'px';
         } else {
-            this.slider.style.height = ''; // Скидаємо для мобільних
+            this.slider.style.height = ''; 
         }
     };
 
@@ -344,7 +342,6 @@
                 var content = slide.querySelector( '.features__sliderItem__content' );
                 if ( content ) observer.observe( content );
                 
-                // Спостерігаємо за самим слайдом (на випадок зміни висоти картинок)
                 observer.observe( slide );
             } );
 
@@ -463,21 +460,21 @@
             }
         } );
 
-        this.slider.addEventListener( 'mouseenter', function () {
-            self.paused = true;
-        } );
+        // this.slider.addEventListener( 'mouseenter', function () {
+        //     self.paused = true;
+        // } );
 
-        this.slider.addEventListener( 'mouseleave', function () {
-            self.paused = false;
-        } );
+        // this.slider.addEventListener( 'mouseleave', function () {
+        //     self.paused = false;
+        // } );
 
-        this.slider.addEventListener( 'focusin', function () {
-            self.paused = true;
-        } );
+        // this.slider.addEventListener( 'focusin', function () {
+        //     self.paused = true;
+        // } );
 
-        this.slider.addEventListener( 'focusout', function () {
-            self.paused = false;
-        } );
+        // this.slider.addEventListener( 'focusout', function () {
+        //     self.paused = false;
+        // } );
 
         if ( 'IntersectionObserver' in window ) {
             new IntersectionObserver( function ( entries ) {

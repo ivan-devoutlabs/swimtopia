@@ -4,23 +4,34 @@ jQuery( document ).ready( function ( $ ) {
 	var TITLE = '.accordion__listItem__title';
 	var TEXT = '.accordion__listItem__text';
 
-	$( TITLE ).each( function ( index ) {
-		var $title = $( this );
-		var $text = $title.parent().find( TEXT );
+	$( '.accordion' ).each( function ( sectionIndex ) {
+		var $section = $( this );
+		var prefix = 'accordion-' + sectionIndex;
 
-		if ( ! $text.length ) {
-			return;
-		}
+		$section.find( TITLE ).each( function ( index ) {
+			var $title = $( this );
+			var $text = $title.parent().find( TEXT );
 
-		var id = 'accordion-panel-' + index;
+			if ( ! $text.length ) {
+				return;
+			}
 
-		$text.attr( 'id', id );
+			var titleId = prefix + '-title-' + index;
+			var panelId = prefix + '-panel-' + index;
 
-		$title.attr( {
-			role: 'button',
-			tabindex: 0,
-			'aria-expanded': $title.hasClass( 'opened' ) ? 'true' : 'false',
-			'aria-controls': id,
+			$title.attr( {
+				id: titleId,
+				role: 'button',
+				tabindex: 0,
+				'aria-expanded': $title.hasClass( 'opened' ) ? 'true' : 'false',
+				'aria-controls': panelId,
+			} );
+
+			$text.attr( {
+				id: panelId,
+				role: 'region',
+				'aria-labelledby': titleId,
+			} );
 		} );
 	} );
 
@@ -50,13 +61,15 @@ jQuery( document ).ready( function ( $ ) {
 		var index = $items.index( this );
 
 		if ( event.key === 'Enter' || event.key === ' ' ) {
-			event.preventDefault();   
+			event.preventDefault();
 			toggle( $( this ) );
+
 			return;
 		}
 
 		if ( event.key === 'Escape' && $( this ).hasClass( 'opened' ) ) {
 			toggle( $( this ) );
+
 			return;
 		}
 
@@ -65,7 +78,7 @@ jQuery( document ).ready( function ( $ ) {
 			$items.eq( index + 1 ).trigger( 'focus' );
 		}
 
-		if ( event.key === 'ArrowUp' && $items.eq( index - 1 ).length && index > 0 ) {
+		if ( event.key === 'ArrowUp' && index > 0 ) {
 			event.preventDefault();
 			$items.eq( index - 1 ).trigger( 'focus' );
 		}

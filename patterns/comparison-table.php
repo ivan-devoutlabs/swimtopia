@@ -1,9 +1,11 @@
-<?php 
-/*
-Template Name: Blocks
-*/
+<?php
+/**
+ * Title: Comparison table
+ * Slug: starter/compare-component
+ * Categories: theme
+ */
 
-get_header(); ?>
+?>
 
 <!-- wp:group {"align":"full","className":"compareComponent","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull compareComponent">
@@ -270,8 +272,3 @@ get_header(); ?>
 
 </div>
 <!-- /wp:group -->
-<script>
-
-</script>
-
-<?php get_footer(); ?>

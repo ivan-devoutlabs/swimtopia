@@ -35,6 +35,7 @@
 		position: sticky;
 		top: 120px;
 		width: 45%;
+		z-index: 1;
 
 		@include v.down(v.$bp-lg) {
 			position: static;
@@ -51,6 +52,8 @@
 		margin: 0 0 0.5rem;
 		color: var(--wp--preset--color--light);
 		line-height: 1.23333;
+		font-size: var(--wp--preset--font-size--heading-3);
+		font-weight: 700;
 	}
 
 	&__title {
@@ -200,17 +203,7 @@
 	}
 }
 
-.editor-styles-wrapper .stickyStats__listItem {
 
-	.stickyStats__listItem__title {
-		padding-left: 2.5rem;
-	}
-
-	.stickyStats__listItem__title::before {
-		transform: translateY(-50%) scale(1);
-		opacity: 1;
-	}
-}
 
 @media (prefers-reduced-motion: reduce) {
 

@@ -24,7 +24,7 @@
                 <!-- wp:group {"className":"caseStudyPreview__sliderItem"} -->
                 <div class="wp-block-group caseStudyPreview__sliderItem">
 
-                    <!-- wp:post-featured-image {"isLink":true,"className":"caseStudyPreview__sliderItem__bg"} /-->
+                    <!-- wp:post-featured-image {"isLink":false,"className":"caseStudyPreview__sliderItem__bg"} /-->
 
                     <!-- wp:group {"className":"caseStudyPreview__sliderItem__content"} -->
                     <div class="wp-block-group caseStudyPreview__sliderItem__content">

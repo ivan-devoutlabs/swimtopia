@@ -5,6 +5,7 @@
 .tabs {
 	padding: 5rem 0;
 
+
 	@include v.down(v.$bp-md) {
 		padding: 3rem 0;
 	}
@@ -110,6 +111,15 @@
 					opacity 0.45s ease,
 					transform 0.45s ease,
 					visibility 0.45s;
+				
+				@include v.down(v.$bp-lg) {
+					padding-top: calc( (100vw - 5rem - 60px) * 0.75 );
+					transform: none;
+				}
+
+				@include v.down(v.$bp-md) {
+					padding-top: calc( (100vw - 4.5rem) * 0.75 + 2rem );
+				}
 
 				&.is-active {
 					opacity: 1;
@@ -154,6 +164,13 @@
 
 				&Button {
 					margin: 0;
+					padding-bottom: 6.5rem;
+					@include v.down(v.$bp-lg) {
+						padding-bottom: 4rem;
+					}
+					@include v.down(v.$bp-md) {
+						padding-bottom: 0;
+					}
 				}
 			}
 		}
@@ -196,6 +213,7 @@
 			flex-wrap: wrap;
 			justify-content: center;
 			margin-bottom: 1rem;
+			display: none;
 		}
 
 		&::before {
@@ -248,9 +266,13 @@
 			line-height: 1.208333;
 			cursor: pointer;
 			user-select: none;
+			transition: .3s;
 
 			&.has-background {
 				background-color: transparent !important;
+			}
+			&.has-accent-2-background-color.is-active {
+				color: var(--wp--preset--color--navy);
 			}
 
 			&:focus-visible {
@@ -302,7 +324,8 @@
 
 		&--prev {
 			transform: rotate(180deg);
-			
+			background-color: var(--wp--preset--color--light);
+			background-image: url(../images/btn-icon-style-2-blue.png);
 		}
 
 		&[disabled] {
@@ -312,8 +335,7 @@
 	}
 
 	&__slider[style="background-color: var(--wp--preset--color--blue);"] &__arrow--next{
-		background-color: var(--wp--preset--color--light);
-		background-image: url(../images/btn-icon-style-2-blue.png);
+		background-color: var(--wp--preset--color--navy);
 	}
 
 	&--role {
@@ -455,26 +477,53 @@
 		&__arrows {
 			display: none;
 		}
+
+		&__menu {
+			transform: none;
+			left: calc(54.53% + 0.5rem);
+			top: 5.3125rem;
+			z-index: 10;
+			position: absolute;
+		}
+		&__sliderImages__item {
+			width: calc(54.53% - 1.25rem);
+		}
+		&__list .tabs__sliderContent__item {
+			width: calc(46.175% - 1.25rem);
+			padding-top: 6.625rem;
+			@include v.down(v.$bp-lg) {
+				width: 100%;
+				padding-top: calc((100vw - 60px - 5rem) * 0.75 + 2rem );
+			}
+			@include v.down(v.$bp-md) {
+				padding-top: calc((100vw - 4.5rem) * 0.75 + 2rem);
+				width: 100%;
+			}
+		}
+		&__menu {
+			@include v.down(v.$bp-lg) {
+				left: 50%;
+				top: 3.3125rem;
+				transform: translateX(-50%);
+			}
+			@include v.down(v.$bp-md) {
+				flex-direction: row;
+				display: flex;
+				margin: 0;
+				position: relative;
+				width: fit-content;
+				top: auto;
+				left: 0;
+				transform: none;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
 	}
 }
 
 
-.editor-styles-wrapper .tabs {
 
-	.tabs__sliderContent__item,
-	.tabs__sliderImages__item {
-		position: static !important;
-		opacity: 1 !important;
-		visibility: visible !important;
-		transform: none !important;
-		margin-bottom: 1rem;
-	}
-
-	.tabs__menuItem.has-background {
-		background-color: revert !important;
-		border-radius: 100px;
-	}
-}
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -485,3 +534,149 @@
 		transition: none !important;
 	}
 }
+
+
+
+.tabs {
+
+	&__list {
+		position: relative;
+	}
+
+	&__item {
+		display: flex;
+		justify-content: space-between;
+		gap: 2.5rem;
+
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY( 0.75rem );
+		transition:
+			opacity 0.45s ease,
+			transform 0.45s ease,
+			visibility 0.45s;
+
+		&:not( :first-child ) {
+			position: absolute;
+			inset: 0;
+		}
+
+		&.is-active {
+			opacity: 1;
+			visibility: visible;
+			transform: none;
+			.tabs__sliderContent__item {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+
+		@include v.down(v.$bp-lg) {
+			flex-direction: column;
+			gap: 1.5rem;
+		}
+
+		@include v.down(v.$bp-md) {
+			gap: 1rem;
+		}
+	}
+
+	&__sliderImages__item {
+		width: calc( 57.354% - 1.25rem );
+		margin: 0;
+		display: flex;
+
+		img {
+			width: 100%;
+			aspect-ratio: 1.275168 / 1;
+			object-fit: cover;
+			border-radius: 2.5rem;
+
+			@include v.down(v.$bp-md) {
+				border-radius: 1.25rem;
+			}
+		}
+
+		@include v.down(v.$bp-lg) {
+			width: 100%;
+
+			img {
+				max-height: 450px;
+			}
+		}
+
+		@include v.down(v.$bp-md) {
+			img {
+				max-height: 375px;
+			}
+		}
+	}
+
+	& &__sliderContent__item {
+		width: calc( 42.574% - 1.25rem );
+		right: 0;
+		left: auto;
+
+		@include v.down(v.$bp-lg) {
+			width: 100%;
+		}
+	}
+
+	&__menu {
+		position: absolute;
+		top: 4.1875rem;
+		left: calc( 2.5rem + ( 57.354% - 1.25rem ) / 2 );
+		z-index: 3;
+		transform: translateX( -50% );
+
+		@include v.down(v.$bp-lg) {
+			left: 50%;
+		}
+
+		@include v.down(v.$bp-md) {
+			position: static;
+			transform: none;
+		}
+	}
+
+
+	&__canvasHolder {
+		position: absolute;
+		z-index: 1;
+		overflow: hidden;
+		border-radius: 2.5rem;
+		pointer-events: none;
+		top: 0 !important;
+		height: 100% !important;
+
+		@include v.down(v.$bp-lg) {
+			border-radius: 1.25rem;
+			height: auto !important;
+			aspect-ratio: 1/0.75;
+			width: 100% !important;
+			canvas {
+				position: static;
+			}
+		}
+	}
+
+	&__canvasHolder .features__canvas {
+		position: absolute;
+		inset: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		transition: opacity 0.2s ease;
+	}
+
+	&__canvasHolder.is-drawn .features__canvas {
+		opacity: 1;
+	}
+
+	&__slider.is-color-blue &__arrow--next {
+		background-color: var(--wp--preset--color--navy);
+	}
+}
+
+
