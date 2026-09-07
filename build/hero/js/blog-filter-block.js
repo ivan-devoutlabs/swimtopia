@@ -1,0 +1,1 @@
+!function(e){if(e&&e.blocks&&e.element&&e.serverSideRender){var r=e.element.createElement,t=e.serverSideRender,i=e.blockEditor.useBlockProps;e.blocks.registerBlockType("starter/blog-filter",{edit:function(e){var l=i();return r("div",l,r(t,{block:"starter/blog-filter",attributes:e.attributes}))},save:function(){return null}})}}(window.wp);

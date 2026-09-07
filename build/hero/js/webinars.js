@@ -1,0 +1,1 @@
+jQuery(document).ready(function(e){e(".webinarsPreview__listItem").hover(function(){e(this).find(".webinarsPreview__listItem__button").stop().slideDown(300)},function(){e(this).find(".webinarsPreview__listItem__button").stop().slideUp(300)})});
