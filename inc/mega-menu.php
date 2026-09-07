@@ -11,10 +11,10 @@ function starter_register_menu_panels() {
 		'starter_panel',
 		array(
 			'labels'          => array(
-				'name'          => __( 'Menu pannel', 'starter' ),
-				'singular_name' => __( 'Menu pannel', 'starter' ),
-				'add_new_item'  => __( 'Add pannel', 'starter' ),
-				'edit_item'     => __( 'Edit pannel', 'starter' ),
+				'name'          => __( 'Menu panel', 'starter' ),
+				'singular_name' => __( 'Menu panel', 'starter' ),
+				'add_new_item'  => __( 'Add panel', 'starter' ),
+				'edit_item'     => __( 'Edit panel', 'starter' ),
 			),
 			'public'          => false,
 			'show_ui'         => true,

@@ -32,7 +32,7 @@ function starter_enqueue_assets() {
 
 	wp_enqueue_script(
 		'starter-navigation',
-		THEME_URI . '/js/navigation.js',
+		THEME_URI . '/build/js/navigation.js',
 		array(),
 		THEME_VERSION,
 		true
@@ -45,9 +45,9 @@ function starter_enqueue_assets() {
     if ( is_singular() || is_singular('webinars') ){
         wp_enqueue_script(
             'share-buttons',
-            THEME_URI . '/js/share-buttons.js',
+            THEME_URI . '/build/js/share-buttons.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/share-buttons.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/share-buttons.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -72,9 +72,9 @@ function starter_enqueue_assets() {
 
         wp_enqueue_script(
             'blog-preview',
-            THEME_URI . '/js/blog-preview.js',
+            THEME_URI . '/build/js/blog-preview.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/blog-preview.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/blog-preview.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
 	}
@@ -168,9 +168,9 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'tabs' ) || starter_page_has( 'roleTabs' ) || starter_page_has( 'role-tabs' ) || starter_page_has( 'cardsSimple' ) || starter_page_has( 'cards-simple' ) || starter_page_has( 'cardsSlider' ) || starter_page_has( 'cards-slider' ) ) {
         wp_enqueue_script(
             'features-distortion',
-            THEME_URI . '/js/features-distortion.js',
+            THEME_URI . '/build/js/features-distortion.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/features-distortion.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/features-distortion.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -178,9 +178,9 @@ function theme_enqueue_block_assets() {
     if(starter_page_has( 'cardsSimple' ) ){
         wp_enqueue_script(
             'clickable-cards',
-            THEME_URI . '/js/clickable-cards.js',
+            THEME_URI . '/build/js/clickable-cards.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/clickable-cards.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/clickable-cards.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -188,9 +188,9 @@ function theme_enqueue_block_assets() {
 	if ( starter_page_has( 'faq' ) ) {
         wp_enqueue_script(
             'faq', 
-            THEME_URI . '/js/faq.js',
+            THEME_URI . '/build/js/faq.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/tabs.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/tabs.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -198,9 +198,9 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'tabs' ) || starter_page_has( 'roleTabs' ) || starter_page_has( 'role-tabs' ) ) {
         wp_enqueue_script(
             'theme-tabs', 
-            THEME_URI . '/js/tabs.js',
+            THEME_URI . '/build/js/tabs.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/tabs.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/tabs.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -208,9 +208,9 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'easeAccordion' ) || starter_page_has( 'ease-accordion' ) || starter_page_has( 'theme/testimonials' ) || starter_page_has( 'testimonials' ) || starter_page_has( 'content__testimonials' ) ) {
         wp_enqueue_script(
             'ease-accordion',
-            THEME_URI . '/js/ease-accordion.js',
+            THEME_URI . '/build/js/ease-accordion.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/ease-accordion.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/ease-accordion.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -218,16 +218,16 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'caseStudyPreview' ) || starter_page_has( 'case-study-preview' ) ) {
         wp_enqueue_script(
             'case-study',
-            THEME_URI . '/js/case-study.js',
+            THEME_URI . '/build/js/case-study.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/case-study.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/case-study.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
         wp_enqueue_script(
             'clickable-cards',
-            THEME_URI . '/js/clickable-cards.js',
+            THEME_URI . '/build/js/clickable-cards.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/clickable-cards.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/clickable-cards.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -235,9 +235,9 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'stickyStats' ) ) {
         wp_enqueue_script(
             'sticky-stats',
-            THEME_URI . '/js/sticky-stats.js',
+            THEME_URI . '/build/js/sticky-stats.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/sticky-stats.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/sticky-stats.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -245,9 +245,9 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'accordion' ) ) {
         wp_enqueue_script(
             'accordion-js',
-            THEME_URI . '/js/accordion.js',
+            THEME_URI . '/build/js/accordion.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/accordion.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/accordion.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -255,9 +255,9 @@ function theme_enqueue_block_assets() {
     if ( $is_global_blog || starter_page_has( 'blogPreview' ) || starter_page_has( 'starter/blog-preview' ) || starter_page_has( 'blog-preview' ) || starter_page_has( 'featuredBlog' ) ) {
         wp_enqueue_script(
             'blog-preview',
-            THEME_URI . '/js/blog-preview.js',
+            THEME_URI . '/build/js/blog-preview.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/blog-preview.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/blog-preview.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -265,9 +265,9 @@ function theme_enqueue_block_assets() {
     if ( $is_global_blog || starter_page_has( 'webinarsPreview' ) || starter_page_has( 'webinars-preview-list' ) ) {
         wp_enqueue_script(
             'webinars',
-            THEME_URI . '/js/webinars.js',
+            THEME_URI . '/build/js/webinars.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/webinars.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/webinars.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -275,9 +275,9 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'form' ) || starter_page_has( 'wpcf7' ) ) {
         wp_enqueue_script(
             'form',
-            THEME_URI . '/js/form.js',
+            THEME_URI . '/build/js/form.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/form.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/form.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -285,9 +285,9 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'teamBlock' )) {
         wp_enqueue_script(
             'team-list',
-            THEME_URI . '/js/team.js',
+            THEME_URI . '/build/js/team.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/team.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/team.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -295,9 +295,9 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'cardsSimple' ) ) {
         wp_enqueue_script(
             'cards-slider',
-            THEME_URI . '/js/cards-slider.js',
+            THEME_URI . '/build/js/cards-slider.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/cards-slider.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/cards-slider.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -305,9 +305,9 @@ function theme_enqueue_block_assets() {
 	if ( starter_page_has( 'headerBlock--hasEffect' ) ) {
         wp_enqueue_script(
             'header-block-effect',
-            THEME_URI . '/js/header-block-effect.js',
+            THEME_URI . '/build/js/header-block-effect.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/header-block-effect.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/header-block-effect.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -315,9 +315,9 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'logoMarquee' ) || starter_page_has( 'textMarquee' ) ) {
         wp_enqueue_script(
             'logo-marquee',
-            THEME_URI . '/js/logo-marquee.js',
+            THEME_URI . '/build/js/logo-marquee.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/logo-marquee.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/logo-marquee.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -325,9 +325,9 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'hero' ) ) {
         wp_enqueue_script(
             'hero',
-            THEME_URI . '/js/hero.js',
+            THEME_URI . '/build/js/hero.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/hero.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/hero.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
@@ -335,19 +335,28 @@ function theme_enqueue_block_assets() {
     if ( starter_page_has( 'pricing' ) ) {
         wp_enqueue_script(
             'pricing',
-            THEME_URI . '/js/pricing.js',
+            THEME_URI . '/build/js/pricing.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/pricing.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/pricing.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }
 
     if ( starter_page_has( 'compareComponent' ) ) {
         wp_enqueue_script(
-            'compareComponent',
-            THEME_URI . '/js/compareComponent.js',
+            'compare-component',
+            THEME_URI . '/build/js/compare-component.js',
             array( 'jquery' ),
-            filemtime( get_theme_file_path( '/js/compareComponent.js' ) ),
+            filemtime( get_theme_file_path( '/build/js/compare-component.js' ) ),
+            array( 'strategy' => 'defer', 'in_footer' => true )
+        );
+    }
+    if ( starter_page_has( 'fullBleedCallout' ) ) {
+        wp_enqueue_script(
+            'water-ripple',
+            THEME_URI . '/build/js/water-ripple.js',
+            array( 'jquery' ),
+            filemtime( get_theme_file_path( '/build/js/water-ripple.js' ) ),
             array( 'strategy' => 'defer', 'in_footer' => true )
         );
     }

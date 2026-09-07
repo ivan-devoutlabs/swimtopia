@@ -66,6 +66,7 @@
             this.slider.setAttribute( 'tabindex', '0' );
             this.slider.setAttribute( 'aria-label', this.label() );
         }
+        this.buildCounter();
     };
 
     Features.prototype.label = function () {
@@ -150,6 +151,7 @@
         }, SWAP );
 
         this.index = next;
+        this.setCounter( next );
         this.elapsed = 0;
         this.setProgress( 0 );
     };
@@ -389,6 +391,9 @@
         if ( this.holder ) {
             this.holder.style.display = 'none';
         }
+        if ( this.counter ) {
+            this.counter.style.display = 'none';
+        }
     };
 
     Features.prototype.disableStatic = function () {
@@ -404,7 +409,81 @@
         this.prepare();
         this.setProgress( 0 );
         this.start();
+        if ( this.counter ) {
+            this.counter.style.display = '';
+            this.setCounter( 0 );
+        }
     };
+
+    Features.prototype.buildCounter = function () {
+        if ( ! this.slider || this.counter ) {
+            return;
+        }
+    
+        var total = this.slides.length;
+    
+        var counter = document.createElement( 'p' );
+    
+        counter.className = 'features__counter';
+    
+        /*
+        * Decorative: each slide keeps its own number in the markup for
+        * screen readers, so announcing this one as well would repeat it.
+        */
+        counter.setAttribute( 'aria-hidden', 'true' );
+    
+        /*
+        * The leading zero only makes sense while the count stays in single
+        * figures. Past nine it would read "010".
+        */
+        if ( total < 10 ) {
+            var zero = document.createElement( 'span' );
+    
+            zero.className = 'features__counter__zero';
+            zero.textContent = '0';
+            counter.appendChild( zero );
+        }
+    
+        var window_ = document.createElement( 'span' );
+    
+        window_.className = 'features__counter__window';
+    
+        var strip = document.createElement( 'span' );
+    
+        strip.className = 'features__counter__strip';
+    
+        var i;
+    
+        for ( i = 1; i <= total; i++ ) {
+            var digit = document.createElement( 'span' );
+    
+            digit.className = 'features__counter__digit';
+            digit.textContent = String( i );
+            strip.appendChild( digit );
+        }
+    
+        window_.appendChild( strip );
+        counter.appendChild( window_ );
+    
+        this.slider.appendChild( counter );
+    
+        this.counter = counter;
+        this.counterStrip = strip;
+    
+        this.setCounter( 0 );
+    };
+    
+    /**
+     * Move the strip to the given slide.
+     */
+    Features.prototype.setCounter = function ( index ) {
+        if ( ! this.counterStrip ) {
+            return;
+        }
+    
+        this.counterStrip.style.setProperty( '--counter-index', index );
+    };
+    
 
     Features.prototype.init = function () {
         if ( this.slides.length < 2 ) {
@@ -490,6 +569,8 @@
             this.start();
         }
     };
+
+    
 
     function init() {
         var sections = document.querySelectorAll( SECTION );

@@ -128,12 +128,12 @@ add_action( 'wp_ajax_starter_webinars_filter', 'starter_webinars_filter_ajax' );
 add_action( 'wp_ajax_nopriv_starter_webinars_filter', 'starter_webinars_filter_ajax' );
 
 function starter_webinars_filter_assets() {
-    $path = get_theme_file_path( '/js/webinars-filter.js' );
+    $path = get_theme_file_path( '/build/js/webinars-filter.js' );
     if ( ! file_exists( $path ) ) { return; }
 
     wp_enqueue_script(
         'starter-webinars-filter',
-        get_theme_file_uri( '/js/webinars-filter.js' ),
+        get_theme_file_uri( '/build/js/webinars-filter.js' ),
         array('jquery'),
         filemtime( $path ),
         array( 'strategy' => 'defer', 'in_footer' => true )

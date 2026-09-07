@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: Menu Pannel
+ * Title: Menu panel
  * Slug: starter/menu-panel
  * Categories: starter
  */

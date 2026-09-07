@@ -9,7 +9,10 @@
  
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
- 
+
+<?php 
+$hide_header_navigation = get_field('hide_header_navigation');
+?>
 <div id="page" class="site">
  
 	<a class="skip-link screen-reader-text" href="#primary">
@@ -40,6 +43,7 @@
 				 * toggle points at, so the button and what it controls
 				 * are connected.
 				 */
+				if(!$hide_header_navigation):
 				$header_classes = 'header__menu';
  
 				if ( function_exists( 'get_field' ) && get_field( 'blue_header' ) ) {
@@ -87,31 +91,33 @@
 						?>
 					</nav>
  
-					<?php
-					/*
-					 * Repeated inside the panel for mobile. Hidden from
-					 * assistive technology because the same two controls
-					 * already exist in the bar — a duplicate set would
-					 * simply be read twice.
-					 */
-					?>
+					
+					<?php if(have_rows('header_icons', 'options')): ?>
 					<div class="header__buttonsWrapper mobile" aria-hidden="true">
 						<div class="header__buttons">
+							<?php while(have_rows('header_icons', 'options')): the_row(); 
+								$icon = get_sub_field('icon');
+								$icon_label = get_sub_field('icon_label');
+								$icon_link = get_sub_field('icon_link');
+								if($icon_link && $icon):
+								?>
  
-							<a class="header__buttonsItem" href="<?php echo esc_url( home_url( '/support/' ) ); ?>" tabindex="-1">
-								<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/swimtpia-header-icon.png' ) ); ?>" alt="">
-								<?php esc_html_e( 'Support', 'starter' ); ?>
-							</a>
- 
-							<a class="header__buttonsItem" href="<?php echo esc_url( home_url( '/account/' ) ); ?>" tabindex="-1">
-								<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/swimtpia-header-icon-2.png' ) ); ?>" alt="">
-								<?php esc_html_e( 'Account', 'starter' ); ?>
-							</a>
+								<a class="header__buttonsItem" href="<?php echo $icon_link['url']; ?>" tabindex="-1">
+									<?php if($icon): ?>
+									<img src="<?php echo $icon['url']; ?>" alt="">
+									<?php endif; ?>
+									<?php if($icon_label): ?>
+									<?php echo $icon_label; ?>
+									<?php endif; ?>
+								</a>
+										
+							<?php endif; endwhile; ?>
  
 						</div>
 					</div>
- 
+					<?php endif; ?>
 				</div>
+				<?php endif; ?>
  
 				<?php if(have_rows('header_icons', 'options')): ?>
 				<div class="header__buttons">
@@ -132,7 +138,7 @@
 					<?php endif; endwhile; ?>
 				</div>
 				<?php endif; ?>
- 
+				<?php if(!$hide_header_navigation): ?>
 				<div class="header__toggleWrapper">
 					<button
 						type="button"
@@ -140,17 +146,17 @@
 						aria-expanded="false"
 						aria-controls="header-menu-panel"
 					>
-						<span class="header__toggleIcon" aria-hidden="true">
+						<div class="header__toggleIcon" aria-hidden="true">
 							<span></span>
 							<span></span>
 							<span></span>
-						</span>
+						</div>
 						<span class="screen-reader-text header__toggleLabel">
 							<?php esc_html_e( 'Menu', 'starter' ); ?>
 						</span>
 					</button>
 				</div>
- 
+				<?php endif; ?>
 			</div>
 		</div>
 	</header>

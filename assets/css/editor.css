@@ -277,22 +277,31 @@ body.editor-styles-wrapper .textMarquee__list {
   gap: 1rem;
   transform: none !important;
 }
-body.editor-styles-wrapper .logoMarquee .logoMarquee__list {
+body.editor-styles-wrapper .logoMarquee .logoMarquee__list{
   flex-wrap: nowrap;
   overflow: hidden;
   width: 100%;
   animation: none;
   transform: none;
 }
-body.editor-styles-wrapper .logoMarquee .logoMarquee__list:is(.is-selected, .has-child-selected) {
+body.editor-styles-wrapper .logoMarquee .logoMarquee__list:is(.is-selected, .has-child-selected),
+body .block-editor-block-list__layout.is-selected.logoMarquee .logoMarquee__list,
+body .block-editor-block-list__layout.has-editable-outline.logoMarquee .logoMarquee__list,
+body .block-editor-block-list__layout.is-editing-content-only-section.logoMarquee .logoMarquee__list,
+body .block-editor-block-list__layout.has-child-selected.logoMarquee .logoMarquee__list  {
   flex-wrap: wrap;
   overflow: visible;
   row-gap: 1rem;
 }
+
 body.editor-styles-wrapper .stickyStats__listItem .stickyStats__listItem__title {
   padding-left: 2.5rem;
 }
 body.editor-styles-wrapper .stickyStats__listItem .stickyStats__listItem__title::before {
   transform: translateY(-50%) scale(1);
   opacity: 1;
+}
+
+body.editor-styles-wrapper .textMarquee__listItem {
+  max-width: 100%;
 }

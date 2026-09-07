@@ -30,7 +30,7 @@ function starter_enqueue_hero_video() {
 
 	wp_enqueue_script(
 		'starter-hero-video',
-		THEME_URI . '/js/hero-video.js',
+		THEME_URI . '/build/js/hero-video.js',
 		array(),
 		THEME_VERSION,
 		true

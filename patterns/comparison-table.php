@@ -4,7 +4,6 @@
  * Slug: starter/compare-component
  * Categories: theme
  */
-
 ?>
 
 <!-- wp:group {"align":"full","className":"compareComponent","layout":{"type":"constrained"}} -->
@@ -19,9 +18,6 @@
 
 		<!-- wp:group {"className":"compareComponent__contentWrapper"} -->
 		<div class="wp-block-group compareComponent__contentWrapper">
-
-			<!-- wp:group {"className":"compareComponent__header"} -->
-			<div class="wp-block-group compareComponent__header">
 
 				<!-- wp:group {"className":"compareComponent__headerItem"} -->
 				<div class="wp-block-group compareComponent__headerItem">
@@ -53,12 +49,6 @@
 				</div>
 				<!-- /wp:group -->
 
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
-
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Built Specifically for Swimming</p>
 				<!-- /wp:paragraph -->
@@ -70,12 +60,6 @@
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">SportsEngine serves multiple sports, while TeamUnify provides swim-specific functionality</p>
 				<!-- /wp:paragraph -->
-
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
 
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">All-in-One Platform</p>
@@ -89,12 +73,6 @@
 				<p class="compareComponent__rowItem">Capabilities may be spread across multiple products, modules, or workflows</p>
 				<!-- /wp:paragraph -->
 
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
-
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Ease of Use</p>
 				<!-- /wp:paragraph -->
@@ -106,12 +84,6 @@
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">The experience and learning curve may vary depending on the products and configuration used</p>
 				<!-- /wp:paragraph -->
-
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
 
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Team Websites</p>
@@ -125,12 +97,6 @@
 				<p class="compareComponent__rowItem">Website tools available</p>
 				<!-- /wp:paragraph -->
 
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
-
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Online Registration</p>
 				<!-- /wp:paragraph -->
@@ -142,12 +108,6 @@
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Online registration and payment tools available</p>
 				<!-- /wp:paragraph -->
-
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
 
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Volunteer Management</p>
@@ -161,12 +121,6 @@
 				<p class="compareComponent__rowItem">Volunteer management capabilities available</p>
 				<!-- /wp:paragraph -->
 
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
-
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Meet Management</p>
 				<!-- /wp:paragraph -->
@@ -178,12 +132,6 @@
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Swim meet management tools available</p>
 				<!-- /wp:paragraph -->
-
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
 
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Communication Tools</p>
@@ -197,12 +145,6 @@
 				<p class="compareComponent__rowItem">Communication tools available</p>
 				<!-- /wp:paragraph -->
 
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
-
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Mobile Experience</p>
 				<!-- /wp:paragraph -->
@@ -214,12 +156,6 @@
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Mobile access and apps available</p>
 				<!-- /wp:paragraph -->
-
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
 
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Customer Support</p>
@@ -233,12 +169,6 @@
 				<p class="compareComponent__rowItem">Customer support across a broader sports technology organization</p>
 				<!-- /wp:paragraph -->
 
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"className":"compareComponent__row"} -->
-			<div class="wp-block-group compareComponent__row">
-
 				<!-- wp:paragraph {"className":"compareComponent__rowItem"} -->
 				<p class="compareComponent__rowItem">Designed for Summer and Year-Round Teams</p>
 				<!-- /wp:paragraph -->
@@ -251,8 +181,10 @@
 				<p class="compareComponent__rowItem">Supports year-round and other swimming programs, with capabilities varying by product</p>
 				<!-- /wp:paragraph -->
 
-			</div>
-			<!-- /wp:group -->
+            <!-- wp:html -->
+            <div class="compareComponent__bg compareComponent__bg--2"></div>
+            <div class="compareComponent__bg compareComponent__bg--3"></div>
+            <!-- /wp:html -->
 
 		</div>
 		<!-- /wp:group -->

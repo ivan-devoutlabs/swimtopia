@@ -64,7 +64,31 @@
 			}
 		}
 	}
+	&.is-ready &__list {
+		animation: logoMarqueeScroll var( --marquee-duration ) linear infinite;
+		will-change: transform;
+	}
+
+	&:hover &__list {
+		animation-play-state: paused;
+	}
+
+	&.is-offscreen &__list {
+		animation-play-state: paused;
+	}
 }
+
+@keyframes logoMarqueeScroll {
+	from {
+		transform: translate3d( 0, 0, 0 );
+	}
+
+
+	to {
+		transform: translate3d( calc( var( --marquee-distance ) * -1 ), 0, 0 );
+	}
+}
+
 
 
 

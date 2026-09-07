@@ -1,0 +1,1 @@
+(()=>{var e,t,o,i;t=(e=window.wp).blocks.registerBlockType,o=e.element.createElement,i=e.blockEditor.useBlockProps,t("theme/member-position",{title:"Team Member Position",icon:"id-alt",category:"theme",edit:function(){var e=i();return o("div",e,"Team Member Position")},save:function(){return null}})})();

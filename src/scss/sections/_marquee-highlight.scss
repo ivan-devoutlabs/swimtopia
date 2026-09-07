@@ -1,0 +1,29 @@
+.textMarquee {
+ 
+	--marquee-color: var(--wp--preset--color--navy);
+ 
+	--marquee-highlight: var(--wp--preset--color--blue);
+ 
+	&__listItem--text {
+		color: var( --marquee-color );
+	}
+ 
+	&.is-highlight {
+ 
+		.textMarquee__listItem--text {
+			transition: color 0.35s ease;
+		}
+ 
+		.textMarquee__listItem--text.is-highlighted {
+			color: var( --marquee-highlight );
+		}
+	}
+}
+ 
+@media ( prefers-reduced-motion: reduce ) {
+ 
+	.textMarquee__listItem--text {
+		transition: none;
+	}
+}
+ 

@@ -259,7 +259,7 @@ function starter_blog_filter_assets() {
         return;
     }
 
-	$path = THEME_DIR . '/js/blog-filter.js';
+	$path = THEME_DIR . '/build/js/blog-filter.js';
 
 	if ( ! file_exists( $path ) ) {
 		return;
@@ -267,7 +267,7 @@ function starter_blog_filter_assets() {
 
 	wp_enqueue_script(
 		'starter-blog-filter',
-		THEME_URI . '/js/blog-filter.js',
+		THEME_URI . '/build/js/blog-filter.js',
 		array(),
 		filemtime( $path ),
 		array(

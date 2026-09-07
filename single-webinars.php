@@ -17,6 +17,7 @@ $previous_webinar = get_field('previous_webinar');
 $register_btn = get_field('register_btn');
 
 ?>
+<main id="primary" class="site-main">
 <section class="webinarsHero">
     <div class="container">
         <div class="webinarsHero__contentWrapper">
@@ -241,6 +242,7 @@ if ( $query->have_posts() ) {
 <?php 
 }
 ?>
+</main>
 
 <?php get_footer(); ?>
 

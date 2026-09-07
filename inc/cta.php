@@ -17,11 +17,11 @@ function starter_cta_enqueue() {
         return;
     }
 
-    $path = THEME_DIR . '/js/cta.js';
+    $path = THEME_DIR . '/build/js/cta.js';
 
     wp_enqueue_script(
         'starter-cta',
-        THEME_URI . '/js/cta.js',
+        THEME_URI . '/build/js/cta.js',
         array(),
         file_exists( $path ) ? filemtime( $path ) : THEME_VERSION,
         array(

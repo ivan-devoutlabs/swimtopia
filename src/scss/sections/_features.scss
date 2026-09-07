@@ -181,6 +181,7 @@
 
 			&__content {
 				width: 35.25%;
+				padding-top: 3rem;
 				@include v.down(v.$bp-lg) {
 					width: 50%;
 					transform: none;
@@ -371,5 +372,76 @@
 	.features__sliderItem__text,
 	.features__num {
 		transition: none !important;
+	}
+}
+
+
+
+.features {
+ 
+
+	&__sliderItem__number {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip-path: inset( 50% );
+		white-space: nowrap;
+	}
+ 
+	&__counter {
+		position: absolute;
+		z-index: 2;
+		display: flex;
+		align-items: baseline;
+		margin: 0;
+ 
+		top: var( --top-content-offset, 0 );
+		left: 1rem;
+ 
+		color: var(--wp--preset--color--accent-2);
+		font-size: var(--wp--preset--font-size--text-xl);
+		font-weight: 700;
+		line-height: 1.21875;
+
+		@include v.down(v.$bp-lg) {
+			top: 0;
+		}
+ 
+		@include v.down(v.$bp-md) {
+			display: none;
+		}
+	}
+ 
+
+	&__counter__window {
+		display: block;
+		overflow: hidden;
+		height: 1.21875em;
+	}
+ 
+	&__counter__strip {
+		display: block;
+ 
+
+		transform: translateY( calc( var( --counter-index, 0 ) * -1.21875em ) );
+		transition: transform 0.45s cubic-bezier( 0.22, 0.61, 0.36, 1 );
+ 
+		will-change: transform;
+	}
+ 
+	&__counter__digit {
+		display: block;
+		height: 1.21875em;
+		line-height: 1.21875;
+	}
+}
+ 
+@media ( prefers-reduced-motion: reduce ) {
+ 
+	.features__counter__strip {
+		transition: none;
 	}
 }

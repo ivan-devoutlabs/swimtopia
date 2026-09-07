@@ -7,6 +7,8 @@
   "scripts": {
     "start": "npm-run-all --parallel start:hero start:scss",
     "build": "npm-run-all build:hero build:scss",
+    "start:js": "wp-scripts start",
+    "build:js": "wp-scripts build",
     "start:hero": "wp-scripts start src/blocks/hero/index.js --output-path=build/hero",
     "build:hero": "wp-scripts build src/blocks/hero/index.js --output-path=build/hero && npm run copy:hero",
     "copy:hero": "cp src/blocks/hero/render.php build/hero/render.php",

@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "starter/marquee",
+	"version": "1.0.0",
+	"title": "Marquee",
+	"category": "design",
+	"icon": "controls-repeat",
+	"description": "Continuous scrolling row of text and logos.",
+	"textdomain": "starter",
+	"supports": {
+		"html": false,
+		"align": [ "full" ],
+		"spacing": {
+			"padding": true,
+			"margin": [ "top", "bottom" ]
+		}
+	},
+	"attributes": {
+		"highlight": {
+			"type": "boolean",
+			"default": true
+		}
+	}
+}

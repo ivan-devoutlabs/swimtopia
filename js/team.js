@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="team__popupOverlay"></div>
             <div class="team__popupModal__wrapper">
                 <div class="team__popupModal">
-                    <button class="team__popupClose">✕</button>
-                    <button class="team__popupArrow team__popupArrow--prev"></button>
-                    <button class="team__popupArrow team__popupArrow--next"></button>
+                    <button class="team__popupClose" aria-label="Close popup">✕</button>
+                    <button class="team__popupArrow team__popupArrow--prev" aria-label="Previous member"></button>
+                    <button class="team__popupArrow team__popupArrow--next" aria-label="Next member"></button>
                     
                     <div class="team__popupTrack">
                         <!-- PREV -->
@@ -94,6 +94,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentIndex = 0;
     let isAnimating = false;
     const animationDuration = 500;
+    
+    // Змінна для збереження елемента, який відкрив попап
+    let lastActiveElement = null; 
 
     function getIndex(index) {
         const total = listItems.length;
@@ -135,14 +138,30 @@ document.addEventListener('DOMContentLoaded', function() {
         const trigger = item.querySelector('.team__listItem__button a') || item;
         trigger.addEventListener('click', function(e) {
             e.preventDefault();
+            
+            // Зберігаємо елемент, на який натиснули
+            lastActiveElement = this; 
+            
             currentIndex = index;
             updatePopupData();
             popupWrapper.classList.add('is-open');
+
+            // Передаємо фокус на кнопку закриття після невеликої затримки, 
+            // щоб CSS встиг відобразити попап (інакше фокус може не спрацювати)
+            setTimeout(() => {
+                closeBtn.focus();
+            }, 100);
         });
     });
 
     function closePopup() {
         popupWrapper.classList.remove('is-open');
+        
+        // Повертаємо фокус на елемент, який відкрив попап
+        if (lastActiveElement) {
+            lastActiveElement.focus();
+            lastActiveElement = null; // Очищуємо змінну
+        }
     }
 
     closeBtn.addEventListener('click', closePopup);
@@ -184,14 +203,3 @@ document.addEventListener('DOMContentLoaded', function() {
     nextBtn.addEventListener('click', () => slide('next'));
     prevBtn.addEventListener('click', () => slide('prev'));
 });
-
-// jQuery(document).ready(function($){
-//     $('.team__listItem').hover(
-//         function(){
-//             $(this).find('.team__listItem__button').stop().slideDown();
-//         },
-//         function(){
-//             $(this).find('.team__listItem__button').stop().slideUp();
-//         }
-//     );
-// });

@@ -70,6 +70,9 @@
 		visibility: visible;
 	}
 	&__logo {
+		@include v.down(v.$bp-lg) {
+			padding: 0.5rem 0;
+		}
 		a {
 			width: 12.5rem;
 			display: flex;
@@ -736,6 +739,9 @@
 					}
 				}
 			}
+			.menu-item a {
+				white-space: nowrap;
+			}
 			& > .menu-item > a:hover::before,
 			& > .menu-item > a:focus-visible::before {
 				opacity: 1;
@@ -780,12 +786,7 @@
 
 
 .header {
- 
-	/*
-	 * The toggle is a <button> now, so the browser's own button styling
-	 * has to be cleared. The bars themselves keep whatever the existing
-	 * rules give them.
-	 */
+
 	&__toggle {
 		display: block;
 		padding: 0;
@@ -794,16 +795,12 @@
 		cursor: pointer;
  
 		&:focus-visible {
-			outline: 2px solid currentColor;
 			outline-offset: 4px;
 			border-radius: 4px;
 		}
 	}
  
-	/*
-	 * Support and Account are links now. The label is read out but only
-	 * shown where there is room for it.
-	 */
+
 	&__buttonsItem {
 		display: inline-flex;
 		align-items: center;
@@ -811,21 +808,16 @@
 		text-decoration: none;
  
 		&:focus-visible {
-			outline: 2px solid currentColor;
 			outline-offset: 3px;
 			border-radius: 4px;
 		}
  
 		img {
-			// Decorative: the link already has a name
 			pointer-events: none;
 		}
 	}
  
-	/*
-	 * Hidden visually, still announced. Not display: none, which would
-	 * remove it from the accessibility tree along with everything else.
-	 */
+
 	&__buttonsLabel {
 		position: absolute;
 		width: 1px;
@@ -850,33 +842,18 @@
 		}
 	}
  
-	/*
-	 * Every focusable thing in the header needs a visible ring. Removing
-	 * outlines for looks and leaving nothing behind is the single most
-	 * common way a keyboard user gets lost.
-	 */
+
 	a:focus-visible,
 	button:focus-visible {
-		outline: 2px solid currentColor;
 		outline-offset: 3px;
 	}
 }
  
-/*
- * The page behind the open drawer doesn't scroll. Without this the
- * background moves under the panel and, on iOS, focus jumps around as
- * it does.
- */
+
 body.is-menu-open {
 	overflow: hidden;
 }
- 
-/*
- * inert has no visual effect of its own, so the closed panel still
- * needs hiding — but it must be hidden in a way that also removes it
- * from the tab order. The attribute does that; these rules only handle
- * appearance.
- */
+
 .header__menu[ inert ] {
 	pointer-events: none;
 }

@@ -63,11 +63,11 @@ function starter_features_enqueue() {
 	if ( ! $post || false === strpos( $post->post_content, 'features__slider' ) ) {
 		return;
 	}
-	$path = THEME_DIR . '/js/features.js';
+	$path = THEME_DIR . '/build/js/features.js';
 
 	wp_enqueue_script(
 		'starter-features',
-		THEME_URI . '/js/features.js',
+		THEME_URI . '/build/js/features.js',
 		file_exists( $path ) ? filemtime( $path ) : THEME_VERSION,
 		array(
 			'strategy'  => 'defer',

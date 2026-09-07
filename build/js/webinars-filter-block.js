@@ -1,0 +1,1 @@
+!function(e){if(e&&e.blocks&&e.element&&e.serverSideRender){var r=e.element.createElement,t=e.serverSideRender,i=e.blockEditor.useBlockProps;e.blocks.registerBlockType("starter/webinars-filter",{edit:function(e){var n=i();return r("div",n,r(t,{block:"starter/webinars-filter",attributes:e.attributes}))},save:function(){return null}})}}(window.wp);

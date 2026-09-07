@@ -1,7 +1,7 @@
 <?php
 get_header();
 ?>
-
+<main id="primary" class="site-main">
 <section class="postHero">
 	<div class="container">
 		<div class="postHero__contentWrapper">
@@ -12,7 +12,7 @@ get_header();
 					<div class="postHero__time"><?php echo esc_html( reading_time_label() ); ?></div>
 				</div>
 			</div>
-			<div class="postHero__image"><img src="<?php echo get_the_post_thumbnail_url(); ?>" alt=""></div>
+			<div class="postHero__image"><?php echo get_the_post_thumbnail(); ?></div>
 		</div>
 	</div>
 </section>
@@ -65,7 +65,7 @@ if($the_query->have_posts()):
 				<h2 class="wp-block-heading blogPreview__title">Making Waves And News</h2>
 
 				<div class="wp-block-buttons blogPreview__button is-layout-flex wp-block-buttons-is-layout-flex">
-					<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">View Our Blog</a>
+					<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo get_home_url(  ); ?>/blog">View Our Blog</a>
 					</div>
 				</div>
 			</div>
@@ -91,13 +91,6 @@ if($the_query->have_posts()):
 									class="wp-block-group blogPreview__listItem__content is-layout-flow wp-block-group-is-layout-flow">
 									<div
 										class="wp-block-group blogPreview__listItem__top is-layout-flow wp-block-group-is-layout-flow">
-										<?php if(!empty(get_the_term_list( get_the_ID(), 'category', '', ', ' ))): ?>
-
-										<div class="taxonomy-category blogPreview__listItem__tag wp-block-post-terms"><a
-												href="http://localhost:8888/swimtopia/category/category/"
-												rel="tag"><?php echo get_the_term_list( get_the_ID(), 'category', '', ', ' ); ?></a></div>
-										<?php endif; ?>
-
 										<div class="blogPreview__listItem__time"><?php echo esc_html( reading_time_label() ); ?></div>
 									</div>
 
@@ -125,5 +118,6 @@ if($the_query->have_posts()):
 	</div>
 </div>
 <?php endif; ?>
+</main>
 <?php
 get_footer();
